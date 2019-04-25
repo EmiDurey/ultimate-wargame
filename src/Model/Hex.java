@@ -125,7 +125,6 @@ public class Hex {
 			return false;
 		}
 	}
-
 	//TODO getNeighbour() en fonction de la direction
 	//		Stockage de map, ...
 };
