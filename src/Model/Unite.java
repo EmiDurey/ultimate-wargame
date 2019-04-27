@@ -1,17 +1,28 @@
+package model;
 public abstract class Unite {
-	private final int POWER; //gros c'est la puissance
-	private int pointsDeVie;
-	private Hex hex;
-	private Position pos;
 	
-	public Unite(Hex hex, int pts, Position pos) {
+	protected int pointsAttaque;
+	protected float pointsDefense;
+	protected int pointsDeplacement;
+	protected int pointsDeVie;
+	protected int vision;
+	protected Hex hex;
+	protected Position pos;
+	
+	public Unite(Hex hex, Position pos) { 
 		this.pos = pos;
 		this.hex = hex; 
-		this.pos = pos;
+	}
+
+	public void combat(Unite unite){
+		if(this.pos.estVoisin(unite.pos)){
+			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
+		}
+		else {
+			 //on peut ajouter un combat longue distance
+		}
 	}
 	
-	
-
 	public int getPoints(){
 		return this.pointsDeVie;
 	}
@@ -21,16 +32,6 @@ public abstract class Unite {
 		{
 			
 		}
-
-	
-	public void combat(Unite unite){
-		if(this.pos.estVoisin(unite.pos)){
-			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.POWER * Math.random()));
-		}
-		else {
-			 //on peut ajouter un combat longue distance
-		}
-	}
 
 	
 	public void seDeplace(Position newPos){
