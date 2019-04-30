@@ -1,36 +1,37 @@
 package model;
 
 import java.lang.Math;
+import java.util.ArrayList;
 
 /**
- * ReprÈsente un hexagone sur la map.
- * On utilise un systËme de coordonnÈes cubiques pour le stockage.
- * On stocke donc notamment les coordonnÈes de l'hexagone sur la map.
+ * Repr√©sente un hexagone sur la map.
+ * On utilise un syst√®me de coordonn√©es cubiques pour le stockage.
+ * On stocke donc notamment les coordonn√©es de l'hexagone sur la map.
  */
 public class Hex {
 
 	/**
-	 * CoordonnÈe x.
+	 * Coordonn√©e x.
 	 */
 	private int x;
 
 	/**
-	 * CoordonnÈe y.
+	 * Coordonn√©e y.
 	 */
 	private int y;
 
 	/**
-	 * CoordonnÈe z.
+	 * Coordonn√©e z.
 	 */
 	private int z;
 
 	/**
-     * Constructeur utilisant les coordonnÈes cubiques.
-	 * @param newX coordonnÈe x
-	 * @param newY coordonnÈe y
-	 * @param newZ coordonnÈe z
-	 * @throws IllegalArgumentException Si la somme des coordonnÈes
-	 * est diffÈrente de 0.
+     * Constructeur utilisant les coordonn√©es cubiques.
+	 * @param newX coordonn√©e x
+	 * @param newY coordonn√©e y
+	 * @param newZ coordonn√©e z
+	 * @throws IllegalArgumentException Si la somme des coordonn√©es
+	 * est diff√©rente de 0.
      */
 	Hex(int newX, int newY, int newZ) {
 
@@ -44,10 +45,10 @@ public class Hex {
 	}
 
 	/**
-	* Constructeur utilisant les coordonnÈes axiales.
-	* Les coordonnÈes sont converties en cubique pour le stockage.
-	* @param newX coordonnÈe x
-	* @param newY coordonnÈe y
+	* Constructeur utilisant les coordonn√©es axiales.
+	* Les coordonn√©es sont converties en cubique pour le stockage.
+	* @param newX coordonn√©e x
+	* @param newY coordonn√©e y
 	*/
 	Hex(int newX, int newY) {
 		x = newX;
@@ -65,7 +66,7 @@ public class Hex {
 	}
 
 	/**
-	* Calcule la diffÈrence de 2 hexagones.
+	* Calcule la diff√©rence de 2 hexagones.
 	* @param b hexagone
 	* @return Hex
 	*/
@@ -73,7 +74,7 @@ public class Hex {
 		 return new Hex(x - b.x, y - b.y, z - b.z);
 	}
 
-	/**
+ 	/**
 	* Calcule le produit d'un hexagone par un entier.
 	* @param k entier
 	* @return Hex
@@ -83,7 +84,7 @@ public class Hex {
 	}
 
 	/**
-	 * Teste l'ÈgalitÈ entre 2 Hex.
+	 * Teste l'√©galit√© entre 2 Hex.
 	 * @param b hexagone
 	 * @return Boolean
 	 */
@@ -96,7 +97,7 @@ public class Hex {
 	}
 
 	/**
-	 * Retourne la distance ‡ 0 (l'origine) de l'hexagone.
+	 * Retourne la distance √† 0 (l'origine) de l'hexagone.
 	 * @return int
 	 */
 	public int zeroDistance() {
@@ -125,6 +126,55 @@ public class Hex {
 			return false;
 		}
 	}
-	//TODO getNeighbour() en fonction de la direction
-	//		Stockage de map, ...
+
+
+	/**
+	 * Tableau indiquant les voisins de l'hexagone (0,0,0) et permettant 
+	 * de d√©terminer les diff√©rents voisins d'un hexagone quelconque.
+	 * On part du c√¥t√© en haut √† droite et on tourne dans le sens horaire
+	 */
+	static public ArrayList<Hex> directions = new ArrayList<Hex>(){{
+		new Hex(1, 0, -1);
+		new Hex(1, -1, 0);
+		new Hex(0, -1, 1);
+		new Hex(-1, 0, 1);
+		new Hex(-1, 1, 0);
+		new Hex(0, 1, -1);
+	}};
+
+	
+	/**
+	 * Retourne les voisins de l'hexagone (0,0,0)
+	 * (plus simplement, permet d'acc√©der au tableau directions)
+	 * On veut que direction soit compris entre 0 et 5.
+	 * @param direction int
+	 * @return direction
+	 */
+	public Hex getDirection(int direction) {
+		return directions.get(direction);
+	}
+
+	
+	/**
+	 * Retourne les voisins de l'hexagone en suivant la direction donn√©e.
+	 * @param direction int
+	 * @return direction
+	 */
+	public Hex getNeighbour(int direction) {
+		return add( getDirection(direction) );
+	}
+
+	
+	//TODO Ecrire m√©thode de hash (sans collisison, en sa basant sur les coords) 
+	//=> Injection de Z^3 vers Z
+	
+	/**
+	* Hashe l'objet en ne prenant en compte que les coordonn√©es.
+	* (si d'autres champs sont ajout√©s).
+	* @return int
+	*/
+	//@Override
+	//public int hashCode() {	
+	//}
+
 };
