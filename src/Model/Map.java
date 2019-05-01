@@ -20,7 +20,7 @@ public class Map {
 	* @return Hex
 	*/
 	public Hex getHex(int x, int y, int z) {
-		return map.get(Object.hashCode( new Hex(x, y, z) ));
+		return map.get(new Hex(x, y, z).hashCode());
 	}
 
 
@@ -28,13 +28,9 @@ public class Map {
 	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales cubiques
 	* @param x y
 	* @return Hex
-	*/
+	*/	
+	public Hex getHex(int x, int y) {
+		return map.get(new Hex(x, y).hashCode());
+	}
 
-	//TODO Methode de hash sur Hex (voir Hex.java)
-	
-	//public Hex getHex(int x, int y) {
-	//	return map.get(Object.hashCode( new Hex(x, y) ));
-	//}
-
-	//TODO Functions to add individual tiles, and create simple map shapes
 }

@@ -3,6 +3,8 @@ package model;
 import java.lang.Math;
 import java.util.ArrayList;
 
+
+
 /**
  * Représente un hexagone sur la map.
  * On utilise un système de coordonnées cubiques pour le stockage.
@@ -10,6 +12,15 @@ import java.util.ArrayList;
  */
 public class Hex {
 
+	public static void main(String [ ] args) {
+		System.out.println("Hello");
+
+		Hex test = new Hex(8,7);
+
+		System.out.println("Hash = " + test.hashCode());
+	}
+
+	
 	/**
 	 * Coordonnée x.
 	 */
@@ -167,14 +178,45 @@ public class Hex {
 	
 	//TODO Ecrire méthode de hash (sans collisison, en sa basant sur les coords) 
 	//=> Injection de Z^3 vers Z
+
+
+	/**
+	* Première fonction utilisée par le hashCode
+	* Bijection de Z vers N
+	* @param a
+	* @return int
+	*/
+	private int fct1(int a) {
+		if(a >= 0) {
+			return 2*a;
+		}
+
+		else {
+			return -2 * a + 1;
+		}
+	}
+
+
+	/**
+	* Deucième fonction utilisée par le hashCode
+	* Bijection de NxN vers N (fonction de couplage de Cantor)
+	* @param a
+	* @return int
+	*/
+	private int fct2(int a, int b) {
+		return b + ( (a+b) * (a+b+1) ) / 2;
+	}
+
 	
 	/**
 	* Hashe l'objet en ne prenant en compte que les coordonnées.
+	* On évite toutes les collisions.
 	* (si d'autres champs sont ajoutés).
 	* @return int
 	*/
-	//@Override
-	//public int hashCode() {	
-	//}
+	@Override
+	public int hashCode() {
+		return fct2( fct2( fct1(x), fct1(y) ), fct1(z) );
+	}
 
 };
