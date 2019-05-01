@@ -12,15 +12,6 @@ import java.util.ArrayList;
  */
 public class Hex {
 
-	public static void main(String [ ] args) {
-		System.out.println("Hello");
-
-		Hex test = new Hex(8,7);
-
-		System.out.println("Hash = " + test.hashCode());
-	}
-
-	
 	/**
 	 * Coordonnée x.
 	 */
