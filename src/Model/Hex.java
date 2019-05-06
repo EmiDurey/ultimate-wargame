@@ -178,7 +178,7 @@ public class Hex {
 	* @return int
 	*/
 	private int fct1(int a) {
-		if(a >= 0) {
+		if (a >= 0) {
 			return 2*a;
 		}
 
@@ -189,7 +189,7 @@ public class Hex {
 
 
 	/**
-	* Deucième fonction utilisée par le hashCode
+	* Deuxième fonction utilisée par le hashCode
 	* Bijection de NxN vers N (fonction de couplage de Cantor)
 	* @param a
 	* @return int

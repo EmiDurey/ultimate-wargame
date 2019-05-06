@@ -1,7 +1,7 @@
 package model;
 
 import java.util.HashMap;
-
+import static java.lang.Math.*;
 
 
 public class Map {
@@ -33,6 +33,74 @@ public class Map {
 		return map.get(new Hex(x, y).hashCode());
 	}
 
-	//TODO Fonctions d'ajout de tiles et templates de formes de map simple
 
+	/**
+	* Permet d'ajouter un Hex à la hashmap, retourne le hash
+	* @param a
+	* @return Hex
+	*/	
+	public Hex addHex(Hex a) {
+		return map.put(a.hashCode(), a);
+	}
+
+	public void deleteMap() {
+		map = new HashMap<Integer, Hex>();
+	}
+
+	
+	//TODO Testing (console?, graphique?)
+
+
+	/**
+	* Génère une map en forme de triangle équilatéral de côté mapSize
+	* @param mapSize
+	*/
+	public void setTriangleMap(int mapSize) {
+		for (int x = 0; x <= mapSize; x++) {
+    		for (int y = 0; y <= mapSize - x; y++) {
+				Hex newHex = new Hex(x, y, -x-y);
+				map.put( newHex.hashCode(), newHex );
+    		}
+		}
+	}
+
+
+	/**
+	* Génère une map en forme d'hexagone de côté mapSize
+	* @param mapSize
+	*/
+	public void setHexagonMap(int mapSize) {
+		for (int x = -mapSize; x <= mapSize; x++) {
+
+			int y1 = max(-mapSize, -x - mapSize);
+    		int y2 = min(mapSize, -x + mapSize);
+
+			for (int y = y1; y <= y2; y++) {
+				Hex newHex = new Hex(x, y, -x-y);
+	        	map.put( newHex.hashCode(), newHex );
+			}
+
+		}
+	}
+
+
+	/**
+	* Génère une map rectangulaire de taille width*height
+	* @param height width
+	*/
+	public void setRectangleMap(int height, int width) {
+
+		for (int y = 0; y < height; y++) {
+
+			int yOffset = (int) floor(y/2);
+
+    		for (int x = -yOffset; x < width - yOffset; x++) {
+				Hex newHex = new Hex(x, y, -x-y);
+	        	map.put( newHex.hashCode(), newHex );
+    		}
+
+		}
+
+	}
 }
+	
