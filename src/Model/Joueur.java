@@ -1,3 +1,5 @@
+package model;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -37,9 +39,9 @@ public class Joueur {
 		return unites;
 	}
 	
-	public void ajouterChevalier() {
-		Chevalier chevalier = new Chevalier();
-		enAttente.add(chevalier);
+	public void ajouterCavalerie() {
+		Cavalerie cavalerie = new Cavalerie();
+		enAttente.add(cavalerie);
 	}
 	
 	public void ajouterArcher() {

@@ -18,4 +18,7 @@ public class Cavalerie extends Unite {
 		this.vision = this.VISION;
 	}
 
+	public Cavalerie() {
+	}
+
 }

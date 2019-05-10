@@ -17,4 +17,7 @@ public class Archer extends Unite {
 		this.pointsDeVie = this.PV;
 		this.vision = this.VISION;
 	}
+
+	public Archer() {
+	}
 }
