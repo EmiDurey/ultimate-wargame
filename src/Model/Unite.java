@@ -7,10 +7,8 @@ public abstract class Unite {
 	protected int pointsDeVie;
 	protected int vision;
 	protected Hex hex;
-	protected Position pos;
 	
-	public Unite(Hex hex, Position pos) { 
-		this.pos = pos;
+	public Unite(Hex hex) { 
 		this.hex = hex; 
 	}
 	
@@ -19,14 +17,8 @@ public abstract class Unite {
 	}
 
 	public void combat(Unite unite){
-		if(this.pos.estVoisin(unite.pos)){
+		if(this.hex.isNeighbour(unite.hex))
 			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
-		}
-		else if(this instanceof Archer) {
-			/*unite.
-			 * ici on s'occupe du tir à distance si l'unité est de type archer
-			 */
-		}
 	}
 	
 	public int getPoints(){
@@ -40,16 +32,8 @@ public abstract class Unite {
 		}
 
 	
-	public void seDeplace(Position newPos){
-		setPos(newPos);
-	}
-
-	public Position getPos() {
-		return pos;
-	}
-
-	public void setPos(Position pos) {
-		this.pos = pos;
+	public void seDeplace(Hex newHex){
+		setHex(newHex);
 	}
 	
 	public Hex getHex() {

@@ -128,8 +128,21 @@ public class Hex {
 			return false;
 		}
 	}
-
-
+	
+	/**
+	 * Indique si l'hexagone en paramètre est atteignable par l'archer
+	 * @param b hexagone
+	 * @param portee portée des tirs de l'archer
+	 * @return Boolean
+	 */
+	public Boolean isInRange(Hex b, int portee) {
+		if (distance(b) <= portee) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	/**
 	 * Tableau indiquant les voisins de l'hexagone (0,0,0) et permettant 
 	 * de déterminer les différents voisins d'un hexagone quelconque.

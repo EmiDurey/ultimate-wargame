@@ -9,8 +9,8 @@ public class Cavalerie extends Unite {
 	private final int PV = 40; //c'est la vie, lalalalala
 	private final int VISION = 6;//perception humaine des rayonnements lumineux
 	
-	public Cavalerie(Hex hex, Position pos) {
-		super(hex, pos);
+	public Cavalerie(Hex hex) {
+		super(hex);
 		this.pointsAttaque = this.POWER;
 		this.pointsDefense = this.DEFENSE;
 		this.pointsDeplacement = this.MOVE;

@@ -9,8 +9,8 @@ public class InfanterieLourde extends Unite {
 	private final int PV = 40; //c'est la vie, lalalalala
 	private final int VISION = 4;//perception humaine des rayonnements lumineux
 	
-	public InfanterieLourde(Hex hex, Position pos) {
-		super(hex, pos);
+	public InfanterieLourde(Hex hex) {
+		super(hex);
 		this.pointsAttaque = this.POWER;
 		this.pointsDefense = this.DEFENSE;
 		this.pointsDeplacement = this.MOVE;

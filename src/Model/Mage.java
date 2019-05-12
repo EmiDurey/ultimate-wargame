@@ -9,8 +9,8 @@ public class Mage extends Unite {
 	private final int PV = 25; //c'est la vie, lalalalala
 	private final int VISION = 5;//perception humaine des rayonnements lumineux
 	
-	public Mage(Hex hex, Position pos) {
-		super(hex, pos);
+	public Mage(Hex hex) {
+		super(hex);
 		this.pointsAttaque = this.POWER;
 		this.pointsDefense = this.DEFENSE;
 		this.pointsDeplacement = this.MOVE;
