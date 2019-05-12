@@ -2,6 +2,8 @@ package model;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.lang.Boolean;
 
 
 
@@ -27,6 +29,19 @@ public class Hex {
 	 */
 	private int z;
 
+
+	/**
+	 * Indique si la case est accessible
+	 */
+	private Boolean empty = true;
+
+
+	/**
+	 * Coût de déplacement vers cette case.
+	 */
+	private int cost = 1;
+
+	
 	/**
      * Constructeur utilisant les coordonnées cubiques.
 	 * @param newX coordonnée x
@@ -59,6 +74,97 @@ public class Hex {
 	}
 
 	/**
+	* Constructeur utilisant les coordonnées axiales.
+	* Les coordonnées sont converties en cubique pour le stockage.
+	* Initialise aussi le coût de déplacement. Valeur < 1 pour une case inaccessible.	
+	* @param newX coordonnée x
+	* @param newY coordonnée y
+	* @param newCost Coût de déplacement
+	*/
+	Hex(int newX, int newY, short newCost) {
+		this(newX, newY);
+
+		if (cost < 1) {
+			empty = false;
+			newCost = -1;
+		} else {
+			cost = (int) newCost;
+		}
+	}
+
+	/**
+     * Constructeur utilisant les coordonnées cubiques.
+	 * Initialise aussi le coût de déplacement. Valeur < 1 pour une case inaccessible.	
+	 * @param newX coordonnée x
+	 * @param newY coordonnée y
+	 * @param newZ coordonnée z
+	 * @param newCost Coût de déplacement
+	 * @throws IllegalArgumentException Si la somme des coordonnées
+	 * est différente de 0.
+     */
+	Hex(int newX, int newY, int newZ, short newCost) {
+		this(newX, newY, newZ);
+
+		if (cost < 1) {
+			empty = false;
+			newCost = -1;
+		} else {
+			cost = (int) newCost;
+		}
+	}
+
+	/**
+	* Retourne la coordonnée en x.
+	* @return int
+	*/
+	public int getX() {
+		return x;
+	}
+
+	/**
+	* Retourne la coordonnée en y.
+	* @return int
+	*/
+	public int getY() {
+		return y;
+	}
+
+	/**
+	* Retourne la coordonnée en z.
+	* @return int
+	*/
+	public int getZ() {
+		return z;
+	}
+
+	/**
+	* Retourne le coût de déplacement de la case
+	* @return int
+	*/
+	public int getCost() {
+		return cost;
+	}
+
+
+	/**
+	* Modifie le coût de déplacement de la case
+	* @param newCost
+	*/
+	public void setCost(int newCost) {
+		cost = newCost;
+	}
+
+	/**
+	* Indique si les deux hexagones sont géométriquement identiques
+	* Utilisé dans l'implémentation de A*.
+	* @param a
+	* @return Boolean
+	*/
+	public Boolean isMatch(Hex a) {
+		return x == a.x && y == a.y && z == a.z;
+	}
+	
+	/**
 	* Calcule la somme de 2 hexagones.
 	* @param b hexagone
 	* @return Hex
@@ -86,19 +192,6 @@ public class Hex {
 	}
 
 	/**
-	 * Teste l'égalité entre 2 Hex.
-	 * @param b hexagone
-	 * @return Boolean
-	 */
-	public Boolean equals(Hex b) {
-		if (x == b.x && y == b.y && z == b.z) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * Retourne la distance à 0 (l'origine) de l'hexagone.
 	 * @return int
 	 */
@@ -116,48 +209,26 @@ public class Hex {
 	}
 
 	/**
+	 * Indique si l'hexagone est plus proche de goal que b
+	 * Utilisé dans l'implémentation de A* (sert d'opérateur de comparaison)
+	 * @param b hexagone
+	 * @return Boolean
+	 */
+	public Boolean isBetter(Hex b, Hex goal) {
+		return distance(goal) < b.distance(goal);
+	}
+
+
+	/**
 	 * Indique si les deux hexagones sont adjacents
 	 * (cas particulier de "distance").
 	 * @param b hexagone
 	 * @return Boolean
 	 */
 	public Boolean isNeighbour(Hex b) {
-		if (distance(b) == 1) {
-			return true;
-		} else {
-			return false;
-		}
+			return distance(b) == 1;
 	}
-	
-	/**
-	 * Indique si l'hexagone en paramètre est atteignable par l'archer
-	 * @param b hexagone
-	 * @param portee portée des tirs de l'archer
-	 * @return Boolean
-	 */
-	public Boolean isInRange(Hex b, int portee) {
-		if (distance(b) <= portee) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	/**
-	 * Tableau indiquant les voisins de l'hexagone (0,0,0) et permettant 
-	 * de déterminer les différents voisins d'un hexagone quelconque.
-	 * On part du côté en haut à droite et on tourne dans le sens horaire
-	 */
-	static public ArrayList<Hex> directions = new ArrayList<Hex>(){{
-		new Hex(1, 0, -1);
-		new Hex(1, -1, 0);
-		new Hex(0, -1, 1);
-		new Hex(-1, 0, 1);
-		new Hex(-1, 1, 0);
-		new Hex(0, 1, -1);
-	}};
 
-	
 	/**
 	 * Retourne les voisins de l'hexagone (0,0,0)
 	 * (plus simplement, permet d'accéder au tableau directions)
@@ -166,6 +237,20 @@ public class Hex {
 	 * @return direction
 	 */
 	public Hex getDirection(int direction) {
+		
+		/**
+		* Tableau indiquant les voisins de l'hexagone (0,0,0) et permettant 
+	 	* de déterminer les différents voisins d'un hexagone quelconque.
+	 	* On part du côté en haut à droite et on tourne dans le sens horaire
+	 	*/
+		ArrayList<Hex> directions = new ArrayList<Hex>();
+		directions.add(new Hex(1, 0, -1));
+		directions.add(new Hex(1, 0, -1));
+		directions.add(new Hex(0, -1, 1));
+		directions.add(new Hex(-1, 0, 1));
+		directions.add(new Hex(-1, 1, 0));
+		directions.add(new Hex(0, 1, -1));
+		
 		return directions.get(direction);
 	}
 
@@ -179,9 +264,27 @@ public class Hex {
 		return add( getDirection(direction) );
 	}
 
-	
-	//TODO Ecrire méthode de hash (sans collisison, en sa basant sur les coords) 
-	//=> Injection de Z^3 vers Z
+	/**
+	 * Retourne les voisins de l'hexagone.
+	 * @return Hex []
+	 */
+	public Hex [] getNeighbours() {
+		Hex[] neighbours = new Hex[6];
+
+		for (int i=0; i<6; i++) {
+			neighbours[i] = add(getNeighbour(i));
+		}
+
+		return neighbours;
+	}
+
+	/**
+	 * Retourne le champ empty
+	 * @return Boolean
+	 */
+	public Boolean isEmpty() {
+		return empty;
+	}
 
 
 	/**
