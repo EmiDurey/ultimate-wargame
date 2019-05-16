@@ -24,9 +24,14 @@ public class Archer extends Unite {
 	public Archer() {
 	}
 	
-	public void combat(Unite unite){
+	public void combat(Joueur joueur, Unite unite){
 		portee = (int) pointsDeVie/7;
 		if(hex.isInRange(unite.hex, portee))
 			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
 	}
+
+	public int getPV() {
+		return PV;
+	}
+
 }

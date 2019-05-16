@@ -18,4 +18,7 @@ public class InfanterieLourde extends Unite {
 		this.vision = this.VISION;
 	}
 
+	public int getPV() {
+		return PV;
+	}
 }

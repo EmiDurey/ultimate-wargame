@@ -18,18 +18,22 @@ public class Dragon extends Unite{
 		this.vision = this.VISION;
 	}
 	
-	public void combat(Unite unite){
+	public void combat(Joueur joueur, Unite unite){
 		Hex[] voisins = new Hex[6];
 		voisins = unite.hex.getNeighbours();
 		for(int i = 0;i<6;i++) {
-			if(!(voisins[i]==this.hex)) {
-				if(!voisins[i].isEmpty()) {
-					//TODO Recup unité a partir de la case et attaquer
+			if(!voisins[i].isEmpty()) {
+				if(!joueur.getUnite().contains(voisins[i].unit)) {
+					voisins[i].unit.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
 				}
 			}
 		}
 		
 		if(this.hex.isNeighbour(unite.hex));
 			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
+	}
+	
+	public int getPV() {
+		return PV;
 	}
 }
