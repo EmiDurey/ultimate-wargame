@@ -24,10 +24,21 @@ public class Archer extends Unite {
 	public Archer() {
 	}
 	
-	public void combat(Joueur joueur, Unite unite){
+	public void heal() {
+		if(this.pointsDeplacement==MOVE) {
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+		}
+	}
+	
+	public void initialize() {
+		this.pointsDeplacement = MOVE;
+	}
+	
+	public void combat(HexMap map, Joueur joueur, Unite unite){
 		portee = (int) pointsDeVie/7;
-		if(hex.isInRange(unite.hex, portee))
+		if(map.pathfinding(this.hex,unite.hex).size()<portee){
 			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque * Math.random()));
+		}
 	}
 
 	public int getPV() {

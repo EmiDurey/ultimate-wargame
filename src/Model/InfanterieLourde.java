@@ -18,6 +18,16 @@ public class InfanterieLourde extends Unite {
 		this.vision = this.VISION;
 	}
 
+	public void heal() {
+		if(this.pointsDeplacement==MOVE) {
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+		}
+	}
+	
+	public void initialize() {
+		this.pointsDeplacement = MOVE;
+	}
+	
 	public int getPV() {
 		return PV;
 	}
