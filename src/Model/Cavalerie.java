@@ -18,7 +18,20 @@ public class Cavalerie extends Unite {
 		this.vision = this.VISION;
 	}
 
+	public void heal() {
+		if(this.pointsDeplacement==MOVE) {
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+		}
+	}
+	
+	public void initialize() {
+		this.pointsDeplacement = MOVE;
+	}
+	
 	public Cavalerie() {
 	}
 
+	public int getPV() {
+		return PV;
+	}
 }
