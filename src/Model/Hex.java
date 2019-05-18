@@ -41,6 +41,13 @@ public class Hex {
 	 */
 	private int cost = 1;
 
+
+	/**
+	 * Référence de l'unité se trouvant sur la case
+	 * (à mettre à jour dans les fonctions de déplacement)
+	 */
+	private Unite unit = null;
+	
 	
 	/**
      * Constructeur utilisant les coordonnées cubiques.
@@ -287,6 +294,24 @@ public class Hex {
 	}
 
 
+	/**
+	* Retourne l'unité actuellement sur la case 
+	* @return int
+	*/
+	public Unite getUnit() {
+		return unit;
+	}
+
+
+	/**
+	* Modifie l'unité se trouvant actuellement sur la case
+	* @param newCost
+	*/
+	public void setUnit(Unite newUnit) {
+		unit = newUnit;
+	}
+
+	
 	/**
 	* Première fonction utilisée par le hashCode
 	* Bijection de Z vers N

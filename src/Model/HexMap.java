@@ -112,6 +112,23 @@ public class HexMap {
 	}
 
 
+	public ArrayList getNeighbours(Hex a) {
+		Hex [] geometricNeighbours = a.getNeighbours();
+
+		ArrayList<Hex> neighbours = new ArrayList<Hex>();
+
+		for(int i=0; i<6; i++) {
+			Hex curr = geometricNeighbours[i];
+
+			Hex neighbour = getHex(curr.getX(), curr.getY(), curr.getZ());
+			if(neighbour != null)
+				neighbours.add(neighbour);		
+		}
+
+		return neighbours;
+	}
+	
+
 	/**
 	* Retourne le chemin de l'hexagone start vers l'hexagone goal.
 	* Si il n'existe pas de chemin ou que l'un des deux hexagones
