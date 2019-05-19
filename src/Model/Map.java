@@ -13,32 +13,32 @@ public class Map {
 	*/
 	private HashMap<Integer, Hex> map = new HashMap<>();
 
-	
 	/**
-	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées cubiques
-	* @param x y z
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées cubiques.
+	* @param x int
+	* @param y int
+	* @param z int
 	* @return Hex
 	*/
 	public Hex getHex(int x, int y, int z) {
 		return map.get(new Hex(x, y, z).hashCode());
 	}
 
-
 	/**
-	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales
-	* @param x y
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales.
+	* @param x int
+	* @param y int
 	* @return Hex
-	*/	
+	*/
 	public Hex getHex(int x, int y) {
 		return map.get(new Hex(x, y).hashCode());
 	}
 
-
 	/**
-	* Permet d'ajouter un Hex à la hashmap, retourne le hash
-	* @param a
+	* Permet d'ajouter un Hex à la hashmap, retourne le hash.
+	* @param a hexagone
 	* @return Hex
-	*/	
+	*/
 	public Hex addHex(Hex a) {
 		return map.put(a.hashCode(), a);
 	}
@@ -47,27 +47,22 @@ public class Map {
 		map = new HashMap<Integer, Hex>();
 	}
 
-	
-	//TODO Testing (console?, graphique?)
-
-
 	/**
-	* Génère une map en forme de triangle équilatéral de côté mapSize
-	* @param mapSize
+	* Génère une map en forme de triangle équilatéral de côté mapSize.
+	* @param mapSize int
 	*/
 	public void setTriangleMap(int mapSize) {
 		for (int x = 0; x <= mapSize; x++) {
     		for (int y = 0; y <= mapSize - x; y++) {
-				Hex newHex = new Hex(x, y, -x-y);
-				map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+				map.put(newHex.hashCode(), newHex);
     		}
 		}
 	}
 
-
 	/**
 	* Génère une map en forme d'hexagone de côté mapSize
-	* @param mapSize
+	* @param mapSize int
 	*/
 	public void setHexagonMap(int mapSize) {
 		for (int x = -mapSize; x <= mapSize; x++) {
@@ -76,31 +71,30 @@ public class Map {
     		int y2 = min(mapSize, -x + mapSize);
 
 			for (int y = y1; y <= y2; y++) {
-				Hex newHex = new Hex(x, y, -x-y);
-	        	map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+	        	map.put(newHex.hashCode(), newHex);
 			}
 
 		}
 	}
 
-
 	/**
-	* Génère une map rectangulaire de taille width*height
-	* @param height width
+	* Génère une map rectangulaire de taille width*height.
+	* @param height int
+	* @param width int
 	*/
 	public void setRectangleMap(int height, int width) {
 
 		for (int y = 0; y < height; y++) {
 
-			int yOffset = (int) floor(y/2);
+			int yOffset = (int) floor(y / 2);
 
     		for (int x = -yOffset; x < width - yOffset; x++) {
-				Hex newHex = new Hex(x, y, -x-y);
-	        	map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+	        	map.put(newHex.hashCode(), newHex);
     		}
 
 		}
 
 	}
 }
-	

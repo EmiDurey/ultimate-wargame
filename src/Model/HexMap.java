@@ -20,16 +20,17 @@ public class HexMap {
 
 	/**
 	* Retourne la HashMap contenant la carte.
-	* @param x y
-	* @return Hex
-	*/	
+	* @return HashMap<Integer, Hex>
+	*/
 	public HashMap<Integer, Hex> getHashMap() {
 		return map;
 	}
-	
+
 	/**
-	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées cubiques
-	* @param x y z
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées cubiques.
+	* @param x int
+	* @param y int
+	* @param z int
 	* @return Hex
 	*/
 	public Hex getHex(int x, int y, int z) {
@@ -38,10 +39,11 @@ public class HexMap {
 
 
 	/**
-	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales
-	* @param x y
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales.
+	* @param x int
+	* @param y int
 	* @return Hex
-	*/	
+	*/
 	public Hex getHex(int x, int y) {
 		return map.get(new Hex(x, y).hashCode());
 	}
@@ -49,9 +51,9 @@ public class HexMap {
 
 	/**
 	* Permet d'ajouter un Hex à la hashmap, retourne le hash
-	* @param a
+	* @param a hexagone
 	* @return Hex
-	*/	
+	*/
 	public Hex addHex(Hex a) {
 		return map.put(a.hashCode(), a);
 	}
@@ -62,22 +64,22 @@ public class HexMap {
 
 
 	/**
-	* Génère une map en forme de triangle équilatéral de côté mapSize
-	* @param mapSize
+	* Génère une map en forme de triangle équilatéral de côté mapSize.
+	* @param mapSize int
 	*/
 	public void setTriangleMap(int mapSize) {
 		for (int x = 0; x <= mapSize; x++) {
     		for (int y = 0; y <= mapSize - x; y++) {
-				Hex newHex = new Hex(x, y, -x-y);
-				map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+				map.put(newHex.hashCode(), newHex);
     		}
 		}
 	}
 
 
 	/**
-	* Génère une map en forme d'hexagone de côté mapSize
-	* @param mapSize
+	* Génère une map en forme d'hexagone de côté mapSize.
+	* @param mapSize int
 	*/
 	public void setHexagonMap(int mapSize) {
 		for (int x = -mapSize; x <= mapSize; x++) {
@@ -86,8 +88,8 @@ public class HexMap {
     		int y2 = min(mapSize, -x + mapSize);
 
 			for (int y = y1; y <= y2; y++) {
-				Hex newHex = new Hex(x, y, -x-y);
-	        	map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+	        	map.put(newHex.hashCode(), newHex);
 			}
 
 		}
@@ -95,80 +97,81 @@ public class HexMap {
 
 
 	/**
-	* Génère une map rectangulaire de taille width*height
-	* @param height width
+	* Génère une map rectangulaire de taille width*height.
+	* @param height int
+	* @param width int
 	*/
 	public void setRectangleMap(int height, int width) {
 
 		for (int y = 0; y < height; y++) {
 
-			int yOffset = (int) floor(y/2);
+			int yOffset = (int) floor(y / 2);
 
     		for (int x = -yOffset; x < width - yOffset; x++) {
-				Hex newHex = new Hex(x, y, -x-y);
-	        	map.put( newHex.hashCode(), newHex );
+				Hex newHex = new Hex(x, y, -x - y);
+	        	map.put(newHex.hashCode(), newHex);
     		}
 		}
 	}
 
 
 	public ArrayList getNeighbours(Hex a) {
-		Hex [] geometricNeighbours = a.getNeighbours();
+		Hex[] geometricNeighbours = a.getNeighbours();
 
 		ArrayList<Hex> neighbours = new ArrayList<Hex>();
 
-		for(int i=0; i<6; i++) {
+		for (int i = 0; i < 6; i++) {
 			Hex curr = geometricNeighbours[i];
 
 			Hex neighbour = getHex(curr.getX(), curr.getY(), curr.getZ());
-			if(neighbour != null)
-				neighbours.add(neighbour);		
+			if (neighbour != null) {
+				neighbours.add(neighbour);
+			}
 		}
 
 		return neighbours;
 	}
-	
+
 
 	/**
 	* Retourne le chemin de l'hexagone start vers l'hexagone goal.
 	* Si il n'existe pas de chemin ou que l'un des deux hexagones
 	* n'est pas dans la HashMap, retourne un tableau vide.
 	* On utilise une implémentation de l'algorithme A*.
-	* @param start goal
+	* @param start hexagone
+	* @param goal hexagone
 	* @return ArrayList<Hex>
 	*/
 	public ArrayList<Hex> pathfinding(Hex start, Hex goal) {
 		SortedHexList frontier = new SortedHexList();
 		HashMap<Hex, Hex> cameFrom = new HashMap<Hex, Hex>();
 		HashMap<Hex, Integer> cost = new HashMap<Hex, Integer>();
-		
+
 		frontier.put(start, 0);
 		cameFrom.put(start, null);
 		cost.put(start, 0);
 
 		Boolean pathFound = false;
-		
-		while(frontier.hasElements()) {
+
+		while (frontier.hasElements()) {
 			Hex current = frontier.pop();
-			
 
-
-			Hex neighbours [] = current.getNeighbours();
-			for(int i=0; i<6; i++) {
+			Hex[] neighbours = current.getNeighbours();
+			for (int i = 0; i < 6; i++) {
 				Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
 
 				//If hex is in map and accessible
-				if(next != null && next.getCost() > 0) {
+				if (next != null && next.getCost() > 0) {
 
 					if(next.isMatch(goal)) {
 						cameFrom.put(goal, current);
 						pathFound = true;
 						break;
 					}
-					
+
 					int newCost = cost.get(current) + next.getCost();
 
-					if(!cost.containsKey(next) || newCost < cost.get(next)) {						
+					if (!cost.containsKey(next) || newCost < cost.get(next)) {
 						cost.put(next, newCost);
 						int priority = newCost + next.distance(goal);
 						frontier.put(next, priority);
@@ -180,24 +183,21 @@ public class HexMap {
 
 		ArrayList<Hex> solution = new ArrayList<Hex>();
 
-		if(pathFound) {
+		if (pathFound) {
 			Hex hex = cameFrom.get(goal);
 			System.out.println(hex);
 
-			while(hex != null) {
+			while (hex != null) {
 				solution.add(hex);
 				hex = cameFrom.get(hex);
 			}
 
 			Collections.reverse(solution);
-
-			
 		}
 
 		return solution;
 	}
 }
-
 
 class SortedHexList {
 	/**
@@ -217,7 +217,8 @@ class SortedHexList {
 
 	/**
 	* Ajoute a à la liste avec un coût de cost
-	* @param a
+	* @param a hexagone
+	* @param cost int
 	*/
 	void put(Hex a, int cost) {
 		hexList.add(a);
@@ -226,19 +227,18 @@ class SortedHexList {
 
 	/**
 	* Retourne l'élément à la priorité la plus élevée / coût le plus faible et 
-	* le supprime de la liste
+	* le supprime de la liste.
 	* @return Hex
 	*/
 	Hex pop() {
-
-		if(hexList.size() == 0) {
+		if (hexList.size() == 0) {
 			return null;
 		}
-		
+
 		int minIndex = 0;
 		int minCost = costList.get(0);
-		for(int i=1; i<costList.size(); i++) {
-			if( costList.get(i) < minCost ) {
+		for (int i = 1; i < costList.size(); i++) {
+			if (costList.get(i) < minCost) {
 				minIndex = i;
 				minCost = costList.get(i);
 			}
@@ -250,17 +250,17 @@ class SortedHexList {
 	}
 
 	/**
-	* Indique si l'hexagone est contenu dans la queue
-	* @param Hex
+	* Indique si l'hexagone est contenu dans la queue.
+	* @param a Hex
 	* @return Boolean
 	*/
 	Boolean contains(Hex a) {
-		for(int i=0; i<hexList.size(); i++) {
-			if(a.isMatch(hexList.get(i)))
+		for (int i = 0; i < hexList.size(); i++) {
+			if (a.isMatch(hexList.get(i))) {
 				return true;
+			}
 		}
 
 		return false;
 	}
-	
 }

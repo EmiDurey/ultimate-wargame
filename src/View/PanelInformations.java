@@ -20,12 +20,12 @@ import javax.swing.border.TitledBorder;
  *  Class PanelInformations.
  */
 public class PanelInformations extends JPanel implements ActionListener {
-	
+
 	/**
 	 * Couleur des composants graphiques.
 	 */
 	private Color couleurFond;
-	
+
 	/**
 	 *  Construit un objet de type PanelInformations.
 	 */
@@ -36,7 +36,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	    this.setVisible(true);
 	    this.initComposant();
 	}
-	
+
 	/**
 	 *  Initialise les composants graphiques.
 	 */
@@ -45,7 +45,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints contrainte = new GridBagConstraints();
 		this.setLayout(layout);
-		
+
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 300));
 		panel.setBackground(this.couleurFond);
@@ -58,7 +58,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridy = 0;
 		contrainte.gridwidth = 3;
 		this.add(panel, contrainte);
-		
+
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(150, 150));
 		panel.setBackground(this.couleurFond);
@@ -68,9 +68,9 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridx = 0;
 		contrainte.gridy = 1;
 		contrainte.gridwidth = 1;
-		contrainte.insets = new Insets(30,0,0,0);
+		contrainte.insets = new Insets(30, 0, 0, 0);
 		this.add(panel, contrainte);
-		
+
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(90, 20));
 		panel.setBackground(this.couleurFond);
@@ -81,7 +81,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridx = 1;
 		contrainte.gridy = 1;
 		this.add(panel, contrainte);
-		
+
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 100));
 		panel.setBackground(this.couleurFond);
@@ -91,9 +91,9 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridx = 0;
 		contrainte.gridy = 2;
 		contrainte.gridwidth = 3;
-		contrainte.insets = new Insets(30,0,0,0);
+		contrainte.insets = new Insets(30, 0, 0, 0);
 		this.add(panel, contrainte);
-		
+
 		JButton boutonFinTour = new JButton("Fin de tour");
 		boutonFinTour.setBackground(Color.BLACK);
 		boutonFinTour.setFont(new Font("Arial", Font.BOLD, 15));
@@ -103,17 +103,17 @@ public class PanelInformations extends JPanel implements ActionListener {
 		boutonFinTour.setActionCommand("Fin");
 		contrainte.gridx = 0;
 		contrainte.gridy = 3;
-		contrainte.insets = new Insets(200,0,0,0);
+		contrainte.insets = new Insets(200, 0, 0, 0);
 		this.add(boutonFinTour, contrainte);
 	}
-	
+
 	/**
 	 *  Permet le traitement des évènements.
 	 *  @param evt évènement
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
-		
+
 		switch (actionCommand) {
 			case "Fin":
 				System.out.println("Changement de tour");

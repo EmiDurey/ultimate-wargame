@@ -18,14 +18,14 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	 * Menu.
 	 */
 	private JMenu menu;
-	
+
 	/**
 	 *  Construit un objet de type BarreMenu.
 	 */
 	public BarreMenu() {
 		initComposant();
 	}
-	
+
 	/**
 	 *  Initialise les composants graphiques.
 	 */
@@ -63,14 +63,14 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	public void ajouterMenuItem(String nom, String nomFichier) {
 		String chemin = "images\\JMenuBar\\";
 		JMenuItem menuItem;
-		
+
 		menuItem = new JMenuItem(nom);
 		menuItem.setIcon(new ImageIcon(chemin + nomFichier));
 		menuItem.addActionListener((ActionListener) this);
 		menuItem.setActionCommand(nom);
 		this.menu.add(menuItem);
 	}
-	
+
 	/**
 	 *  Permet le traitement des évènements.
 	 *  @param evt évènement
