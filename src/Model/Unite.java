@@ -85,4 +85,9 @@ public abstract class Unite {
 	public void setPointsDeplacement(int pointsDeplacement) {
 		this.pointsDeplacement = pointsDeplacement;
 	}
+
+	public int getPv() {
+		return 0;
+	}
+
 }

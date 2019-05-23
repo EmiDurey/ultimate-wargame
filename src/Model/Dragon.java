@@ -39,11 +39,11 @@ public class Dragon extends Unite{
 		if (this.hex.isNeighbour(unite.hex)) {
 			for (int i = 0; i < 6; i++) {
 				if (!voisins[i].isEmpty()) {
-					if (!joueur.getUnite().contains(voisins[i].unit)) {
+					if (!joueur.getUnite().contains(voisins[i].getUnit())) {
 						if (rand > 2) {
-							voisins[i].unit.pointsDeVie = (int) (voisins[i].unit.pointsDeVie - (3 * (this.pointsAttaque - voisins[i].unit.pointsDefense)));
+							voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
 						} else {
-							voisins[i].unit.pointsDeVie = (int) (voisins[i].unit.pointsDeVie - (3 * (this.pointsAttaque - voisins[i].unit.pointsDefense)));
+							voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
 						}
 					}
 				}
@@ -54,11 +54,11 @@ public class Dragon extends Unite{
 				this.setHex(trajet.get(trajet.size() - 1));
 				for (int i = 0; i < 6; i++) {
 					if (!voisins[i].isEmpty()) {
-						if (!joueur.getUnite().contains(voisins[i].unit)) {
+						if (!joueur.getUnite().contains(voisins[i].getUnit())) {
 							if (rand > 2) {
-								voisins[i].unit.pointsDeVie = (int) (voisins[i].unit.pointsDeVie - (3 * (this.pointsAttaque - voisins[i].unit.pointsDefense)));
+								voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
 							} else {
-								voisins[i].unit.pointsDeVie = (int) (voisins[i].unit.pointsDeVie - (3 * (this.pointsAttaque - voisins[i].unit.pointsDefense)));
+								voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
 							}
 						}
 					}

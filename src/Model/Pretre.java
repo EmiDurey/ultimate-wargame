@@ -24,10 +24,10 @@ public class Pretre extends Unite {
 		voisins = this.hex.getNeighbours();
 		for (int i = 0; i < 6; i++) {
 			if (!voisins[i].isEmpty()) {
-				if (joueur.getUnite().contains(voisins[i].unit)) {
-					voisins[i].unit.pointsDeVie = (int) (voisins[i].unit.pointsDeVie + this.pouvoirSoin * Math.random());
-					if (voisins[i].unit.pointsDeVie > voisins[i].unit.getPV) {
-						voisins[i].unit.pointsDeVie = voisins[i].unit.getPV;
+				if (joueur.getUnite().contains(voisins[i].getUnit())) {
+					voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie + this.pouvoirSoin * Math.random());
+					if (voisins[i].getUnit().pointsDeVie > voisins[i].getUnit().getPv()) {
+						voisins[i].getUnit().pointsDeVie = voisins[i].getUnit().getPv();
 					}
 				}
 			}
