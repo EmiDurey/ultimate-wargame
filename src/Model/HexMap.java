@@ -6,6 +6,8 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class HexMap {
@@ -115,6 +117,12 @@ public class HexMap {
 	}
 
 
+	/**
+	* Retourne les voisins de l'hexagone en prenant compte
+	* de la gémoétrie de la carte
+	* @param a Hex
+	* @return ArrayList
+	*/
 	public ArrayList getNeighbours(Hex a) {
 		Hex[] geometricNeighbours = a.getNeighbours();
 
@@ -131,6 +139,143 @@ public class HexMap {
 
 		return neighbours;
 	}
+
+
+	/**
+	* Retourne la largeur de la carte
+	* @return int
+	*/
+	public int getWidth() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int min = 0;
+		int max = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getX() < min) min = value.getX();
+			if(value.getX() > max) max = value.getX();
+		}
+
+		return abs(max - min);
+	}
+
+
+	/**
+	* Retourne la hauteur de la carte
+	* @return int
+	*/
+	public int getHeight() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int min = 0;
+		int max = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getY() < min) min = value.getY();
+			if(value.getY() > max) max = value.getY();
+		}
+
+		return abs(max - min);
+	}
+
+
+	/**
+	* Retourne la plus petite coordonnée en X
+	* @return int
+	*/
+	public int getMinX() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int min = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getX() < min) min = value.getX();
+		}
+
+		return min;
+	}
+
+
+	/**
+	* Retourne la plus grande coordonnée en X
+	* @return int
+	*/
+	public int getMaxX() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int max = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getX() > max) max = value.getX();
+		}
+
+		return max;
+	}
+
+
+	/**
+	* Retourne la plus petite coordonnée en Y
+	* @return int
+	*/
+	public int getMinY() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int min = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getY() < min) min = value.getY();
+		}
+
+		return min;
+	}
+
+
+	/**
+	* Retourne la plus grande coordonnée en Y
+	* @return int
+	*/
+	public int getMaxY() {
+		Iterator it = map.entrySet().iterator();
+
+		//WARNING Valide seulement si la map possède une origine
+		int max = 0;
+
+		for (Hex value : map.values()) {
+		    if(value.getY() > max) max = value.getY();
+		}
+
+		return max;
+	}
+
+
+	/**
+	* Affiche la map dans la console
+	*/
+	public void ASCIIDisplay() {
+
+		Hex current;
+
+		for(int i = getMinX(); i < getMaxX(); i++) {
+			for(int j = getMinY(); j < getMaxY(); j++) {
+				current = getHex(i, j);
+				if(current == null) {
+					System.out.print(" ");
+				}
+				else {
+					//Existing tile, can be detailed with other cases
+					System.out.print("O");
+				}
+				System.out.print(" ");
+			}
+			System.out.println("");
+		}
+	}
+
 
 
 	/**
@@ -226,7 +371,7 @@ class SortedHexList {
 	}
 
 	/**
-	* Retourne l'élément à la priorité la plus élevée / coût le plus faible et 
+	* Retourne l'élément à la priorité la plus élevée / coût le plus faible et
 	* le supprime de la liste.
 	* @return Hex
 	*/
