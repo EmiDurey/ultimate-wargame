@@ -31,7 +31,7 @@ public class Cavalerie extends Unite {
 	public Cavalerie() {
 	}
 
-	public int getPV() {
+	public int getVie() {
 		return vie;
 	}
 }

@@ -28,7 +28,7 @@ public class InfanterieLourde extends Unite {
 		this.pointsDeplacement = deplacement;
 	}
 
-	public int getPV() {
+	public int getVie() {
 		return vie;
 	}
 }

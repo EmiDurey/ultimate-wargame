@@ -37,13 +37,13 @@ public class Dragon extends Unite{
 		int rand = (int)(Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		if (this.hex.isNeighbour(unite.hex)) {
-			for (int i = 0; i < 6; i++) {
-				if (!voisins[i].isEmpty()) {
-					if (!joueur.getUnite().contains(voisins[i].getUnit())) {
+			for (Hex voisin : voisins) {
+				if (!voisin.isEmpty()) {
+					if (!joueur.getUnite().contains(voisin.getUnit())) {
 						if (rand > 2) {
-							voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
+							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 						} else {
-							voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
+							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 						}
 					}
 				}
@@ -52,13 +52,13 @@ public class Dragon extends Unite{
 			if (unite.hex.getCost() <= this.pointsDeplacement) {
 				trajet = map.pathfinding(this.hex, unite.hex);
 				this.setHex(trajet.get(trajet.size() - 1));
-				for (int i = 0; i < 6; i++) {
-					if (!voisins[i].isEmpty()) {
-						if (!joueur.getUnite().contains(voisins[i].getUnit())) {
+				for (Hex voisin : voisins) {
+					if (!voisin.isEmpty()) {
+						if (!joueur.getUnite().contains(voisin.getUnit())) {
 							if (rand > 2) {
-								voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
+								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 							} else {
-								voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisins[i].getUnit().pointsDefense)));
+								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 							}
 						}
 					}
@@ -68,7 +68,7 @@ public class Dragon extends Unite{
 		this.pointsDeplacement = 0;
 	}
 
-	public int getPV() {
+	public int getVie() {
 		return vie;
 	}
 }

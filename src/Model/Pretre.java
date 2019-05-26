@@ -8,7 +8,7 @@ public class Pretre extends Unite {
 	private final int deplacement = 6; //fais le mouv, fais le mouv
 	private final int vie = 60; //c'est la vie, lalalalala
 	private final int vue = 4; //perception humaine des rayonnements lumineux
-	private int pouvoirSoin = 15; //Vivre c'est bien
+	private final int pouvoirSoin = 15; //Vivre c'est bien
 
 	public Pretre(Hex hex) {
 		super(hex);
@@ -22,12 +22,12 @@ public class Pretre extends Unite {
 	public void soigne(Joueur joueur) {
 		Hex[] voisins = new Hex[6];
 		voisins = this.hex.getNeighbours();
-		for (int i = 0; i < 6; i++) {
-			if (!voisins[i].isEmpty()) {
-				if (joueur.getUnite().contains(voisins[i].getUnit())) {
-					voisins[i].getUnit().pointsDeVie = (int) (voisins[i].getUnit().pointsDeVie + this.pouvoirSoin * Math.random());
-					if (voisins[i].getUnit().pointsDeVie > voisins[i].getUnit().getPv()) {
-						voisins[i].getUnit().pointsDeVie = voisins[i].getUnit().getPv();
+		for (Hex voisin : voisins) {
+			if (!voisin.isEmpty()) {
+				if (joueur.getUnite().contains(voisin.getUnit())) {
+					voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie + this.pouvoirSoin);
+					if (voisin.getUnit().pointsDeVie > voisin.getUnit().getVie()) {
+						voisin.getUnit().pointsDeVie = voisin.getUnit().getVie();
 					}
 				}
 			}
@@ -44,7 +44,7 @@ public class Pretre extends Unite {
 		this.pointsDeplacement = deplacement;
 	}
 
-	public int getPV() {
+	public int getVie() {
 		return vie;
 	}
 }
