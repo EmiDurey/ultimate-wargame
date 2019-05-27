@@ -9,7 +9,7 @@ import java.util.List;
 public class Dragon extends Unite{
 
 	/**
-	 *  Constructeur d'un archer.
+	 *  Constructeur d'un dragon.
 	 *  @param hex Hexagone
 	 */
 	public Dragon(Hex hex) {
@@ -24,7 +24,7 @@ public class Dragon extends Unite{
 	}
 
 	/**
-	 *  Constructeur d'un archer.
+	 *  Constructeur d'un dragon.
 	 */
 	public Dragon() {
 	}
@@ -47,11 +47,15 @@ public class Dragon extends Unite{
 
 	/**
 	 * Méthode combat propre au dragon.
+	 * S'il attaque une unité,
+	 * attaque toutes les unités ennemis adjacentes en même temps.
 	 * @param map Map
 	 * @param joueur Joueur
 	 * @param unite Unite
 	 */
 	public void combat(HexMap map, Joueur joueur, Unite unite) {
+		final int crit = 3;
+		final int chanceCrit = 2;
 		Hex[] voisins = new Hex[6];
 		voisins = unite.hex.getNeighbours();
 		int rand = (int)(Math.random() * 10);
@@ -60,10 +64,10 @@ public class Dragon extends Unite{
 			for (Hex voisin : voisins) {
 				if (!voisin.isEmpty()) {
 					if (!joueur.getUnite().contains(voisin.getUnit())) {
-						if (rand > 2) {
-							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+						if (rand > chanceCrit) {
+							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (this.pointsAttaque - voisin.getUnit().pointsDefense));
 						} else {
-							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (crit * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 						}
 					}
 				}
@@ -75,10 +79,10 @@ public class Dragon extends Unite{
 				for (Hex voisin : voisins) {
 					if (!voisin.isEmpty()) {
 						if (!joueur.getUnite().contains(voisin.getUnit())) {
-							if (rand > 2) {
-								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+							if (rand > chanceCrit) {
+								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (this.pointsAttaque - voisin.getUnit().pointsDefense));
 							} else {
-								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (3 * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (crit * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
 							}
 						}
 					}

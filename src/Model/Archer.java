@@ -55,28 +55,31 @@ public class Archer extends Unite {
 
 	/**
 	 * Méthode combat propre à l'archer.
+	 * Peut attaquer à distance.
 	 * @param map Map
 	 * @param joueur Joueur
 	 * @param unite Unite
 	 */
 	public void combat(HexMap map, Joueur joueur, Unite unite) {
-		int rand = (int)(Math.random() * 10);
+		final int crit = 3;
+		final int chanceCrit = 2;
+		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		portee = (int) pointsDeVie / this.portee;
 		if (map.pathfinding(this.hex, unite.hex).size() < portee) {
 			if (rand > 2) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
-				unite.pointsDeVie = (int) (unite.pointsDeVie - (3 * (this.pointsAttaque - unite.pointsDefense)));
+				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 			}
-		}else{
+		} else {
 			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
 				trajet = map.pathfinding(this.hex, unite.hex);
 				this.setHex(trajet.get(trajet.size() - portee));
-				if (rand > 2) {
+				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
-					unite.pointsDeVie = (int) (unite.pointsDeVie - (3 * (this.pointsAttaque - unite.pointsDefense)));
+					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 				}
 			}
 		}

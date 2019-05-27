@@ -1,9 +1,16 @@
 package model;
 
+/**
+ *  Class Pretre.
+ */
 public class Pretre extends Unite {
 
 	private int pointsSoin;
 	
+	/**
+	 *  Constructeur d'un pretre.
+	 *  @param hex Hexagone
+	 */
 	public Pretre(Hex hex) {
 		super(hex);
 		this.pointsAttaque = 2;
@@ -16,6 +23,11 @@ public class Pretre extends Unite {
 		this.pointsSoin = 15;
 	}
 
+	/**
+	 * Heal de l'unité si elle n'a pas bougé.
+	 * Soigne toutes les unités alliés autour de lui.
+	 * @param joueur Joueur
+	 */
 	public void soigne(Joueur joueur) {
 		Hex[] voisins = new Hex[6];
 		voisins = this.hex.getNeighbours();
@@ -31,12 +43,18 @@ public class Pretre extends Unite {
 		}
 	}
 
+	/**
+	 * Heal de l'unité si elle n'a pas bougé.
+	 */
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
 		}
 	}
 
+	/**
+	 * Réinitialise les points de déplacement de l'unité.
+	 */
 	public void initialize() {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}

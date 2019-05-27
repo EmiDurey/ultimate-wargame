@@ -13,7 +13,7 @@ public abstract class Terrain {
 	}
 
 	public void appliqueBonusDefense(Unite unite) {
-		float bonus = 100 / bonusDefense;
+		int bonus = (int) (float)(100 /bonusDefense);
 		unite.setDefense(unite.getDefense() * bonus);
 	}
 }
