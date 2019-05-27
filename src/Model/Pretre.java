@@ -2,21 +2,18 @@ package model;
 
 public class Pretre extends Unite {
 
-	/*attributs de base */
-	private final int puissance = 2; //gros c'est la puissance
-	private final int defense = 2; //gros c'est la defense
-	private final int deplacement = 6; //fais le mouv, fais le mouv
-	private final int vie = 60; //c'est la vie, lalalalala
-	private final int vue = 4; //perception humaine des rayonnements lumineux
-	private final int pouvoirSoin = 15; //Vivre c'est bien
-
+	private int pointsSoin;
+	
 	public Pretre(Hex hex) {
 		super(hex);
-		this.pointsAttaque = this.puissance;
-		this.pointsDefense = this.defense;
-		this.pointsDeplacement = this.deplacement;
-		this.pointsDeVie = this.vie;
-		this.vision = this.vue;
+		this.pointsAttaque = 2;
+		this.pointsDefense = 2;
+		this.pointsDeplacement = 6;
+		this.pointsDeplacementInit = 6;
+		this.pointsDeVie = 60;
+		this.pointsDeVieMax = 60;
+		this.vision = 4;
+		this.pointsSoin = 15;
 	}
 
 	public void soigne(Joueur joueur) {
@@ -25,9 +22,9 @@ public class Pretre extends Unite {
 		for (Hex voisin : voisins) {
 			if (!voisin.isEmpty()) {
 				if (joueur.getUnite().contains(voisin.getUnit())) {
-					voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie + this.pouvoirSoin);
-					if (voisin.getUnit().pointsDeVie > voisin.getUnit().getVie()) {
-						voisin.getUnit().pointsDeVie = voisin.getUnit().getVie();
+					voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie + this.pointsSoin);
+					if (voisin.getUnit().pointsDeVie > voisin.getUnit().pointsDeVieMax) {
+						voisin.getUnit().pointsDeVie = voisin.getUnit().pointsDeVieMax;
 					}
 				}
 			}
@@ -35,16 +32,12 @@ public class Pretre extends Unite {
 	}
 
 	public void heal() {
-		if (this.pointsDeplacement == deplacement) {
+		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
 		}
 	}
 
 	public void initialize() {
-		this.pointsDeplacement = deplacement;
-	}
-
-	public int getVie() {
-		return vie;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
 }

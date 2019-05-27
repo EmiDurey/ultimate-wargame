@@ -1,30 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *  Class BarreMenu.
+ *  Class Archer.
  */
 public class Archer extends Unite {
 
-	/**
-	 * Points de puissance de l'unité.
-	 */
-	private final int puissance = 6;
-	/**
-	 * Points de défense de l'unité.
-	 */
-	private final int defense = 3;
-	/**
-	 * Points de déplacement de l'unité.
-	 */
-	private final int deplacement = 5;
-	/**
-	 * Points de vie de l'unité.
-	 */
-	private final int vie = 35;
-	/**
-	 * Points de vision de l'unité.
-	 */
-	private final int vue = 7;
+	
 	/**
 	 * Points de portée de l'unité.
 	 */
@@ -36,18 +20,28 @@ public class Archer extends Unite {
 	 */
 	public Archer(Hex hex) {
 		super(hex);
-		this.pointsAttaque = this.puissance;
-		this.pointsDefense = this.defense;
-		this.pointsDeplacement = this.deplacement;
-		this.pointsDeVie = this.vie;
-		this.vision = this.vue;
+		this.pointsAttaque = 6;
+		this.pointsDefense = 3;
+		this.pointsDeplacement = 5;
+		this.pointsDeplacementInit = 5;
+		this.pointsDeVie = 35;
+		this.vision = 7;
+		this.pointsDeVieMax = 35;
+		this.portee = 7;
+		
 	}
 
+	/**
+	 *  Constructeur d'un archer.
+	 */
+	public Archer() {
+	}
+	
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	public void heal() {
-		if (this.pointsDeplacement == deplacement) {
+		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
 		}
 	}
@@ -56,7 +50,7 @@ public class Archer extends Unite {
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	public void initialize() {
-		this.pointsDeplacement = deplacement;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
 
 	/**
@@ -66,18 +60,29 @@ public class Archer extends Unite {
 	 * @param unite Unite
 	 */
 	public void combat(HexMap map, Joueur joueur, Unite unite) {
-		final int constante = 7;
-		portee = (int) pointsDeVie / constante;
+		int rand = (int)(Math.random() * 10);
+		List<Hex> trajet = new ArrayList<Hex>();
+		portee = (int) pointsDeVie / this.portee;
 		if (map.pathfinding(this.hex, unite.hex).size() < portee) {
-			unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque));
+			if (rand > 2) {
+				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+			} else {
+				unite.pointsDeVie = (int) (unite.pointsDeVie - (3 * (this.pointsAttaque - unite.pointsDefense)));
+			}
+		}else{
+			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
+				trajet = map.pathfinding(this.hex, unite.hex);
+				this.setHex(trajet.get(trajet.size() - portee));
+				if (rand > 2) {
+					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+				} else {
+					unite.pointsDeVie = (int) (unite.pointsDeVie - (3 * (this.pointsAttaque - unite.pointsDefense)));
+				}
+			}
 		}
-	}
-
-	/**
-	 * Renvoi les points de vie de base.
-	 * @return vie vie
-	 */
-	public int getVie() {
-		return vie;
+		this.pointsDeplacement = 0;
 	}
 }
+
+
+

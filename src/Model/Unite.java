@@ -8,8 +8,10 @@ public abstract class Unite {
 	protected int pointsAttaque;
 	protected float pointsDefense;
 	protected int pointsDeplacement;
+	protected int pointsDeplacementInit;
 	protected int pointsDeVie;
 	protected int vision;
+	protected int pointsDeVieMax;
 	protected Hex hex;
 
 	public Unite(Hex hex) {
@@ -35,7 +37,7 @@ public abstract class Unite {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (3 * (this.pointsAttaque - unite.pointsDefense)));
 			}
 		} else {
-			if (unite.hex.getCost() <= this.pointsDeplacement) {
+			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
 				trajet = map.pathfinding(this.hex, unite.hex);
 				this.setHex(trajet.get(trajet.size() - 1));
 				if (rand > 2) {
@@ -57,7 +59,7 @@ public abstract class Unite {
 		}
 
 	public void seDeplace(Hex newHex){
-		if(newHex.getCost()<=this.pointsDeplacement) {
+		if(newHex.distance(this.hex)<=this.pointsDeplacement) {
 			this.setHex(newHex);
 		}
 	}
@@ -86,8 +88,8 @@ public abstract class Unite {
 		this.pointsDeplacement = pointsDeplacement;
 	}
 
-	public int getVie() {
-		return 0;
-	}
+	public int getPointsDeVieMax() {
+		return pointsDeVieMax;
+	}	
 
 }

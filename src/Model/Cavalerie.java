@@ -2,36 +2,26 @@ package model;
 
 public class Cavalerie extends Unite {
 
-	/* attributs de base */
-	private final int puissance = 8; //gros c'est la puissance
-	private final int defense = 7; //gros c'est la defense
-	private final int deplacement = 8; //fais le mouv, fais le mouv
-	private final int vie = 40; //c'est la vie, lalalalala
-	private final int vue = 6; //perception humaine des rayonnements lumineux
-
 	public Cavalerie(Hex hex) {
 		super(hex);
-		this.pointsAttaque = this.puissance;
-		this.pointsDefense = this.defense;
-		this.pointsDeplacement = this.deplacement;
-		this.pointsDeVie = this.vie;
-		this.vision = this.vue;
+		this.pointsAttaque = 8;
+		this.pointsDefense = 7;
+		this.pointsDeplacement = 8;
+		this.pointsDeVie = 40;
+		this.vision = 6;
+		this.pointsDeVieMax = 40;
 	}
 
 	public void heal() {
-		if (this.pointsDeplacement == deplacement) {
+		if (this.pointsDeplacement == 8) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
 		}
 	}
 
 	public void initialize() {
-		this.pointsDeplacement = deplacement;
+		this.pointsDeplacement = 8;
 	}
 
 	public Cavalerie() {
-	}
-
-	public int getVie() {
-		return vie;
 	}
 }
