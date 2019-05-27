@@ -66,20 +66,23 @@ public class Archer extends Unite {
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		portee = (int) pointsDeVie / this.portee;
-		if (map.pathfinding(this.hex, unite.hex).size() < portee) {
-			if (rand > 2) {
+		if (this.hex.distance(unite.hex) < portee) {
+			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 			}
 		} else {
-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
-				trajet = map.pathfinding(this.hex, unite.hex);
-				this.setHex(trajet.get(trajet.size() - portee));
-				if (rand > chanceCrit) {
-					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
-				} else {
-					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+			trajet = map.pathfinding(this.hex, unite.hex);
+			for(Hex hex : trajet) {
+				if((hex.distance(unite.hex)<=portee) /*&& ( Cout déplacement )*/ ){
+					this.setHex(hex);
+					if (rand > chanceCrit) {
+						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+					} else {
+						unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+					}
+					break;
 				}
 			}
 		}

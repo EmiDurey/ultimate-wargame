@@ -1,0 +1,142 @@
+[1mdiff --git a/src/Model/Archer.java b/src/Model/Archer.java[m
+[1mindex 2306149..f9e675c 100644[m
+[1m--- a/src/Model/Archer.java[m
+[1m+++ b/src/Model/Archer.java[m
+[36m@@ -66,20 +66,23 @@[m [mpublic class Archer extends Unite {[m
+ 		int rand = (int) (Math.random() * 10);[m
+ 		List<Hex> trajet = new ArrayList<Hex>();[m
+ 		portee = (int) pointsDeVie / this.portee;[m
+[31m-		if (map.pathfinding(this.hex, unite.hex).size() < portee) {[m
+[31m-			if (rand > 2) {[m
+[32m+[m		[32mif (this.hex.distance(unite.hex) < portee) {[m
+[32m+[m			[32mif (rand > chanceCrit) {[m
+ 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+ 			} else {[m
+ 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+ 			}[m
+ 		} else {[m
+[31m-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {[m
+[31m-				trajet = map.pathfinding(this.hex, unite.hex);[m
+[31m-				this.setHex(trajet.get(trajet.size() - portee));[m
+[31m-				if (rand > chanceCrit) {[m
+[31m-					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+[31m-				} else {[m
+[31m-					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+[32m+[m			[32mtrajet = map.pathfinding(this.hex, unite.hex);[m
+[32m+[m			[32mfor(Hex hex : trajet) {[m
+[32m+[m				[32mif((hex.distance(unite.hex)<=portee) /*&& ( Cout déplacement )*/ ){[m
+[32m+[m					[32mthis.setHex(hex);[m
+[32m+[m					[32mif (rand > chanceCrit) {[m
+[32m+[m						[32munite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+[32m+[m					[32m} else {[m
+[32m+[m						[32munite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+[32m+[m					[32m}[m
+[32m+[m					[32mbreak;[m
+ 				}[m
+ 			}[m
+ 		}[m
+[1mdiff --git a/src/Model/Dragon.java b/src/Model/Dragon.java[m
+[1mindex b749f76..216c59a 100644[m
+[1m--- a/src/Model/Dragon.java[m
+[1m+++ b/src/Model/Dragon.java[m
+[36m@@ -50,8 +50,8 @@[m [mpublic class Dragon extends Unite{[m
+ 	 * S'il attaque une unité,[m
+ 	 * attaque toutes les unités ennemis adjacentes en même temps.[m
+ 	 * @param map Map[m
+[31m-	 * @param joueur Joueur[m
+[31m-	 * @param unite Unite[m
+[32m+[m	[32m * @param joueur Joueur actuelle[m
+[32m+[m	[32m * @param unite Unite à attaquer[m
+ 	 */[m
+ 	public void combat(HexMap map, Joueur joueur, Unite unite) {[m
+ 		final int crit = 3;[m
+[36m@@ -61,6 +61,11 @@[m [mpublic class Dragon extends Unite{[m
+ 		int rand = (int)(Math.random() * 10);[m
+ 		List<Hex> trajet = new ArrayList<Hex>();[m
+ 		if (this.hex.isNeighbour(unite.hex)) {[m
+[32m+[m			[32mif (rand > chanceCrit) {[m
+[32m+[m				[32munite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32munite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+[32m+[m			[32m}[m
+ 			for (Hex voisin : voisins) {[m
+ 				if (!voisin.isEmpty()) {[m
+ 					if (!joueur.getUnite().contains(voisin.getUnit())) {[m
+[36m@@ -73,9 +78,14 @@[m [mpublic class Dragon extends Unite{[m
+ 				}[m
+ 			}[m
+ 		} else {[m
+[31m-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {[m
+[31m-				trajet = map.pathfinding(this.hex, unite.hex);[m
+[31m-				this.setHex(trajet.get(trajet.size() - 1));[m
+[32m+[m			[32mtrajet = map.pathfinding(this.hex, unite.hex);[m
+[32m+[m			[32m/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {[m
+[32m+[m				[32mthis.setHex(trajet.get(trajet.size()-2));[m
+[32m+[m				[32mif (rand > chanceCrit) {[m
+[32m+[m					[32munite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32munite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+[32m+[m				[32m}[m
+ 				for (Hex voisin : voisins) {[m
+ 					if (!voisin.isEmpty()) {[m
+ 						if (!joueur.getUnite().contains(voisin.getUnit())) {[m
+[36m@@ -87,8 +97,9 @@[m [mpublic class Dragon extends Unite{[m
+ 						}[m
+ 					}[m
+ 				}[m
+[31m-			}[m
+[32m+[m				[32mthis.pointsDeplacement = 0;[m
+[32m+[m			[32m}*/[m
+ 		}[m
+[31m-		this.pointsDeplacement = 0;[m
+ 	}[m
+ }[m
+[41m+	[m
+[1mdiff --git a/src/Model/Unite.java b/src/Model/Unite.java[m
+[1mindex e002c57..b241a69 100644[m
+[1m--- a/src/Model/Unite.java[m
+[1m+++ b/src/Model/Unite.java[m
+[36m@@ -89,15 +89,15 @@[m [mpublic abstract class Unite {[m
+ 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+ 			}[m
+ 		} else {[m
+[31m-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {[m
+[31m-				trajet = map.pathfinding(this.hex, unite.hex);[m
+[31m-				this.setHex(trajet.get(trajet.size() - 1));[m
+[32m+[m			[32mtrajet = map.pathfinding(this.hex, unite.hex);[m[41m[m
+[32m+[m			[32m/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {[m[41m[m
+[32m+[m				[32mthis.setHex(trajet.get(trajet.size()-2));[m[41m[m
+ 				if (rand > chanceCrit) {[m
+ 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));[m
+ 				} else {[m
+ 					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));[m
+ 				}[m
+[31m-			}[m
+[32m+[m			[32m}*/[m[41m[m
+ 		}[m
+ 		this.pointsDeplacement = 0;[m
+ 	}[m
+[36m@@ -107,16 +107,20 @@[m [mpublic abstract class Unite {[m
+ 	 * @param tour Int[m
+ 	 */[m
+ 	public void joueTour(int tour) {[m
+[32m+[m		[32mList<Hex> positionPossible = new ArrayList<Hex>();[m[41m[m
+[32m+[m		[32m//TODO[m[41m[m
+ 	}[m
+ [m
+ 	/**[m
+ 	 * Déplace une unité si c'est possible.[m
+[32m+[m	[32m * @param map HexMap[m[41m[m
+ 	 * @param newHex Hex[m
+ 	 */[m
+[31m-	public void seDeplace(Hex newHex){[m
+[31m-		if (newHex.distance(this.hex) <= this.pointsDeplacement) {[m
+[32m+[m	[32mpublic void seDeplace(HexMap map, Hex newHex){[m[41m[m
+[32m+[m		[32mList<Hex> trajet = map.pathfinding(this.hex, newHex);[m[41m[m
+[32m+[m		[32m/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-1) COUTE < this.pointsDeplacement)) {[m[41m[m
+ 			this.setHex(newHex);[m
+[31m-		}[m
+[32m+[m		[32m}*/[m[41m[m
+ 	}[m
+ [m
+ 	/**[m

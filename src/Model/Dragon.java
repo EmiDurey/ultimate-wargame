@@ -50,8 +50,8 @@ public class Dragon extends Unite{
 	 * S'il attaque une unité,
 	 * attaque toutes les unités ennemis adjacentes en même temps.
 	 * @param map Map
-	 * @param joueur Joueur
-	 * @param unite Unite
+	 * @param joueur Joueur actuelle
+	 * @param unite Unite à attaquer
 	 */
 	public void combat(HexMap map, Joueur joueur, Unite unite) {
 		final int crit = 3;
@@ -61,6 +61,11 @@ public class Dragon extends Unite{
 		int rand = (int)(Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		if (this.hex.isNeighbour(unite.hex)) {
+			if (rand > chanceCrit) {
+				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+			} else {
+				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+			}
 			for (Hex voisin : voisins) {
 				if (!voisin.isEmpty()) {
 					if (!joueur.getUnite().contains(voisin.getUnit())) {
@@ -73,9 +78,14 @@ public class Dragon extends Unite{
 				}
 			}
 		} else {
-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
-				trajet = map.pathfinding(this.hex, unite.hex);
-				this.setHex(trajet.get(trajet.size() - 1));
+			trajet = map.pathfinding(this.hex, unite.hex);
+			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
+				this.setHex(trajet.get(trajet.size()-2));
+				if (rand > chanceCrit) {
+					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+				} else {
+					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+				}
 				for (Hex voisin : voisins) {
 					if (!voisin.isEmpty()) {
 						if (!joueur.getUnite().contains(voisin.getUnit())) {
@@ -87,8 +97,9 @@ public class Dragon extends Unite{
 						}
 					}
 				}
-			}
+				this.pointsDeplacement = 0;
+			}*/
 		}
-		this.pointsDeplacement = 0;
 	}
 }
+	

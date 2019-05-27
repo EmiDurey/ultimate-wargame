@@ -89,15 +89,15 @@ public abstract class Unite {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 			}
 		} else {
-			if (unite.hex.distance(this.hex) <= this.pointsDeplacement) {
-				trajet = map.pathfinding(this.hex, unite.hex);
-				this.setHex(trajet.get(trajet.size() - 1));
+			trajet = map.pathfinding(this.hex, unite.hex);
+			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
+				this.setHex(trajet.get(trajet.size()-2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 				}
-			}
+			}*/
 		}
 		this.pointsDeplacement = 0;
 	}
@@ -107,16 +107,20 @@ public abstract class Unite {
 	 * @param tour Int
 	 */
 	public void joueTour(int tour) {
+		List<Hex> positionPossible = new ArrayList<Hex>();
+		//TODO
 	}
 
 	/**
 	 * Déplace une unité si c'est possible.
+	 * @param map HexMap
 	 * @param newHex Hex
 	 */
-	public void seDeplace(Hex newHex){
-		if (newHex.distance(this.hex) <= this.pointsDeplacement) {
+	public void seDeplace(HexMap map, Hex newHex){
+		List<Hex> trajet = map.pathfinding(this.hex, newHex);
+		/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-1) COUTE < this.pointsDeplacement)) {
 			this.setHex(newHex);
-		}
+		}*/
 	}
 
 	/**
