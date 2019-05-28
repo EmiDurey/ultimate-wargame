@@ -11,8 +11,9 @@ public class InfanterieLourde extends Unite {
 	 */
 	public InfanterieLourde(Hex hex) {
 		super(hex);
-		this.pointsAttaque = 10;
-		this.pointsDefense = 10;
+		hex.setUnit(this);
+		this.pointsAttaque = 8;
+		this.pointsDefense = 3;
 		this.pointsDeplacement = 4;
 		this.pointsDeplacementInit = 4;
 		this.pointsDeVie = 40;

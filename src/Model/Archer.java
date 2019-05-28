@@ -20,8 +20,9 @@ public class Archer extends Unite {
 	 */
 	public Archer(Hex hex) {
 		super(hex);
+		hex.setUnit(this);
 		this.pointsAttaque = 6;
-		this.pointsDefense = 3;
+		this.pointsDefense = 2;
 		this.pointsDeplacement = 5;
 		this.pointsDeplacementInit = 5;
 		this.pointsDeVie = 35;
@@ -79,6 +80,8 @@ public class Archer extends Unite {
 			trajet = map.pathfinding(this.hex, unite.hex);
 			for(Hex hex : trajet) {
 				if ((hex.distance(unite.hex) <= portee) /*&& ( Cout déplacement )*/ ){
+					this.getHex().setUnit(null);
+				 	hex.setUnit(this);
 					this.setHex(hex);
 					if (rand > chanceCrit) {
 						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));

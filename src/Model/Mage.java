@@ -11,8 +11,9 @@ public class Mage extends Unite {
 	 */
 	public Mage(Hex hex) {
 		super(hex);
-		this.pointsAttaque = 8;
-		this.pointsDefense = 3;
+		hex.setUnit(this);
+		this.pointsAttaque = 10;
+		this.pointsDefense = 1;
 		this.pointsDeplacement = 5;
 		this.pointsDeplacementInit = 5;
 		this.pointsDeVie = 25;
