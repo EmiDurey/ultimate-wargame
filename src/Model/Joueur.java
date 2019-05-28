@@ -1,87 +1,50 @@
 package model;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ *  Class Joueur.
+ */
 public class Joueur {
 
+	/**
+	 *  Nom du joueur.
+	 */
 	private String nom;
-	private int argent = 10000;
-	private Color couleur;
+	/**
+	 *  Liste d'unités d'un joueur.
+	 */
 	private ArrayList<Unite> unites = new ArrayList<Unite>();
-	private ArrayList<Unite> enAttente = new ArrayList();
 
-	public Joueur(String name) {
-		this.setNom(name);
+	/**
+	 *  Constructeur d'un joueur.
+	 *  @param nom String
+	 */
+	public Joueur(String nom) {
+		this.setNom(nom);
 	}
 
-	public String toString() {
+	/**
+	 *  Récupère le nom du joueur.
+	 *  @return nom String
+	 */
+	public String getNom() {
 		return nom;
 	}
 
-	public void setNom(String name) {
-		this.nom = name.toUpperCase();
+	/**
+	 *  Assigne un nom au joueur.
+	 *  @param nom String
+	 */
+	public void setNom(String nom) {
+		this.nom = nom.toUpperCase();
 	}
 
-	public int getMoney() {
-		return this.argent;
-	}
-
-	public Color getCouleur() {
-		return this.couleur;
-	}
-
-	public void setColor(Color color) {
-		this.couleur = color;
-	}
-
+	/**
+	 *  Récupère la liste d'unitée d'un joueur.
+	 *  @return unites ArrayList<Unite>
+	 */
 	public ArrayList<Unite> getUnite() {
 		return unites;
-	}
-	
-	public void ajouterCavalerie() {
-		Cavalerie cavalerie = new Cavalerie();
-		enAttente.add(cavalerie);
-	}
-
-	public void ajouterArcher() {
-		Archer archer = new Archer();
-		enAttente.add(archer);
-	}
-
-	public void acheterArcher(String t) {
-		int prixArcher = 100;
-		if (t.compareTo("argent") == 0) {
-			if (argent >= prixArcher) {
-				ajouterArcher();
-				argent -= prixArcher;
-			}
-		}
-	}
-
-	public void acheterCavalier(String t) {
-		int prixCavalier = 500;
-		if (t.compareTo("argent") == 0) {
-			if (argent >= prixCavalier) {
-				ajouterArcher();
-				argent -= prixCavalier;
-			}
-		}
-	}
-
-	public int getArgent() {
-		return argent;
-	}
-
-	public void setArgent(int argent) {
-		this.argent = argent;
-	}
-
-	public ArrayList<Unite> getEnAttente() {
-		return enAttente;
-	}
-
-	public void setEnAttente(ArrayList<Unite> enAttente) {
-		this.enAttente = enAttente;
 	}
 }

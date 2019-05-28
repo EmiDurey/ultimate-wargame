@@ -60,7 +60,7 @@ public class Pretre extends Unite {
 	 * @param map HexMap
 	 */
 	@Override
-	public void joueTour(Joueur joueur, HexMap map) {
+	public void joueurIA(Joueur joueur, HexMap map) {
 		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
 
 	}

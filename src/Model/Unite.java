@@ -121,7 +121,7 @@ public abstract class Unite {
 	 * @param joueur Joueur actuelle
 	 * @param map HexMap
 	 */
-	public void joueTour(Joueur joueur, HexMap map) {
+	public void joueurIA(Joueur joueur, HexMap map) {
 		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
 		List<Hex> unitInRange = new ArrayList<Hex>();
 		List<Hex> trajet = new ArrayList<Hex>();
