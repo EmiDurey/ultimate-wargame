@@ -24,7 +24,7 @@ public class HexMap {
 	* Retourne la HashMap contenant la carte.
 	* @return HashMap<Integer, Hex>
 	*/
-	public HashMap<Integer, Hex> getHashMap() {
+	public HashMap<Integer, Hex> getHashMap(){
 		return map;
 	}
 
