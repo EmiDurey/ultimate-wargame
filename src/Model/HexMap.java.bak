@@ -318,81 +318,67 @@ public class HexMap {
 	* @return ArrayList<Hex>
 	*/
 	public ArrayList<Hex> pathfinding(Hex start, Hex goal) {
-		SortedHexList open = new SortedHexList();
-		SortedHexList closed = new SortedHexList();
-		HashMap<Integer, Hex> cameFrom = new HashMap<Integer, Hex>();
-		HashMap<Integer, Integer> cost = new HashMap<Integer, Integer>();
+		SortedHexList frontier = new SortedHexList();
+		HashMap<Hex, Hex> cameFrom = new HashMap<Hex, Hex>();
+		HashMap<Hex, Integer> cost = new HashMap<Hex, Integer>();
 
-
-		open.put(start, 0);
-		cameFrom.put(start.hashCode(), null);
-		cost.put(start.hashCode(), 0);
+		frontier.put(start, 0);
+		cameFrom.put(start, null);
+		cost.put(start, 0);
 
 		Boolean pathFound = false;
 
-		while (open.hasElements()) {
-			Hex current = open.pop();
+		while (frontier.hasElements()) {
+			Hex current = frontier.pop();
+			System.out.println("A*: Current="+current.getX()+current.getY()+current.getZ());
 
-			System.out.println("Current: "+current.getX()+current.getY()+current.getZ());
-			System.out.println("Cost: "+cost.get(current.hashCode()));
-			System.out.println("Open size: "+open.size());
-
-			//Solution?
-			if(current.isMatch(goal)) {
-				cameFrom.put(goal.hashCode(), current);
-				pathFound = true;
-				break;
-			}
 
 			Hex[] neighbours = current.getNeighbours();
 			for (int i = 0; i < 6; i++) {
 				Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
 
-				if(next == null)
-					break;	//Pas dans la map
+				//If hex is in map and accessible
+				if (next != null && next.getCost() > 0) {
 
-				//Calcul du nouveau coup
-				int nextCost = cost.get(current.hashCode()) + next.getCost();
 
-				if(open.contains(next) != -1 || closed.contains(next) != -1) {
-					if(nextCost >= open.contains(next) || nextCost >= open.contains(next)){
-						//Le noeud a deja été visité de manière + optimale
+
+					if(next.isMatch(goal)) {
+						cameFrom.put(goal, current);
+						pathFound = true;
 						break;
 					}
 
+					int newCost = cost.get(current) + next.getCost();
+
+					if (!cost.containsKey(next) /*|| newCost < cost.get(next)*/ ) {
+						System.out.println("A*: Adding next");
+						System.out.println("A*: Next="+next.getX()+next.getY()+next.getZ());
+						cost.put(next, newCost);
+						int priority = newCost + next.distance(goal);
+						frontier.put(next, priority);
+						cameFrom.put(next, current);
+					}
 				}
-
-				//Il s'agit d'un chemin plus optimal, on supprime l'ancienne référence
-				open.remove(next);
-				closed.remove(next);
-
-				cameFrom.put(next.hashCode(), current);
-				cost.put(next.hashCode(), nextCost);
-
-				System.out.println("Appending to open");
-				open.put(next, nextCost);
 			}
-			int currentCost = cost.get(current.hashCode());
-			closed.put(current, currentCost);
+			System.out.print("\n");
 		}
 
 		ArrayList<Hex> solution = new ArrayList<Hex>();
 
 		if (pathFound) {
 			System.out.println("A*: Pathfound");
-			Hex hex = cameFrom.get(goal.hashCode());
+			Hex hex = cameFrom.get(goal);
 			System.out.println(hex);
 
 			while (hex != null) {
 				solution.add(hex);
-				hex = cameFrom.get(hex.hashCode());
+				hex = cameFrom.get(hex);
 			}
 
 			Collections.reverse(solution);
 		}
 
 		return solution;
-
 	}
 
 
@@ -468,32 +454,18 @@ class SortedHexList {
 	}
 
 	/**
-	* Indique si l'hexagone est contenu dans la queue, si oui, renvoie son cout.
+	* Indique si l'hexagone est contenu dans la queue.
 	* @param a Hex
-	* @return int
+	* @return Boolean
 	*/
-	int contains(Hex a) {
+	Boolean contains(Hex a) {
 		for (int i = 0; i < hexList.size(); i++) {
 			if (a.isMatch(hexList.get(i))) {
-				return costList.get(i);
+				return true;
 			}
 		}
 
-		return -1;
-	}
-
-	int size() {
-		return hexList.size();
-	}
-
-
-	void remove(Hex a) {
-		for (int i = 0; i < hexList.size(); i++) {
-			if (a.isMatch(hexList.get(i))) {
-				hexList.remove(i);
-				costList.remove(i);
-			}
-		}
+		return false;
 	}
 
 }

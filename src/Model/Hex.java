@@ -244,12 +244,12 @@ public class Hex {
 	 	* On part du côté en haut à droite et on tourne dans le sens horaire.
 	 	*/
 		ArrayList<Hex> directions = new ArrayList<Hex>();
+		directions.add(new Hex(0, 1, -1));
 		directions.add(new Hex(1, 0, -1));
-		directions.add(new Hex(1, 0, -1));
+		directions.add(new Hex(1, -1, 0));
 		directions.add(new Hex(0, -1, 1));
 		directions.add(new Hex(-1, 0, 1));
 		directions.add(new Hex(-1, 1, 0));
-		directions.add(new Hex(0, 1, -1));
 
 		return directions.get(direction);
 	}
@@ -334,6 +334,11 @@ public class Hex {
 	*/
 	public int hashCode() {
 		return fct2(fct2(fct1(x), fct1(y)), fct1(z));
+	}
+
+
+	public void print() {
+		System.out.print("H");
 	}
 
 };
