@@ -1,12 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Class Pretre.
  */
 public class Pretre extends Unite {
 
+	/**
+	 *  Points de soin d'un pretre.
+	 */
 	private int pointsSoin;
-	
+
 	/**
 	 *  Constructeur d'un pretre.
 	 *  @param hex Hexagone
@@ -35,7 +41,7 @@ public class Pretre extends Unite {
 		Hex[] voisins = new Hex[6];
 		voisins = this.hex.getNeighbours();
 		for (Hex voisin : voisins) {
-			if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) { 
+			if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) {
 				Unite unite = map.getHex(voisin.getX(), voisin.getY()).getUnit();
 				if (joueur.getUnite().contains(unite)) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie + this.pointsSoin);
@@ -45,6 +51,18 @@ public class Pretre extends Unite {
 				}
 			}
 		}
+	}
+
+	/**
+	 * IA.
+	 * Déplace une unité en fonction des possibilités de déplacement de cette dernière.
+	 * @param joueur Joueur actuelle
+	 * @param map HexMap
+	 */
+	@Override
+	public void joueTour(Joueur joueur, HexMap map) {
+		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+
 	}
 
 	/**

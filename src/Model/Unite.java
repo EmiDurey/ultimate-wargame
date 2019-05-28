@@ -89,8 +89,6 @@ public abstract class Unite {
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
-		System.out.println(rand+"/10, crit > 2");
-		System.out.println(!this.hex.isNeighbour(unite.hex));
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
@@ -99,10 +97,10 @@ public abstract class Unite {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			if((!trajet.isEmpty()) && ( map.moveCost(this.hex, trajet.get(trajet.size()-2)) <= this.pointsDeplacement)) {
+			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)) {
 			 	this.getHex().setUnit(null);
-			 	trajet.get(trajet.size()-2).setUnit(this);
-				this.setHex(trajet.get(trajet.size()-2));
+			 	trajet.get(trajet.size() - 2).setUnit(this);
+				this.setHex(trajet.get(trajet.size() - 2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -119,12 +117,11 @@ public abstract class Unite {
 
 	/**
 	 * IA.
-	 * Déplace une unité en fonction des posssibilités de déplacement de cette dernière.
-	 * @param tour Int
+	 * Déplace une unité en fonction des possibilités de déplacement de cette dernière.
 	 * @param joueur Joueur actuelle
 	 * @param map HexMap
 	 */
-	public void joueTour(int tour, Joueur joueur, HexMap map) {
+	public void joueTour(Joueur joueur, HexMap map) {
 		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
 		List<Hex> unitInRange = new ArrayList<Hex>();
 		List<Hex> trajet = new ArrayList<Hex>();
@@ -142,13 +139,13 @@ public abstract class Unite {
 			} else {
 				for (Hex unitPos : unitInRange) {
 					trajet = map.pathfinding(this.hex, unitPos);
-					if((!trajet.isEmpty()) 
-							&& ( map.moveCost(this.hex, trajet.get(trajet.size()-2)) <= this.pointsDeplacement)
-							&& unitPos.getUnit().pointsDeVie<this.pointsAttaque - unitPos.getUnit().getDefense()) {
+					if ((!trajet.isEmpty())
+							&& ( map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)
+							&& unitPos.getUnit().pointsDeVie < this.pointsAttaque - unitPos.getUnit().getDefense()) {
 						this.combat(map, joueur, unitPos.getUnit());
 					} else {
-						if((!trajet.isEmpty()) 
-								&& ( map.moveCost(this.hex, trajet.get(trajet.size()-1)) <= this.pointsDeplacement)
+						if ((!trajet.isEmpty())
+								&& (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)
 								&& this.pointsDeVie > unitPos.getUnit().pointsAttaque - this.getDefense()) {
 							this.combat(map, joueur, unitPos.getUnit());
 						}
@@ -159,7 +156,6 @@ public abstract class Unite {
 		if (this.pointsDeplacement != 0) {
 			//ON S'ELOIGNE
 		}
-		
 	}
 
 	/**
@@ -169,9 +165,9 @@ public abstract class Unite {
 	 */
 	public void seDeplace(HexMap map, Hex newHex){
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
-		if((!trajet.isEmpty()) && ( map.moveCost(this.hex, trajet.get(trajet.size()-1)) <= this.pointsDeplacement)) {
-			this.pointsDeplacement -= map.moveCost(this.hex, trajet.get(trajet.size()-1));
-		  	this.getHex().setUnit(null) ;
+		if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)) {
+			this.pointsDeplacement -= map.moveCost(this.hex, trajet.get(trajet.size() - 1));
+		  	this.getHex().setUnit(null);
 			newHex.setUnit(this);
 			this.setHex(newHex);
 		}
@@ -233,11 +229,35 @@ public abstract class Unite {
 		return pointsDeVieMax;
 	}
 
+	/**
+	 * Récupère les points de vie  d'une unité.
+	 * @return pointsDeVieMax int
+	 */
 	public int getPointsDeVie() {
 		return pointsDeVie;
 	}
 
+	/**
+	 * Assigne les points de vie d'une unité.
+	 * @param pointsDeVie int
+	 */
 	public void setPointsDeVie(int pointsDeVie) {
 		this.pointsDeVie = pointsDeVie;
+	}
+
+	/**
+	 * Récupère le joueur d'une unité.
+	 * @return joueur Joueur
+	 */
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	/**
+	 * Assigne le joueur d'une unité.
+	 * @param joueur Joueur
+	 */
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
 	}
 }

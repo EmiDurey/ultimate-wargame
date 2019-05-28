@@ -26,7 +26,7 @@ public class Cavalerie extends Unite {
 	 */
 	public Cavalerie() {
 	}
-	
+
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */

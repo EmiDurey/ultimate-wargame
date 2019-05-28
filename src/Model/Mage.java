@@ -43,3 +43,4 @@ public class Mage extends Unite {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
 }
+

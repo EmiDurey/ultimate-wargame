@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *  Class Dragon.
  */
-public class Dragon extends Unite{
+public class Dragon extends Unite {
 
 	/**
 	 *  Constructeur d'un dragon.
@@ -30,7 +30,7 @@ public class Dragon extends Unite{
 	 */
 	public Dragon() {
 	}
-	
+
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
@@ -66,7 +66,7 @@ public class Dragon extends Unite{
 		final int chanceCrit = 2;
 		Hex[] voisins = new Hex[6];
 		voisins = unite.hex.getNeighbours();
-		int rand = (int)(Math.random() * 10);
+		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
@@ -88,10 +88,10 @@ public class Dragon extends Unite{
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			if((!trajet.isEmpty()) && ( map.moveCost(this.hex, trajet.get(trajet.size()-2)) <= this.pointsDeplacement)) {
+			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)) {
 			  	this.getHex().setUnit(null);
-			 	trajet.get(trajet.size()-2).setUnit(this);
-				this.setHex(trajet.get(trajet.size()-2));
+			 	trajet.get(trajet.size() - 2).setUnit(this);
+				this.setHex(trajet.get(trajet.size() - 2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -118,4 +118,4 @@ public class Dragon extends Unite{
 		this.pointsDeplacement = 0;
 	}
 }
-	
+

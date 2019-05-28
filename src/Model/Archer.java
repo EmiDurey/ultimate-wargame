@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Archer extends Unite {
 
-	
+
 	/**
 	 * Points de portée de l'unité.
 	 */
@@ -30,7 +30,7 @@ public class Archer extends Unite {
 		this.vision = 7;
 		this.pointsDeVieMax = 35;
 		this.portee = 4;
-		
+
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Archer extends Unite {
 	 */
 	public Archer() {
 	}
-	
+
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
@@ -73,7 +73,6 @@ public class Archer extends Unite {
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
-		System.out.println(portee+" ? "+this.hex.distance(unite.hex));
 		if (this.hex.distance(unite.hex) <= 4) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
@@ -82,7 +81,7 @@ public class Archer extends Unite {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			for(Hex hex : trajet) {
+			for (Hex hex : trajet) {
 				if ((hex.distance(unite.hex) <= portee) && ((map.moveCost(hex, unite.hex)) <= this.pointsDeplacement)) {
 					this.getHex().setUnit(null);
 				 	hex.setUnit(this);
