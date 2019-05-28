@@ -24,7 +24,7 @@ public class HexMap {
 	* Retourne la HashMap contenant la carte.
 	* @return HashMap<Integer, Hex>
 	*/
-	public HashMap<Integer, Hex> getHashMap(){
+	public HashMap<Integer, Hex> getHashMap() {
 		return map;
 	}
 
@@ -341,6 +341,19 @@ public class HexMap {
 		}
 
 		return solution;
+	}
+
+
+	public int moveCost(Hex start, Hex goal) {
+		ArrayList<Hex> path = pathfinding(start, goal);
+
+		int cost = 0;
+
+		for(int i=0; i<path.size(); i++) {
+			cost += path.get(i).getCost();
+		}
+
+		return cost;
 	}
 }
 
