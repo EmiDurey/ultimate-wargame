@@ -80,7 +80,7 @@ public abstract class Unite {
 	public void combat(HexMap map, Joueur joueur, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
-		int rand = (int)(Math.random() * 10);
+		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
@@ -104,10 +104,22 @@ public abstract class Unite {
 
 	/**
 	 * IA.
+	 * Déplace une unité en fonction des posssibilités de déplacement de cette dernière.
 	 * @param tour Int
+	 * @param joueur Joueur actuelle
+	 * @param map HexMap
 	 */
-	public void joueTour(int tour) {
-		List<Hex> positionPossible = new ArrayList<Hex>();
+	public void joueTour(int tour, Joueur joueur, HexMap map) {
+		while (this.pointsDeplacement != 0) {
+			List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+			for (Hex hex : positionPossible) {
+				if (!hex.isEmpty() && (!joueur.getUnite().contains(hex.getUnit())))/*VERIFIER QU'ON GAGNE LE TRADE)*/ {
+					this.combat(map, joueur, hex.getUnit());
+					break;
+				}
+			}
+			
+		}
 		//TODO
 	}
 

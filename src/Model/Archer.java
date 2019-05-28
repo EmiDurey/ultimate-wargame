@@ -75,7 +75,7 @@ public class Archer extends Unite {
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
 			for(Hex hex : trajet) {
-				if((hex.distance(unite.hex)<=portee) /*&& ( Cout déplacement )*/ ){
+				if ((hex.distance(unite.hex) <= portee) /*&& ( Cout déplacement )*/ ){
 					this.setHex(hex);
 					if (rand > chanceCrit) {
 						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
