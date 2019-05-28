@@ -110,17 +110,41 @@ public abstract class Unite {
 	 * @param map HexMap
 	 */
 	public void joueTour(int tour, Joueur joueur, HexMap map) {
-		while (this.pointsDeplacement != 0) {
-			List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
-			for (Hex hex : positionPossible) {
-				if (!hex.isEmpty() && (!joueur.getUnite().contains(hex.getUnit())))/*VERIFIER QU'ON GAGNE LE TRADE)*/ {
-					this.combat(map, joueur, hex.getUnit());
+		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+		List<Hex> unitInRange = new ArrayList<Hex>();
+		List<Hex> trajet = new ArrayList<Hex>();
+		for (Hex hex : positionPossible) {
+			if (!hex.isEmpty()) {
+				unitInRange.add(hex);
+			}
+			if (unitInRange.isEmpty()) {
+				if (this.pointsDeVie >= this.pointsDeVieMax / 2) {
+					//ON SE RAPPROCHE
+				} else {
+					this.setPointsDeplacement(0);
 					break;
 				}
+			} else {
+				for (Hex unitPos : unitInRange) {
+					trajet = map.pathfinding(this.hex, unitPos);
+					/*if((!trajet.isEmpty()) 
+							&& (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement) 
+							&& unitPos.getUnit().pointsDeVie<this.pointsAttaque - unitPos.getUnit().getDefense()) {
+						this.combat(map, joueur, unitPos.getUnit());
+					} else {
+						if((!trajet.isEmpty()) 
+								&& (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement) 
+								&& this.pointsDeVie > unitPos.getUnit().pointsAttaque - this.getDefense()) {
+							this.combat(map, joueur, unitPos.getUnit());
+						}
+					}*/
+				}
 			}
-			
 		}
-		//TODO
+		if (this.pointsDeplacement != 0) {
+			//ON S'ELOIGNE
+		}
+		
 	}
 
 	/**

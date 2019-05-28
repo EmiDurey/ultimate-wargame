@@ -28,6 +28,7 @@ public class Cavalerie extends Unite {
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
+	@Override
 	public void heal() {
 		if (this.pointsDeplacement == 8) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
@@ -37,6 +38,7 @@ public class Cavalerie extends Unite {
 	/**
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
+	@Override
 	public void initialize() {
 		this.pointsDeplacement = 8;
 	}
