@@ -6,15 +6,15 @@ public class Eau extends Hex {
 	private final int cout = 5; // cout du deplacement dans ce terrain
 	private final int defense = 0; // pourcentage
 
-	private float rarity = 1/6;
-
 
 	Eau(int newX, int newY) {
 		super(newX, newY);
+		rarity = (float) 0.2;
 	}
 
 	Eau(int newX, int newY, int newZ) {
 		super(newX, newY, newZ);
+		rarity = (float) 0.2;
 	}
 
 

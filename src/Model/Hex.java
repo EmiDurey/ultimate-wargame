@@ -43,6 +43,10 @@ public class Hex {
 	 */
 	private Unite unit = null;
 
+	protected float rarity;
+
+
+
 	/**
      * Constructeur utilisant les coordonnées cubiques.
 	 * @param newX coordonnée x
@@ -345,6 +349,10 @@ public class Hex {
 
 	public void print() {
 		System.out.print("H");
+	}
+
+	public float getRarity() {
+		return rarity;
 	}
 
 };

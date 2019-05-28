@@ -61,6 +61,7 @@ public class HexMap {
 		return map.put(a.hashCode(), a);
 	}
 
+
 	public void deleteMap() {
 		map = new HashMap<Integer, Hex>();
 	}
@@ -118,29 +119,93 @@ public class HexMap {
 	}
 
 
+	private void setBiome(Hex hex, float biomeValue, int n) {
+		double popValue = Math.random();
 
-	private void propagate(Hex source) {
+		if(popValue < hex.getRarity()){
+			if(biomeValue < 0.225)
+				addHex(new Eau(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.450)
+				addHex(new Foret(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.675)
+				addHex(new Montagne(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.9)
+				addHex(new Neige(hex.getX(), hex.getY()));
+
+			else
+				addHex(new Forteresse(hex.getX(), hex.getY()));
+
+			propagate(hex, biomeValue, n);
+		}
+	}
+
+
+	private void propagate(Hex source, float biomeValue, int n) {
+		n++;
+		if(n > 10)
+			return;
+
 		Hex[] neighbours = source.getNeighbours();
 
 		for(int i=0; i<6; i++) {
+			Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
 
+			if(next == null)
+				continue;
+
+			if(biomeValue < 0.225)
+				next = new Eau(next.getX(), next.getY());
+
+			else if(biomeValue < 0.450)
+				next = new Foret(next.getX(), next.getY());
+
+			else if(biomeValue < 0.675)
+				next = new Montagne(next.getX(), next.getY());
+
+			else if(biomeValue < 0.9)
+				next = new Neige(next.getX(), next.getY());
+
+			else
+				next = new Forteresse(next.getX(), next.getY());
+
+
+			setBiome(next, biomeValue, n);
 		}
 	}
 
 
 	public void populate() {
-		int nBiomes = getWidth() * getHeight() / 15;
-		System.out.println("nBiomes = "+nBiomes);
+		int nBiomes = (int) Math.sqrt(getWidth() * getHeight() / 4);
 
+		Random generator = new Random();
+		Object [] values = map.values().toArray();
 
 
 		for(int i=0; i<nBiomes; i++) {
-			Random generator = new Random();
-			Object [] values = map.values().toArray();
-			Hex randomValue = (Hex) values[generator.nextInt(values.length)];
-			System.out.println("Hex = "+ randomValue);
 
+			Hex next = (Hex) values[generator.nextInt(values.length)];
 
+			float biomeValue = (float) Math.random();
+
+			if(biomeValue < 0.225)
+				addHex(new Eau(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.450)
+				addHex(new Foret(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.675)
+				addHex(new Montagne(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.9)
+				addHex(new Neige(next.getX(), next.getY()));
+
+			else
+				addHex(new Forteresse(next.getX(), next.getY()));
+
+			propagate(next, biomeValue, 0);
 
 		}
 	}
