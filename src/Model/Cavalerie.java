@@ -11,8 +11,9 @@ public class Cavalerie extends Unite {
 	 */
 	public Cavalerie(Hex hex) {
 		super(hex);
+		hex.setUnit(this);
 		this.pointsAttaque = 8;
-		this.pointsDefense = 7;
+		this.pointsDefense = 3;
 		this.pointsDeplacement = 8;
 		this.pointsDeVie = 40;
 		this.vision = 6;

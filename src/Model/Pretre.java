@@ -13,8 +13,9 @@ public class Pretre extends Unite {
 	 */
 	public Pretre(Hex hex) {
 		super(hex);
+		hex.setUnit(this);
 		this.pointsAttaque = 2;
-		this.pointsDefense = 2;
+		this.pointsDefense = 1;
 		this.pointsDeplacement = 6;
 		this.pointsDeplacementInit = 6;
 		this.pointsDeVie = 60;
@@ -26,17 +27,20 @@ public class Pretre extends Unite {
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 * Soigne toutes les unités alliés autour de lui.
+	 * @param map HexMap
 	 * @param joueur Joueur
 	 */
-	public void soigne(Joueur joueur) {
+	public void soigne(HexMap map, Joueur joueur) {
 		Hex[] voisins = new Hex[6];
 		voisins = this.hex.getNeighbours();
 		for (Hex voisin : voisins) {
-			if (!voisin.isEmpty()) {
-				if (joueur.getUnite().contains(voisin.getUnit())) {
-					voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie + this.pointsSoin);
-					if (voisin.getUnit().pointsDeVie > voisin.getUnit().pointsDeVieMax) {
-						voisin.getUnit().pointsDeVie = voisin.getUnit().pointsDeVieMax;
+			System.out.println(voisin.getX()+" "+voisin.getY()+" "+voisin.getZ());
+			if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) { 
+				Unite unite = map.getHex(voisin.getX(), voisin.getY()).getUnit();
+				if (joueur.getUnite().contains(unite)) {
+					unite.pointsDeVie = (int) (unite.pointsDeVie + this.pointsSoin);
+					if (unite.pointsDeVie > unite.pointsDeVieMax) {
+						unite.pointsDeVie = unite.pointsDeVieMax;
 					}
 				}
 			}

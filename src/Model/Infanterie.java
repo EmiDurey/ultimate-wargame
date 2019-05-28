@@ -11,8 +11,9 @@ public class Infanterie extends Unite {
 	 */
 	public Infanterie(Hex hex) {
 		super(hex);
+		hex.setUnit(this);
 		this.pointsAttaque = 5;
-		this.pointsDefense = 4;
+		this.pointsDefense = 2;
 		this.pointsDeplacement = 6;
 		this.pointsDeplacementInit = 6;
 		this.pointsDeVie = 30;

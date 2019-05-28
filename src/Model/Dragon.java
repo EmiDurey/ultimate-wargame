@@ -14,8 +14,9 @@ public class Dragon extends Unite{
 	 */
 	public Dragon(Hex hex) {
 		super(hex);
+		hex.setUnit(this);
 		this.pointsAttaque = 10;
-		this.pointsDefense = 10;
+		this.pointsDefense = 5;
 		this.pointsDeplacement = 7;
 		this.pointsDeplacementInit = 7;
 		this.pointsDeVie = 45;
@@ -83,6 +84,8 @@ public class Dragon extends Unite{
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
 			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
+			  	this.getHex().setUnit(null);
+			 	trajet.get(trajet.size()-2).setUnit(this);
 				this.setHex(trajet.get(trajet.size()-2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));

@@ -82,7 +82,9 @@ public abstract class Unite {
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
-		if (this.hex.isNeighbour(unite.hex)) {
+		System.out.println(rand+"/10, crit > 2");
+		System.out.println(!this.hex.isNeighbour(unite.hex));
+		if (!this.hex.isNeighbour(unite.hex)) {// VIRER !
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
@@ -91,6 +93,8 @@ public abstract class Unite {
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
 			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
+			 	this.getHex().setUnit(null);
+			 	trajet.get(trajet.size()-2).setUnit(this);
 				this.setHex(trajet.get(trajet.size()-2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
@@ -155,6 +159,8 @@ public abstract class Unite {
 	public void seDeplace(HexMap map, Hex newHex){
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
 		/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-1) COUTE < this.pointsDeplacement)) {
+		  	this.getHex().setUnit() = null;
+			newHex.setUnit(this);
 			this.setHex(newHex);
 		}*/
 	}
@@ -213,5 +219,13 @@ public abstract class Unite {
 	 */
 	public int getPointsDeVieMax() {
 		return pointsDeVieMax;
+	}
+
+	public int getPointsDeVie() {
+		return pointsDeVie;
+	}
+
+	public void setPointsDeVie(int pointsDeVie) {
+		this.pointsDeVie = pointsDeVie;
 	}
 }
