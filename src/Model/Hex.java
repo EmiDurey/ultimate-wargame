@@ -179,7 +179,7 @@ public class Hex {
 	* @return Hex
 	*/
 	public Hex substract(Hex b) {
-		 return new Hex(x - b.x, y - b.y, z - b.z);
+		return new Hex(x - b.x, y - b.y, z - b.z);
 	}
 
  	/**
@@ -200,7 +200,7 @@ public class Hex {
 		float yFloat = (float) y;
 		float zFloat = (float) z;
 
-		float sum = (float) Math.abs(x) + Math.abs(y) + Math.abs(y);
+		float sum = (float) Math.abs(x) + Math.abs(y) + Math.abs(z);
 
 		return (int) Math.ceil( sum/2 );
 	}
@@ -274,12 +274,10 @@ public class Hex {
 	 * @return Hex []
 	 */
 	public Hex[] getNeighbours() {
-		System.out.println("Called by "+getX()+" "+getY()+" "+getZ());
 		Hex[] neighbours = new Hex[6];
 
 		for (int i = 0; i < 6; i++) {
 			neighbours[i] = getNeighbour(i);
-			System.out.println(neighbours[i].getX()+" "+neighbours[i].getY()+" "+neighbours[i].getZ());
 		}
 
 		return neighbours;

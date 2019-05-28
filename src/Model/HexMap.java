@@ -329,64 +329,61 @@ public class HexMap {
 		cost.put(start.hashCode(), 0);
 
 		Boolean pathFound = false;
+		Hex hex = new Hex(0,0,0);
 
 		while (open.hasElements()) {
 			Hex current = open.pop();
 
-			System.out.println("Current: "+current.getX()+current.getY()+current.getZ());
-			System.out.println("Cost: "+cost.get(current.hashCode()));
-			System.out.println("Open size: "+open.size());
+			closed.put(current, cost.get(current.hashCode()));
 
-			//Solution?
 			if(current.isMatch(goal)) {
-				cameFrom.put(goal.hashCode(), current);
+				hex = current;
 				pathFound = true;
 				break;
 			}
 
 			Hex[] neighbours = current.getNeighbours();
+
 			for (int i = 0; i < 6; i++) {
 				Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
 
+
 				if(next == null)
-					break;	//Pas dans la map
+					continue;
 
-				//Calcul du nouveau coup
-				int nextCost = cost.get(current.hashCode()) + next.getCost();
-
-				if(open.contains(next) != -1 || closed.contains(next) != -1) {
-					if(nextCost >= open.contains(next) || nextCost >= open.contains(next)){
-						//Le noeud a deja été visité de manière + optimale
-						break;
-					}
-
+				if(closed.contains(next) != -1) {
+					continue;
 				}
 
-				//Il s'agit d'un chemin plus optimal, on supprime l'ancienne référence
-				open.remove(next);
-				closed.remove(next);
 
+				int nextCost = cost.get(current.hashCode()) + next.getCost();
+
+
+				if(open.contains(next) != -1) {
+					if(nextCost >= cost.get(next.hashCode()))
+						continue;
+				}
+
+
+				cost.put(next.hashCode(), cost.get(current.hashCode()) + next.getCost() + next.distance(goal));
 				cameFrom.put(next.hashCode(), current);
-				cost.put(next.hashCode(), nextCost);
-
-				System.out.println("Appending to open");
 				open.put(next, nextCost);
+
 			}
-			int currentCost = cost.get(current.hashCode());
-			closed.put(current, currentCost);
+
 		}
+
+
 
 		ArrayList<Hex> solution = new ArrayList<Hex>();
 
 		if (pathFound) {
-			System.out.println("A*: Pathfound");
-			Hex hex = cameFrom.get(goal.hashCode());
-			System.out.println(hex);
 
-			while (hex != null) {
+			while (!hex.isMatch(start)) {
 				solution.add(hex);
 				hex = cameFrom.get(hex.hashCode());
 			}
+
 
 			Collections.reverse(solution);
 		}
@@ -399,13 +396,9 @@ public class HexMap {
 	public int moveCost(Hex start, Hex goal) {
 		ArrayList<Hex> path = pathfinding(start, goal);
 
-		System.out.println("Path size = "+path.size());
-
 		int cost = 0;
 
 		for(int i=0; i<path.size(); i++) {
-
-			System.out.println(cost);
 
 			cost += path.get(i).getCost();
 		}
