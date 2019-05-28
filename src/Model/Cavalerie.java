@@ -8,9 +8,10 @@ public class Cavalerie extends Unite {
 	/**
 	 *  Constructeur d'un cavalier.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Cavalerie(Hex hex) {
-		super(hex);
+	public Cavalerie(Hex hex, Joueur joueur) {
+		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 8;
 		this.pointsDefense = 3;

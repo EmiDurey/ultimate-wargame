@@ -8,9 +8,10 @@ public class Mage extends Unite {
 	/**
 	 *  Constructeur d'un mage.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Mage(Hex hex) {
-		super(hex);
+	public Mage(Hex hex, Joueur joueur) {
+		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 10;
 		this.pointsDefense = 1;

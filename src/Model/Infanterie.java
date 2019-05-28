@@ -8,9 +8,10 @@ public class Infanterie extends Unite {
 	/**
 	 *  Constructeur de l'infanterie.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Infanterie(Hex hex) {
-		super(hex);
+	public Infanterie(Hex hex, Joueur joueur) {
+		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 5;
 		this.pointsDefense = 2;

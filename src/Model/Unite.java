@@ -9,6 +9,10 @@ import java.util.List;
 public abstract class Unite {
 
 	/**
+	 *  Joueur possédant l'unitée.
+	 */
+	protected Joueur joueur;
+	/**
 	 *  Points d'attaque d'une unitée.
 	 */
 	protected int pointsAttaque;
@@ -48,9 +52,12 @@ public abstract class Unite {
 	/**
 	 *  Constructeur d'une unitée.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Unite(Hex hex) {
+	public Unite(Hex hex, Joueur joueur) {
 		this.hex = hex;
+		this.joueur = joueur;
+		joueur.getUnite().add(this);
 	}
 
 	/**
@@ -75,10 +82,9 @@ public abstract class Unite {
 	 * Méthode combat pour la plupart des unités.
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
-	 * @paral joueurUnit Joueur possédant l'unité
 	 * @param unite Unite
 	 */
-	public void combat(HexMap map, Joueur joueurAct, Joueur joueurUnit, Unite unite) {
+	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
@@ -93,7 +99,7 @@ public abstract class Unite {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
+			if((!trajet.isEmpty()) && ( map.moveCost(this.hex, trajet.get(trajet.size()-2)) <= this.pointsDeplacement)) {
 			 	this.getHex().setUnit(null);
 			 	trajet.get(trajet.size()-2).setUnit(this);
 				this.setHex(trajet.get(trajet.size()-2));
@@ -102,10 +108,10 @@ public abstract class Unite {
 				} else {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 				}
-			}*/
+			}
 		}
 		if (unite.getPointsDeVie() < 0) {
-			joueurUnit.getUnite().remove(unite);
+			unite.joueur.getUnite().remove(unite);
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
@@ -136,17 +142,17 @@ public abstract class Unite {
 			} else {
 				for (Hex unitPos : unitInRange) {
 					trajet = map.pathfinding(this.hex, unitPos);
-					/*if((!trajet.isEmpty()) 
-							&& (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement) 
+					if((!trajet.isEmpty()) 
+							&& ( map.moveCost(this.hex, trajet.get(trajet.size()-2)) <= this.pointsDeplacement)
 							&& unitPos.getUnit().pointsDeVie<this.pointsAttaque - unitPos.getUnit().getDefense()) {
 						this.combat(map, joueur, unitPos.getUnit());
 					} else {
 						if((!trajet.isEmpty()) 
-								&& (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement) 
+								&& ( map.moveCost(this.hex, trajet.get(trajet.size()-1)) <= this.pointsDeplacement)
 								&& this.pointsDeVie > unitPos.getUnit().pointsAttaque - this.getDefense()) {
 							this.combat(map, joueur, unitPos.getUnit());
 						}
-					}*/
+					}
 				}
 			}
 		}
@@ -163,11 +169,12 @@ public abstract class Unite {
 	 */
 	public void seDeplace(HexMap map, Hex newHex){
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
-		/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-1) COUTE < this.pointsDeplacement)) {
-		  	this.getHex().setUnit() = null;
+		if((!trajet.isEmpty()) && ( map.moveCost(this.hex, trajet.get(trajet.size()-1)) <= this.pointsDeplacement)) {
+			this.pointsDeplacement -= map.moveCost(this.hex, trajet.get(trajet.size()-1));
+		  	this.getHex().setUnit(null) ;
 			newHex.setUnit(this);
 			this.setHex(newHex);
-		}*/
+		}
 	}
 
 	/**

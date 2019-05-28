@@ -10,9 +10,10 @@ public class Pretre extends Unite {
 	/**
 	 *  Constructeur d'un pretre.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Pretre(Hex hex) {
-		super(hex);
+	public Pretre(Hex hex, Joueur joueur) {
+		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 2;
 		this.pointsDefense = 1;
