@@ -23,6 +23,7 @@ public class Infanterie extends Unite {
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
+	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
@@ -32,6 +33,7 @@ public class Infanterie extends Unite {
 	/**
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
+	@Override
 	public void initialize() {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
