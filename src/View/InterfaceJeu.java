@@ -87,7 +87,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 * Modifie la barre de menu.
+	 *  Modifie la barre de menu.
 	 *  @param barreMenu BarreMenu
 	 */
 	public void setBarreMenu(BarreMenu barreMenu) {
