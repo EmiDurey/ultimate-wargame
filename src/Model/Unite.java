@@ -74,17 +74,18 @@ public abstract class Unite {
 	/**
 	 * Méthode combat pour la plupart des unités.
 	 * @param map Map
-	 * @param joueur Joueur
+	 * @param joueurAct Joueur Actuel
+	 * @paral joueurUnit Joueur possédant l'unité
 	 * @param unite Unite
 	 */
-	public void combat(HexMap map, Joueur joueur, Unite unite) {
+	public void combat(HexMap map, Joueur joueurAct, Joueur joueurUnit, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		System.out.println(rand+"/10, crit > 2");
 		System.out.println(!this.hex.isNeighbour(unite.hex));
-		if (!this.hex.isNeighbour(unite.hex)) {// VIRER !
+		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
@@ -102,6 +103,10 @@ public abstract class Unite {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 				}
 			}*/
+		}
+		if (unite.getPointsDeVie() < 0) {
+			joueurUnit.getUnite().remove(unite);
+			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
 	}

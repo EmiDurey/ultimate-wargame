@@ -28,6 +28,9 @@ public class Infanterie extends Unite {
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 

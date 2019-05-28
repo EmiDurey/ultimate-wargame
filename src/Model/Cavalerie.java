@@ -33,6 +33,9 @@ public class Cavalerie extends Unite {
 	public void heal() {
 		if (this.pointsDeplacement == 8) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 

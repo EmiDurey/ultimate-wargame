@@ -34,7 +34,6 @@ public class Pretre extends Unite {
 		Hex[] voisins = new Hex[6];
 		voisins = this.hex.getNeighbours();
 		for (Hex voisin : voisins) {
-			System.out.println(voisin.getX()+" "+voisin.getY()+" "+voisin.getZ());
 			if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) { 
 				Unite unite = map.getHex(voisin.getX(), voisin.getY()).getUnit();
 				if (joueur.getUnite().contains(unite)) {
@@ -54,6 +53,9 @@ public class Pretre extends Unite {
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 

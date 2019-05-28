@@ -28,7 +28,7 @@ public class Archer extends Unite {
 		this.pointsDeVie = 35;
 		this.vision = 7;
 		this.pointsDeVieMax = 35;
-		this.portee = 7;
+		this.portee = 4;
 		
 	}
 
@@ -45,6 +45,9 @@ public class Archer extends Unite {
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 
@@ -60,17 +63,18 @@ public class Archer extends Unite {
 	 * Méthode combat propre à l'archer.
 	 * Peut attaquer à distance.
 	 * @param map Map
-	 * @param joueur Joueur
+	 * @param joueurAct Joueur Actuel
+	 * @paral joueurUnit Joueur possédant l'unité
 	 * @param unite Unite
 	 */
 	@Override
-	public void combat(HexMap map, Joueur joueur, Unite unite) {
+	public void combat(HexMap map, Joueur joueurAct, Joueur joueurUnit, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
-		portee = (int) pointsDeVie / this.portee;
-		if (this.hex.distance(unite.hex) < portee) {
+		System.out.println(portee+" ? "+this.hex.distance(unite.hex));
+		if (this.hex.distance(unite.hex) < 4) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
@@ -91,6 +95,10 @@ public class Archer extends Unite {
 					break;
 				}
 			}
+		}
+		if (unite.getPointsDeVie() < 0) {
+			joueurUnit.getUnite().remove(unite);
+			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
 	}
