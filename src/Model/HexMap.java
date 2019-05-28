@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 
 public class HexMap {
@@ -373,6 +374,39 @@ public class HexMap {
 
 
 
+	public ArrayList<Hex> viewHighlight(Hex source, int viewDist) {
+		Stack<Hex> stack = new Stack<Hex>();
+		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
+		ArrayList<Hex> returnValue = new ArrayList<Hex>();
+
+		stack.push(source);
+		costList.put(source.hashCode(), 0);
+
+		while(!stack.empty()) {
+			Hex current = stack.pop();
+
+			returnValue.add(current);
+
+			ArrayList<Hex> neighbours = getNeighbours(current);
+
+			for(int i=0; i<neighbours.size(); i++) {
+
+
+				int newCost = costList.get(current.hashCode())+1;
+
+				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
+					stack.push(neighbours.get(i));
+					costList.put(neighbours.get(i).hashCode(), newCost);
+				}
+			}
+		}
+
+		return returnValue;
+
+	}
+
+
+
 	/**
 	* Retourne le chemin de l'hexagone start vers l'hexagone goal.
 	* Si il n'existe pas de chemin ou que l'un des deux hexagones
@@ -470,6 +504,7 @@ public class HexMap {
 
 		return cost;
 	}
+
 
 }
 
