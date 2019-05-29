@@ -11,7 +11,7 @@ public abstract class Unite {
 	/**
 	 *  Joueur possédant l'unitée.
 	 */
-	protected Joueur joueur;
+	protected Joueur joueur = null;
 	/**
 	 *  Points d'attaque d'une unitée.
 	 */
@@ -58,6 +58,7 @@ public abstract class Unite {
 		this.hex = hex;
 		this.joueur = joueur;
 		joueur.getUnite().add(this);
+		hex.setUnit(this);
 	}
 
 	/**

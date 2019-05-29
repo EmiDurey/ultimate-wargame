@@ -406,6 +406,95 @@ public class HexMap {
 	}
 
 
+	public ArrayList<Hex> movementHighlight(Hex source, int viewDist) {
+		Stack<Hex> stack = new Stack<Hex>();
+		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
+		ArrayList<Hex> returnValue = new ArrayList<Hex>();
+
+		stack.push(source);
+		costList.put(source.hashCode(), 0);
+
+		while(!stack.empty()) {
+			Hex current = stack.pop();
+
+			returnValue.add(current);
+
+			ArrayList<Hex> neighbours = getNeighbours(current);
+
+			for(int i=0; i<neighbours.size(); i++) {
+
+
+				int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
+
+				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
+					stack.push(neighbours.get(i));
+					costList.put(neighbours.get(i).hashCode(), newCost);
+				}
+			}
+		}
+
+		return returnValue;
+
+	}
+
+
+	public Unite getClosestAlly(Hex source, Joueur owner) {
+		int minDist = getHeight() + getWidth();
+		Unite returnValue = null;
+
+		System.out.println(map.values().size());
+
+		for (Hex value : map.values()) {
+
+			if(value.getUnit() == null)
+				continue;
+
+
+			if(value.getUnit().getJoueur() == null)
+				continue;
+
+			Joueur joueur = value.getUnit().getJoueur();
+
+			if(source.distance(value) < minDist && joueur.id == owner.id ){
+				minDist = source.distance(value);
+				returnValue = value.getUnit();
+			}
+
+		}
+
+		return returnValue;
+	}
+
+
+
+	public Unite getClosestEnemy(Hex source, Joueur owner) {
+		int minDist = getHeight() + getWidth();
+		Unite returnValue = null;
+
+		System.out.println(map.values().size());
+
+		for (Hex value : map.values()) {
+
+			if(value.getUnit() == null)
+				continue;
+
+
+			if(value.getUnit().getJoueur() == null)
+				continue;
+
+			Joueur joueur = value.getUnit().getJoueur();
+
+			if(source.distance(value) < minDist && joueur.id != owner.id ){
+				minDist = source.distance(value);
+				returnValue = value.getUnit();
+			}
+
+		}
+
+		return returnValue;
+	}
+
+
 
 	/**
 	* Retourne le chemin de l'hexagone start vers l'hexagone goal.

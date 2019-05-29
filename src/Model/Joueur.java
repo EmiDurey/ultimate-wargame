@@ -15,13 +15,18 @@ public class Joueur {
 	 *  Liste d'unités d'un joueur.
 	 */
 	private ArrayList<Unite> unites = new ArrayList<Unite>();
+	/**
+	 *  Identifiant unique du joueur
+	 */
+	public int id;
 
 	/**
 	 *  Constructeur d'un joueur.
 	 *  @param nom String
 	 */
-	public Joueur(String nom) {
+	public Joueur(String nom, int newId) {
 		this.setNom(nom);
+		this.id = newId;
 	}
 
 	/**
@@ -29,6 +34,7 @@ public class Joueur {
 	 *  @return nom String
 	 */
 	public String getNom() {
+		System.out.println("ID in getter:"+id);
 		return nom;
 	}
 
@@ -47,4 +53,23 @@ public class Joueur {
 	public ArrayList<Unite> getUnite() {
 		return unites;
 	}
+
+	/**
+	 *  Ajoute une unite à celles possédées par le joueur.
+	 *  @param unit String
+	 */
+	public void addUnit(Unite unit) {
+		unites.add(unit);
+	}
+
+
+
+	/**
+	 *  Assigne un id au joueur.
+	 *  @param id ind
+	 */
+	public void setID(int id) {
+		this.id = id;
+	}
+
 }
