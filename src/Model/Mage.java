@@ -8,11 +8,13 @@ public class Mage extends Unite {
 	/**
 	 *  Constructeur d'un mage.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Mage(Hex hex) {
-		super(hex);
-		this.pointsAttaque = 8;
-		this.pointsDefense = 3;
+	public Mage(Hex hex, Joueur joueur) {
+		super(hex, joueur);
+		hex.setUnit(this);
+		this.pointsAttaque = 10;
+		this.pointsDefense = 1;
 		this.pointsDeplacement = 5;
 		this.pointsDeplacementInit = 5;
 		this.pointsDeVie = 25;
@@ -23,16 +25,22 @@ public class Mage extends Unite {
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
+	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 
 	/**
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
+	@Override
 	public void initialize() {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
 }
+

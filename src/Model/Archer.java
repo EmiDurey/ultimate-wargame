@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Archer extends Unite {
 
-	
+
 	/**
 	 * Points de portée de l'unité.
 	 */
@@ -17,18 +17,21 @@ public class Archer extends Unite {
 	/**
 	 *  Constructeur d'un archer.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Archer(Hex hex) {
-		super(hex);
+	public Archer(Hex hex, Joueur joueur) {
+		super(hex, joueur);
+		hex.setUnit(this);
 		this.pointsAttaque = 6;
-		this.pointsDefense = 3;
+		this.pointsDefense = 2;
 		this.pointsDeplacement = 5;
 		this.pointsDeplacementInit = 5;
 		this.pointsDeVie = 35;
 		this.vision = 7;
 		this.pointsDeVieMax = 35;
-		this.portee = 7;
-		
+		this.portee = 4;
+		joueur.addUnit(this);
+
 	}
 
 	/**
@@ -36,19 +39,24 @@ public class Archer extends Unite {
 	 */
 	public Archer() {
 	}
-	
+
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
+	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 
 	/**
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
+	@Override
 	public void initialize() {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
@@ -57,16 +65,16 @@ public class Archer extends Unite {
 	 * Méthode combat propre à l'archer.
 	 * Peut attaquer à distance.
 	 * @param map Map
-	 * @param joueur Joueur
+	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite
 	 */
-	public void combat(HexMap map, Joueur joueur, Unite unite) {
+	@Override
+	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
-		portee = (int) pointsDeVie / this.portee;
-		if (this.hex.distance(unite.hex) < portee) {
+		if (this.hex.distance(unite.hex) <= 4) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 			} else {
@@ -74,8 +82,10 @@ public class Archer extends Unite {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			for(Hex hex : trajet) {
-				if ((hex.distance(unite.hex) <= portee) /*&& ( Cout déplacement )*/ ){
+			for (Hex hex : trajet) {
+				if ((hex.distance(unite.hex) <= portee) && ((map.moveCost(hex, unite.hex)) <= this.pointsDeplacement)) {
+					this.getHex().setUnit(null);
+				 	hex.setUnit(this);
 					this.setHex(hex);
 					if (rand > chanceCrit) {
 						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
@@ -86,9 +96,10 @@ public class Archer extends Unite {
 				}
 			}
 		}
+		if (unite.getPointsDeVie() < 0) {
+			unite.joueur.getUnite().remove(unite);
+			unite.getHex().setUnit(null);
+		}
 		this.pointsDeplacement = 0;
 	}
 }
-
-
-

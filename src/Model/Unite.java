@@ -9,6 +9,10 @@ import java.util.List;
 public abstract class Unite {
 
 	/**
+	 *  Joueur possédant l'unitée.
+	 */
+	protected Joueur joueur = null;
+	/**
 	 *  Points d'attaque d'une unitée.
 	 */
 	protected int pointsAttaque;
@@ -48,9 +52,13 @@ public abstract class Unite {
 	/**
 	 *  Constructeur d'une unitée.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Unite(Hex hex) {
+	public Unite(Hex hex, Joueur joueur) {
 		this.hex = hex;
+		this.joueur = joueur;
+		joueur.getUnite().add(this);
+		hex.setUnit(this);
 	}
 
 	/**
@@ -74,10 +82,10 @@ public abstract class Unite {
 	/**
 	 * Méthode combat pour la plupart des unités.
 	 * @param map Map
-	 * @param joueur Joueur
+	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite
 	 */
-	public void combat(HexMap map, Joueur joueur, Unite unite) {
+	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
@@ -90,37 +98,65 @@ public abstract class Unite {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
-				this.setHex(trajet.get(trajet.size()-2));
+			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)) {
+			 	this.getHex().setUnit(null);
+			 	trajet.get(trajet.size() - 2).setUnit(this);
+				this.setHex(trajet.get(trajet.size() - 2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 				}
-			}*/
+			}
+		}
+		if (unite.getPointsDeVie() < 0) {
+			unite.joueur.getUnite().remove(unite);
+			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
 	}
 
 	/**
 	 * IA.
-	 * Déplace une unité en fonction des posssibilités de déplacement de cette dernière.
-	 * @param tour Int
+	 * Déplace une unité en fonction des possibilités de déplacement de cette dernière.
 	 * @param joueur Joueur actuelle
 	 * @param map HexMap
 	 */
-	public void joueTour(int tour, Joueur joueur, HexMap map) {
-		while (this.pointsDeplacement != 0) {
-			List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
-			for (Hex hex : positionPossible) {
-				if (!hex.isEmpty() && (!joueur.getUnite().contains(hex.getUnit())))/*VERIFIER QU'ON GAGNE LE TRADE)*/ {
-					this.combat(map, joueur, hex.getUnit());
+	public void joueurIA(Joueur joueur, HexMap map) {
+		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+		List<Hex> unitInRange = new ArrayList<Hex>();
+		List<Hex> trajet = new ArrayList<Hex>();
+		for (Hex hex : positionPossible) {
+			if (!hex.isEmpty()) {
+				unitInRange.add(hex);
+			}
+			if (unitInRange.isEmpty()) {
+				if (this.pointsDeVie >= this.pointsDeVieMax / 2) {
+					//ON SE RAPPROCHE
+				} else {
+					this.setPointsDeplacement(0);
 					break;
 				}
+			} else {
+				for (Hex unitPos : unitInRange) {
+					trajet = map.pathfinding(this.hex, unitPos);
+					if ((!trajet.isEmpty())
+							&& ( map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)
+							&& unitPos.getUnit().pointsDeVie < this.pointsAttaque - unitPos.getUnit().getDefense()) {
+						this.combat(map, joueur, unitPos.getUnit());
+					} else {
+						if ((!trajet.isEmpty())
+								&& (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)
+								&& this.pointsDeVie > unitPos.getUnit().pointsAttaque - this.getDefense()) {
+							this.combat(map, joueur, unitPos.getUnit());
+						}
+					}
+				}
 			}
-			
 		}
-		//TODO
+		if (this.pointsDeplacement != 0) {
+			//ON S'ELOIGNE
+		}
 	}
 
 	/**
@@ -130,9 +166,12 @@ public abstract class Unite {
 	 */
 	public void seDeplace(HexMap map, Hex newHex){
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
-		/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-1) COUTE < this.pointsDeplacement)) {
+		if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)) {
+			this.pointsDeplacement -= map.moveCost(this.hex, trajet.get(trajet.size() - 1));
+		  	this.getHex().setUnit(null);
+			newHex.setUnit(this);
 			this.setHex(newHex);
-		}*/
+		}
 	}
 
 	/**
@@ -189,5 +228,37 @@ public abstract class Unite {
 	 */
 	public int getPointsDeVieMax() {
 		return pointsDeVieMax;
+	}
+
+	/**
+	 * Récupère les points de vie  d'une unité.
+	 * @return pointsDeVieMax int
+	 */
+	public int getPointsDeVie() {
+		return pointsDeVie;
+	}
+
+	/**
+	 * Assigne les points de vie d'une unité.
+	 * @param pointsDeVie int
+	 */
+	public void setPointsDeVie(int pointsDeVie) {
+		this.pointsDeVie = pointsDeVie;
+	}
+
+	/**
+	 * Récupère le joueur d'une unité.
+	 * @return joueur Joueur
+	 */
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	/**
+	 * Assigne le joueur d'une unité.
+	 * @param joueur Joueur
+	 */
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
 	}
 }

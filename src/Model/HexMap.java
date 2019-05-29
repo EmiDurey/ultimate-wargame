@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
+import java.util.Stack;
 
 
 public class HexMap {
@@ -60,6 +62,7 @@ public class HexMap {
 		return map.put(a.hashCode(), a);
 	}
 
+
 	public void deleteMap() {
 		map = new HashMap<Integer, Hex>();
 	}
@@ -72,7 +75,7 @@ public class HexMap {
 	public void setTriangleMap(int mapSize) {
 		for (int x = 0; x <= mapSize; x++) {
     		for (int y = 0; y <= mapSize - x; y++) {
-				Hex newHex = new Hex(x, y, -x - y);
+				Plaine newHex = new Plaine(x, y, -x - y);
 				map.put(newHex.hashCode(), newHex);
     		}
 		}
@@ -90,7 +93,7 @@ public class HexMap {
     		int y2 = min(mapSize, -x + mapSize);
 
 			for (int y = y1; y <= y2; y++) {
-				Hex newHex = new Hex(x, y, -x - y);
+				Plaine newHex = new Plaine(x, y, -x - y);
 	        	map.put(newHex.hashCode(), newHex);
 			}
 
@@ -110,11 +113,104 @@ public class HexMap {
 			int yOffset = (int) floor(y / 2);
 
     		for (int x = -yOffset; x < width - yOffset; x++) {
-				Hex newHex = new Hex(x, y, -x - y);
+				Plaine newHex = new Plaine(x, y, -x - y);
 	        	map.put(newHex.hashCode(), newHex);
     		}
 		}
 	}
+
+
+	private void setBiome(Hex hex, float biomeValue, int n) {
+		double popValue = Math.random();
+
+		if(popValue < hex.getRarity()){
+			if(biomeValue < 0.225)
+				addHex(new Eau(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.450)
+				addHex(new Foret(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.675)
+				addHex(new Montagne(hex.getX(), hex.getY()));
+
+			else if(biomeValue < 0.9)
+				addHex(new Neige(hex.getX(), hex.getY()));
+
+			else
+				addHex(new Forteresse(hex.getX(), hex.getY()));
+
+			propagate(hex, biomeValue, n);
+		}
+	}
+
+
+	private void propagate(Hex source, float biomeValue, int n) {
+		n++;
+		if(n > 10)
+			return;
+
+		Hex[] neighbours = source.getNeighbours();
+
+		for(int i=0; i<6; i++) {
+			Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
+
+			if(next == null)
+				continue;
+
+			if(biomeValue < 0.225)
+				next = new Eau(next.getX(), next.getY());
+
+			else if(biomeValue < 0.450)
+				next = new Foret(next.getX(), next.getY());
+
+			else if(biomeValue < 0.675)
+				next = new Montagne(next.getX(), next.getY());
+
+			else if(biomeValue < 0.9)
+				next = new Neige(next.getX(), next.getY());
+
+			else
+				next = new Forteresse(next.getX(), next.getY());
+
+
+			setBiome(next, biomeValue, n);
+		}
+	}
+
+
+	public void populate() {
+		int nBiomes = (int) Math.sqrt(getWidth() * getHeight() / 4);
+
+		Random generator = new Random();
+		Object [] values = map.values().toArray();
+
+
+		for(int i=0; i<nBiomes; i++) {
+
+			Hex next = (Hex) values[generator.nextInt(values.length)];
+
+			float biomeValue = (float) Math.random();
+
+			if(biomeValue < 0.225)
+				addHex(new Eau(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.450)
+				addHex(new Foret(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.675)
+				addHex(new Montagne(next.getX(), next.getY()));
+
+			else if(biomeValue < 0.9)
+				addHex(new Neige(next.getX(), next.getY()));
+
+			else
+				addHex(new Forteresse(next.getX(), next.getY()));
+
+			propagate(next, biomeValue, 0);
+
+		}
+	}
+
 
 
 	/**
@@ -268,12 +364,134 @@ public class HexMap {
 				}
 				else {
 					//Existing tile, can be detailed with other cases
-					System.out.print("O");
+					getHex(i, j).print();
 				}
 				System.out.print(" ");
 			}
 			System.out.println("");
 		}
+	}
+
+
+
+	public ArrayList<Hex> viewHighlight(Hex source, int viewDist) {
+		Stack<Hex> stack = new Stack<Hex>();
+		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
+		ArrayList<Hex> returnValue = new ArrayList<Hex>();
+
+		stack.push(source);
+		costList.put(source.hashCode(), 0);
+
+		while(!stack.empty()) {
+			Hex current = stack.pop();
+
+			returnValue.add(current);
+
+			ArrayList<Hex> neighbours = getNeighbours(current);
+
+			for(int i=0; i<neighbours.size(); i++) {
+
+
+				int newCost = costList.get(current.hashCode())+1;
+
+				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
+					stack.push(neighbours.get(i));
+					costList.put(neighbours.get(i).hashCode(), newCost);
+				}
+			}
+		}
+
+		return returnValue;
+
+	}
+
+
+	public ArrayList<Hex> movementHighlight(Hex source, int viewDist) {
+		Stack<Hex> stack = new Stack<Hex>();
+		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
+		ArrayList<Hex> returnValue = new ArrayList<Hex>();
+
+		stack.push(source);
+		costList.put(source.hashCode(), 0);
+
+		while(!stack.empty()) {
+			Hex current = stack.pop();
+
+			returnValue.add(current);
+
+			ArrayList<Hex> neighbours = getNeighbours(current);
+
+			for(int i=0; i<neighbours.size(); i++) {
+
+
+				int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
+
+				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
+					stack.push(neighbours.get(i));
+					costList.put(neighbours.get(i).hashCode(), newCost);
+				}
+			}
+		}
+
+		return returnValue;
+
+	}
+
+
+	public Unite getClosestAlly(Hex source, Joueur owner) {
+		int minDist = getHeight() + getWidth();
+		Unite returnValue = null;
+
+		System.out.println(map.values().size());
+
+		for (Hex value : map.values()) {
+
+			if(value.getUnit() == null)
+				continue;
+
+
+			if(value.getUnit().getJoueur() == null)
+				continue;
+
+			Joueur joueur = value.getUnit().getJoueur();
+
+			if(source.distance(value) < minDist && joueur.id == owner.id ){
+				minDist = source.distance(value);
+				returnValue = value.getUnit();
+			}
+
+		}
+
+		return returnValue;
+	}
+
+
+
+	public Unite getClosestEnemy(Hex source, Joueur owner) {
+		int minDist = getHeight() + getWidth();
+		Unite returnValue = null;
+
+		System.out.println(map.values().size());
+
+		for (Hex value : map.values()) {
+
+			if(value.getUnit() == null)
+				continue;
+
+
+			if(value.getUnit().getJoueur() == null)
+				continue;
+
+			Joueur joueur = value.getUnit().getJoueur();
+
+			if(source.distance(value) < minDist && joueur.id != owner.id ){
+				minDist = source.distance(value);
+				returnValue = value.getUnit();
+			}
+
+		}
+
+		return returnValue;
 	}
 
 
@@ -288,61 +506,98 @@ public class HexMap {
 	* @return ArrayList<Hex>
 	*/
 	public ArrayList<Hex> pathfinding(Hex start, Hex goal) {
-		SortedHexList frontier = new SortedHexList();
-		HashMap<Hex, Hex> cameFrom = new HashMap<Hex, Hex>();
-		HashMap<Hex, Integer> cost = new HashMap<Hex, Integer>();
+		SortedHexList open = new SortedHexList();
+		SortedHexList closed = new SortedHexList();
+		HashMap<Integer, Hex> cameFrom = new HashMap<Integer, Hex>();
+		HashMap<Integer, Integer> cost = new HashMap<Integer, Integer>();
 
-		frontier.put(start, 0);
-		cameFrom.put(start, null);
-		cost.put(start, 0);
+
+		open.put(start, 0);
+		cameFrom.put(start.hashCode(), null);
+		cost.put(start.hashCode(), 0);
 
 		Boolean pathFound = false;
+		Hex hex = new Hex(0,0,0);
 
-		while (frontier.hasElements()) {
-			Hex current = frontier.pop();
+		while (open.hasElements()) {
+			Hex current = open.pop();
+
+			closed.put(current, cost.get(current.hashCode()));
+
+			if(current.isMatch(goal)) {
+				hex = current;
+				pathFound = true;
+				break;
+			}
 
 			Hex[] neighbours = current.getNeighbours();
+
 			for (int i = 0; i < 6; i++) {
 				Hex next = getHex(neighbours[i].getX(), neighbours[i].getY(), neighbours[i].getZ());
 
-				//If hex is in map and accessible
-				if (next != null && next.getCost() > 0) {
 
-					if(next.isMatch(goal)) {
-						cameFrom.put(goal, current);
-						pathFound = true;
-						break;
-					}
+				if(next == null)
+					continue;
 
-					int newCost = cost.get(current) + next.getCost();
-
-					if (!cost.containsKey(next) || newCost < cost.get(next)) {
-						cost.put(next, newCost);
-						int priority = newCost + next.distance(goal);
-						frontier.put(next, priority);
-						cameFrom.put(next, current);
-					}
+				if(closed.contains(next) != -1) {
+					continue;
 				}
+
+
+				int nextCost = cost.get(current.hashCode()) + next.getCost();
+
+
+				if(open.contains(next) != -1) {
+					if(nextCost >= cost.get(next.hashCode()))
+						continue;
+				}
+
+
+				cost.put(next.hashCode(), cost.get(current.hashCode()) + next.getCost() + next.distance(goal));
+				cameFrom.put(next.hashCode(), current);
+				open.put(next, nextCost);
+
 			}
+
 		}
+
+
 
 		ArrayList<Hex> solution = new ArrayList<Hex>();
 
 		if (pathFound) {
-			Hex hex = cameFrom.get(goal);
-			System.out.println(hex);
 
-			while (hex != null) {
+			while (!hex.isMatch(start)) {
 				solution.add(hex);
-				hex = cameFrom.get(hex);
+				hex = cameFrom.get(hex.hashCode());
 			}
+
 
 			Collections.reverse(solution);
 		}
 
 		return solution;
+
 	}
+
+
+	public int moveCost(Hex start, Hex goal) {
+		ArrayList<Hex> path = pathfinding(start, goal);
+
+		int cost = 0;
+
+		for(int i=0; i<path.size(); i++) {
+
+			cost += path.get(i).getCost();
+		}
+
+		return cost;
+	}
+
+
 }
+
+
 
 class SortedHexList {
 	/**
@@ -395,17 +650,32 @@ class SortedHexList {
 	}
 
 	/**
-	* Indique si l'hexagone est contenu dans la queue.
+	* Indique si l'hexagone est contenu dans la queue, si oui, renvoie son cout.
 	* @param a Hex
-	* @return Boolean
+	* @return int
 	*/
-	Boolean contains(Hex a) {
+	int contains(Hex a) {
 		for (int i = 0; i < hexList.size(); i++) {
 			if (a.isMatch(hexList.get(i))) {
-				return true;
+				return costList.get(i);
 			}
 		}
 
-		return false;
+		return -1;
 	}
+
+	int size() {
+		return hexList.size();
+	}
+
+
+	void remove(Hex a) {
+		for (int i = 0; i < hexList.size(); i++) {
+			if (a.isMatch(hexList.get(i))) {
+				hexList.remove(i);
+				costList.remove(i);
+			}
+		}
+	}
+
 }

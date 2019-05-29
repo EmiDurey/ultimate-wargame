@@ -43,6 +43,10 @@ public class Hex {
 	 */
 	private Unite unit = null;
 
+	protected float rarity;
+
+
+
 	/**
      * Constructeur utilisant les coordonnées cubiques.
 	 * @param newX coordonnée x
@@ -170,7 +174,7 @@ public class Hex {
 	* @return Hex
 	*/
 	public Hex add(Hex b) {
-		 return new Hex(x + b.x, y + b.y, z + b.z);
+		return new Hex(x + b.x, y + b.y, z + b.z);
 	}
 
 	/**
@@ -179,7 +183,7 @@ public class Hex {
 	* @return Hex
 	*/
 	public Hex substract(Hex b) {
-		 return new Hex(x - b.x, y - b.y, z - b.z);
+		return new Hex(x - b.x, y - b.y, z - b.z);
 	}
 
  	/**
@@ -196,7 +200,13 @@ public class Hex {
 	 * @return int
 	 */
 	public int zeroDistance() {
-		return Math.abs((x + y + z) / 2);
+		float xFloat = (float) x;
+		float yFloat = (float) y;
+		float zFloat = (float) z;
+
+		float sum = (float) Math.abs(x) + Math.abs(y) + Math.abs(z);
+
+		return (int) Math.ceil( sum/2 );
 	}
 
 	/**
@@ -244,12 +254,12 @@ public class Hex {
 	 	* On part du côté en haut à droite et on tourne dans le sens horaire.
 	 	*/
 		ArrayList<Hex> directions = new ArrayList<Hex>();
+		directions.add(new Hex(0, 1, -1));
 		directions.add(new Hex(1, 0, -1));
-		directions.add(new Hex(1, 0, -1));
+		directions.add(new Hex(1, -1, 0));
 		directions.add(new Hex(0, -1, 1));
 		directions.add(new Hex(-1, 0, 1));
 		directions.add(new Hex(-1, 1, 0));
-		directions.add(new Hex(0, 1, -1));
 
 		return directions.get(direction);
 	}
@@ -271,7 +281,7 @@ public class Hex {
 		Hex[] neighbours = new Hex[6];
 
 		for (int i = 0; i < 6; i++) {
-			neighbours[i] = add(getNeighbour(i));
+			neighbours[i] = getNeighbour(i);
 		}
 
 		return neighbours;
@@ -334,6 +344,15 @@ public class Hex {
 	*/
 	public int hashCode() {
 		return fct2(fct2(fct1(x), fct1(y)), fct1(z));
+	}
+
+
+	public void print() {
+		System.out.print("H");
+	}
+
+	public float getRarity() {
+		return rarity;
 	}
 
 };

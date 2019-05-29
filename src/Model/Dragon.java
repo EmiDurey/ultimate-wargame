@@ -6,16 +6,18 @@ import java.util.List;
 /**
  *  Class Dragon.
  */
-public class Dragon extends Unite{
+public class Dragon extends Unite {
 
 	/**
 	 *  Constructeur d'un dragon.
 	 *  @param hex Hexagone
+	 *  @param joueur Joueur
 	 */
-	public Dragon(Hex hex) {
-		super(hex);
+	public Dragon(Hex hex, Joueur joueur) {
+		super(hex, joueur);
+		hex.setUnit(this);
 		this.pointsAttaque = 10;
-		this.pointsDefense = 10;
+		this.pointsDefense = 5;
 		this.pointsDeplacement = 7;
 		this.pointsDeplacementInit = 7;
 		this.pointsDeVie = 45;
@@ -28,19 +30,24 @@ public class Dragon extends Unite{
 	 */
 	public Dragon() {
 	}
-	
+
 	/**
 	 * Heal de l'unité si elle n'a pas bougé.
 	 */
+	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
 			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			if (this.pointsDeVie > this.pointsDeVieMax) {
+				this.pointsDeVie = this.pointsDeVieMax;
+			}
 		}
 	}
 
 	/**
 	 * Réinitialise les points de déplacement de l'unité.
 	 */
+	@Override
 	public void initialize() {
 		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
@@ -50,15 +57,16 @@ public class Dragon extends Unite{
 	 * S'il attaque une unité,
 	 * attaque toutes les unités ennemis adjacentes en même temps.
 	 * @param map Map
-	 * @param joueur Joueur actuelle
+	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite à attaquer
 	 */
-	public void combat(HexMap map, Joueur joueur, Unite unite) {
+	@Override
+	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
 		final int crit = 3;
 		final int chanceCrit = 2;
 		Hex[] voisins = new Hex[6];
 		voisins = unite.hex.getNeighbours();
-		int rand = (int)(Math.random() * 10);
+		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
@@ -67,20 +75,23 @@ public class Dragon extends Unite{
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
 			}
 			for (Hex voisin : voisins) {
-				if (!voisin.isEmpty()) {
-					if (!joueur.getUnite().contains(voisin.getUnit())) {
+				if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) {
+					Unite uniteCol = map.getHex(voisin.getX(), voisin.getY()).getUnit();
+					if (!joueurAct.getUnite().contains(uniteCol)) {
 						if (rand > chanceCrit) {
-							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (this.pointsAttaque - voisin.getUnit().pointsDefense));
+							uniteCol.pointsDeVie = (int) (uniteCol.pointsDeVie - (this.pointsAttaque - uniteCol.pointsDefense));
 						} else {
-							voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (crit * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+							uniteCol.pointsDeVie = (int) (uniteCol.pointsDeVie - (crit * (this.pointsAttaque - uniteCol.pointsDefense)));
 						}
 					}
 				}
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			/*if((!trajet.isEmpty()) && (trajet.get(trajet.size()-2) COUTE < this.pointsDeplacement)) {
-				this.setHex(trajet.get(trajet.size()-2));
+			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)) {
+			  	this.getHex().setUnit(null);
+			 	trajet.get(trajet.size() - 2).setUnit(this);
+				this.setHex(trajet.get(trajet.size() - 2));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -88,18 +99,23 @@ public class Dragon extends Unite{
 				}
 				for (Hex voisin : voisins) {
 					if (!voisin.isEmpty()) {
-						if (!joueur.getUnite().contains(voisin.getUnit())) {
+						Unite uniteCol = map.getHex(voisin.getX(), voisin.getY()).getUnit();
+						if (!joueurAct.getUnite().contains(voisin.getUnit())) {
 							if (rand > chanceCrit) {
-								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (this.pointsAttaque - voisin.getUnit().pointsDefense));
+								uniteCol.pointsDeVie = (int) (uniteCol.pointsDeVie - (this.pointsAttaque - uniteCol.pointsDefense));
 							} else {
-								voisin.getUnit().pointsDeVie = (int) (voisin.getUnit().pointsDeVie - (crit * (this.pointsAttaque - voisin.getUnit().pointsDefense)));
+								uniteCol.pointsDeVie = (int) (uniteCol.pointsDeVie - (crit * (this.pointsAttaque - uniteCol.pointsDefense)));
 							}
 						}
 					}
 				}
-				this.pointsDeplacement = 0;
-			}*/
+			}
 		}
+		if (unite.getPointsDeVie() < 0) {
+			unite.joueur.getUnite().remove(unite);
+			unite.getHex().setUnit(null);
+		}
+		this.pointsDeplacement = 0;
 	}
 }
-	
+
