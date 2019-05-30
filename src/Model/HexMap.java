@@ -120,6 +120,12 @@ public class HexMap {
 	}
 
 
+	/**
+	* Définit le nouveau biome d'une case pendant la génération de map
+	* @param Hex source
+	* @param float biomeValue
+	* @param int n
+	*/
 	private void setBiome(Hex hex, float biomeValue, int n) {
 		double popValue = Math.random();
 
@@ -144,6 +150,12 @@ public class HexMap {
 	}
 
 
+	/**
+	* Permet de propager aléatoriement le biome à ses voisins
+	* @param Hex source
+	* @param float biomeValue
+	* @param int n
+	*/
 	private void propagate(Hex source, float biomeValue, int n) {
 		n++;
 		if(n > 10)
@@ -178,6 +190,9 @@ public class HexMap {
 	}
 
 
+	/**
+	* Remplis aléatoirement la map avec différents biomes.
+	*/
 	public void populate() {
 		int nBiomes = (int) Math.sqrt(getWidth() * getHeight() / 4);
 
@@ -374,6 +389,12 @@ public class HexMap {
 
 
 
+	/**
+	* Retourne tout les hexagones à une dintance viewDist de source
+	* @param source hexagone
+	* @param viewDist int
+	* @return ArrayList<Hex>
+	*/
 	public ArrayList<Hex> viewHighlight(Hex source, int viewDist) {
 		Stack<Hex> stack = new Stack<Hex>();
 		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
@@ -406,6 +427,28 @@ public class HexMap {
 	}
 
 
+	/**
+	* Révèle pour le joueur les cases aux alentours de source
+	* @param Joueur player
+	* @param Hex source
+	*/
+	public void reveal(Joueur player, Hex source) {
+		//TODO Modify view distance ?
+		ArrayList<Hex> tiles = viewHighlight(source, 4);
+
+		for(int i=0; i<tiles.size(); i++) {
+			tiles.get(i).discovered.put(player.id, true);
+		}
+	}
+
+
+	/**
+	* Retourne tout les hexagones à une dintance viewDist de source
+	* (prend en compte les coûts de déplacemen)
+	* @param source hexagone
+	* @param viewDist int
+	* @return ArrayList<Hex>
+	*/
 	public ArrayList<Hex> movementHighlight(Hex source, int viewDist) {
 		Stack<Hex> stack = new Stack<Hex>();
 		HashMap<Integer, Integer> costList = new HashMap<Integer, Integer>();
@@ -438,6 +481,12 @@ public class HexMap {
 	}
 
 
+	/**
+	* Retourne l'allié le plus proche de la source
+	* @param source hexagone
+	* @param owner Joueur
+	* @return Unite
+	*/
 	public Unite getClosestAlly(Hex source, Joueur owner) {
 		int minDist = getHeight() + getWidth();
 		Unite returnValue = null;
@@ -466,7 +515,12 @@ public class HexMap {
 	}
 
 
-
+	/**
+	* Retourne l'ennemi le plus proche de la source
+	* @param source hexagone
+	* @param owner Joueur
+	* @return Unite
+	*/
 	public Unite getClosestEnemy(Hex source, Joueur owner) {
 		int minDist = getHeight() + getWidth();
 		Unite returnValue = null;
@@ -539,9 +593,9 @@ public class HexMap {
 				if(next == null)
 					continue;
 
-				if(closed.contains(next) != -1) {
+
+				if(closed.contains(next) != -1 || next.getCost() <= 0 || next.isEmpty())
 					continue;
-				}
 
 
 				int nextCost = cost.get(current.hashCode()) + next.getCost();
@@ -560,7 +614,6 @@ public class HexMap {
 			}
 
 		}
-
 
 
 		ArrayList<Hex> solution = new ArrayList<Hex>();
@@ -582,6 +635,7 @@ public class HexMap {
 
 
 	public int moveCost(Hex start, Hex goal) {
+		//TODO Optimization
 		ArrayList<Hex> path = pathfinding(start, goal);
 
 		int cost = 0;
