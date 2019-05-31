@@ -14,12 +14,14 @@ public class InfanterieLourde extends Unite {
 		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 8;
-		this.pointsDefense = 3;
-		this.pointsDeplacement = 4;
-		this.pointsDeplacementInit = 4;
-		this.pointsDeVie = 40;
-		this.pointsDeVieMax = 40;
-		this.vision = 4;
+		this.pointsDefenseInit = 5;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 80;
+		this.pointsDeplacement = this.pointsDeplacementInit;
+		this.pointsDeVieMax = 45;
+		this.pointsDeVie = this.pointsDeVieMax;
+		this.vision = 5;
+		joueur.addUnit(this);
 	}
 
 	/**

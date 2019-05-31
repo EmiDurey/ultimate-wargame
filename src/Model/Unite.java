@@ -17,7 +17,12 @@ public abstract class Unite {
 	 */
 	protected int pointsAttaque;
 	/**
+	 *  Points de défense intial d'une unitée.
+	 */
+	protected int pointsDefenseInit;
+	/**
 	 *  Points de défense d'une unitée.
+	 *  Evolue au cours de la partie.
 	 */
 	protected int pointsDefense;
 	/**

@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  Class Pretre.
@@ -22,13 +21,15 @@ public class Pretre extends Unite {
 		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 2;
-		this.pointsDefense = 1;
-		this.pointsDeplacement = 6;
-		this.pointsDeplacementInit = 6;
-		this.pointsDeVie = 60;
+		this.pointsDefenseInit = 3;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 100;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 		this.pointsDeVieMax = 60;
+		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 4;
 		this.pointsSoin = 15;
+		joueur.addUnit(this);
 	}
 
 	/**

@@ -16,13 +16,15 @@ public class Dragon extends Unite {
 	public Dragon(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 10;
-		this.pointsDefense = 5;
-		this.pointsDeplacement = 7;
-		this.pointsDeplacementInit = 7;
-		this.pointsDeVie = 45;
-		this.vision = 7;
+		this.pointsAttaque = 12;
+		this.pointsDefenseInit = 3;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 150;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 		this.pointsDeVieMax = 45;
+		this.pointsDeVie = this.pointsDeVieMax;
+		this.vision = 8;
+		joueur.addUnit(this);
 	}
 
 	/**

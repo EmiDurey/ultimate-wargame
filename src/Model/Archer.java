@@ -22,13 +22,14 @@ public class Archer extends Unite {
 	public Archer(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 6;
-		this.pointsDefense = 2;
-		this.pointsDeplacement = 5;
-		this.pointsDeplacementInit = 5;
-		this.pointsDeVie = 35;
-		this.vision = 7;
+		this.pointsAttaque = 9;
+		this.pointsDefenseInit = 3;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 100;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 		this.pointsDeVieMax = 35;
+		this.pointsDeVie = this.pointsDeVieMax;
+		this.vision = 6;
 		this.portee = 4;
 		joueur.addUnit(this);
 

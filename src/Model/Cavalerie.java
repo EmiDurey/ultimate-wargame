@@ -13,12 +13,15 @@ public class Cavalerie extends Unite {
 	public Cavalerie(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 8;
-		this.pointsDefense = 3;
-		this.pointsDeplacement = 8;
-		this.pointsDeVie = 40;
-		this.vision = 6;
+		this.pointsAttaque = 9;
+		this.pointsDefenseInit = 4;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 120;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 		this.pointsDeVieMax = 40;
+		this.pointsDeVie = this.pointsDeVieMax;
+		this.vision = 6;
+		joueur.addUnit(this);
 	}
 
 	/**

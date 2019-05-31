@@ -3,8 +3,8 @@ package model;
 public class Neige extends Hex {
 
 	/* attributs du terrain */
-	private final int cout = 2; // cout du deplacement dans ce terrain
-	private final int defense = 30; // pourcentage
+	private final int cout = 25; // cout du deplacement dans ce terrain
+	private final int defense = 5; // pourcentage
 
 
 	Neige(int newX, int newY) {
