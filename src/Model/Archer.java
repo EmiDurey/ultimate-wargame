@@ -88,6 +88,7 @@ public class Archer extends Unite {
 					this.getHex().setUnit(null);
 				 	hex.setUnit(this);
 					this.setHex(hex);
+					this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 					if (rand > chanceCrit) {
 						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 					} else {

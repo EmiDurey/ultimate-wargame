@@ -107,6 +107,7 @@ public abstract class Unite {
 			 	this.getHex().setUnit(null);
 			 	trajet.get(trajet.size() - 2).setUnit(this);
 				this.setHex(trajet.get(trajet.size() - 2));
+				this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -176,6 +177,7 @@ public abstract class Unite {
 		  	this.getHex().setUnit(null);
 			newHex.setUnit(this);
 			this.setHex(newHex);
+			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 		}
 	}
 

@@ -34,6 +34,11 @@ public class Hex {
 	private Boolean empty = true;
 
 	/**
+	 * Poucentage de défense de la case.
+	 */
+	private int defense = 1;
+	
+	/**
 	 * Coût de déplacement vers cette case.
 	 */
 	private int cost = 1;
@@ -169,6 +174,14 @@ public class Hex {
 		cost = newCost;
 	}
 
+	/**
+	* Retourne le poucentage de défense de la case.
+	* @return int
+	*/
+	public int getDefense() {
+		return defense;
+	}
+	
 	/**
 	* Indique si les deux hexagones sont géométriquement identiques.
 	* Utilisé dans l'implémentation de A*.
