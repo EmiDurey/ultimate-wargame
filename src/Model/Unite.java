@@ -174,6 +174,40 @@ public abstract class Unite {
 		}
 	}
 
+
+	public Hex flee(Hex source, HexMap map) {
+		//TODO Testing
+
+		int moveCapacity = pointsDeplacement;
+		Hex currentHex = getHex();
+		int minCost;
+		int minIndex;
+		Boolean nextFound;
+
+		while(moveCapacity > 0) {
+			ArrayList<Hex> neighbours = map.getNeighbours(currentHex);
+			minCost = neighbours.get(0).getCost();
+			minIndex = 0;
+
+			nextFound = false;
+			for(int i=1; i<neighbours.size(); i++) {
+				if(minCost > neighbours.get(i).getCost() && neighbours.get(i).isEmpty() && moveCapacity - neighbours.get(i).getCost() > 0) {
+					nextFound = true;
+					minCost = neighbours.get(i).getCost();
+					minIndex = i;
+				}
+
+				if(!nextFound)
+					break;
+
+				currentHex = neighbours.get(minIndex);
+			}
+		}
+
+		return currentHex;
+	}
+
+
 	/**
 	 * Récupère la position d'une unité.
 	 * @return hex Hex
