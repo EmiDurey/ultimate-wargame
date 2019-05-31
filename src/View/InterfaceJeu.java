@@ -110,4 +110,13 @@ public class InterfaceJeu extends JFrame {
 		};
 		return fond;
 	}
+
+	/**
+	 *  Point d'entr�e du programme.
+	 *  @param args argument
+	 *  @see InterfaceJeu
+	 */
+	public static void main(String[] args) {
+		new InterfaceJeu("Wargame");
+	}
 }

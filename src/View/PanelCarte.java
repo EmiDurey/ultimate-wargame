@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
@@ -32,9 +35,9 @@ import view.ScrollDemo2.DrawingPane;
 /**
  *  Class PanelCarte.
  */
-public class PanelCarte extends JPanel {
+public class PanelCarte extends JPanel implements MouseListener {
 
-	private Dimension area; //indicates area taken up by graphics
+	private Dimension area;
     private PanelDessineur drawingPane;
     
 	/**
@@ -42,75 +45,87 @@ public class PanelCarte extends JPanel {
 	 */
 	public PanelCarte() {
 	    this.setPreferredSize(new Dimension(1095, 0));
-	    this.setBackground(new Color(206, 206, 206));
+        this.setBackground(new Color(48, 48, 48));
 	    this.setVisible(true);
 	    
 	    area = new Dimension(0,0);
 	    
-        //Set up the drawing area.
         drawingPane = new PanelDessineur();
         drawingPane.setBackground(new Color(48, 48, 48));
         this.ajoutScroll();
  
-        //Put the drawing area in a scroll pane.
-        //JScrollPane scroller = new JScrollPane(drawingPane);
-       // scroller.setPreferredSize(new Dimension(1095, 935));
- 
         JScrollPane scroller = new JScrollPane(drawingPane) ;
-        scroller.setPreferredSize(new Dimension(1095, 935));
-
-        scroller.addMouseWheelListener(new MouseWheelListener() {
-        public void mouseWheelMoved(MouseWheelEvent event) {
-              final JScrollBar scrollBar =  scroller.getVerticalScrollBar();
-              final int rotation = event.getWheelRotation();
-              if (scrollBar!=null) {
-            	  System.out.println(scrollBar.getValue());
-            	  System.out.println(rotation);
-            	  System.out.println(scrollBar.getBlockIncrement(rotation));
-
-                 scrollBar.setValue(scrollBar.getValue() + (scrollBar.getBlockIncrement(rotation)*rotation) - (scrollBar.getBlockIncrement()*5*rotation));
-                 // dispatchEvent(event); pas nécessaire
-              }
-           }
-        });
         
-	    
-        //Lay out this demo.
+        scroller.setPreferredSize(new Dimension(1095, 935));
+        //scroller.getVerticalScrollBar().setUnitIncrement(25);
+        scroller.setWheelScrollingEnabled(false);
+        scroller.addMouseListener(this);
+        
         add(scroller);
 	}
 	
 	 public void ajoutScroll() {
-    	final int W = 1095;
-        final int H = 935;
+    	final int W = 580;
+        final int H = 980;
         boolean changed = true;
 
         int x = 1000;
         int y = 1000;
-        Rectangle rect = new Rectangle(x, y, W, H);
+        Rectangle rect = new Rectangle(W, H);
         drawingPane.scrollRectToVisible(rect);
  
-        int this_width = (x + W + 2);
+        int this_width = (x + W);
         if (this_width > area.width) {
         	area.width = this_width; changed=true;
         }
         
-        int this_height = (y + H + 2);
+        int this_height = (y + H);
         if (this_height > area.height) {
         	area.height = this_height; changed=true;
         }
         
         if (changed) {
-            //Update client's preferred size because
-            //the area taken up by the graphics has
-            //gotten larger or smaller (if cleared).
             drawingPane.setPreferredSize(area);
- 
-            //Let the scroll pane know to update itself
-            //and its scrollbars.
             drawingPane.revalidate();
         }
         drawingPane.repaint();
     }
-	 
+	public void mouseClicked(MouseEvent event) {
+		Point clik = event.getPoint().getLocation();
+		final int W = 580;
+        final int H = 980;
+        boolean changed = true;
+
+        int x = (int) clik.getX();
+        int y = (int) clik.getY();
+        System.out.println("X : " + x + " Y : " + y);
+        
+        Rectangle rect = new Rectangle(x, y, W, H);
+        drawingPane.scrollRectToVisible(rect);
+ 
+        int this_width = (x + W);
+        if (this_width > area.width) {
+        	area.width = this_width; changed=true;
+        }
+        
+        int this_height = (y + H);
+        if (this_height > area.height) {
+        	area.height = this_height; changed=true;
+        }
+        
+        if (changed) {
+            drawingPane.setPreferredSize(area);
+            drawingPane.revalidate();
+        }
+        drawingPane.repaint();
+	}
+
+	public void mouseEntered(MouseEvent event) {}
+
+	public void mouseExited(MouseEvent event) {}
+
+	public void mousePressed(MouseEvent event) {}
+
+	public void mouseReleased(MouseEvent event) {}	 
 	 
 }

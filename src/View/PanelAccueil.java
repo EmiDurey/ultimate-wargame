@@ -59,7 +59,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		this.colorTexte = new Color(253, 241, 184);
 		this.colorComp = new Color(48, 48, 48);
 		this.setOpaque(false);
-	    this.setVisible(true); 
+	    this.setVisible(true);
 
 	    GridBagLayout layout = new GridBagLayout();
 	    this.setLayout(layout);
@@ -75,7 +75,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		JLabel texte;
 		JPanel conteneur;
 		GridBagConstraints contraint = new GridBagConstraints();
-	
+
 		conteneur = new JPanel();
 		conteneur.setBackground(new Color(0, 0, 0, 70));
 		conteneur.setPreferredSize(new Dimension(500, 570));
@@ -83,7 +83,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 		// création d'une box à gestion verticale
 	    this.boxVerticale = Box.createVerticalBox();
-	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0,10)));
+	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 10)));
 	    //this.boxVerticale.setOpaque(true);
 
         // création des boxs à gestion horizontale
@@ -104,7 +104,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	    this.labelNbJoueur = new JLabel("0");
 	    this.labelNbIA = new JLabel("0");
 
-	    this.ajouterPlusMoins(this.labelNbJoueur, "Joueurs"); // saisie du nombre de joueurs 
+	    this.ajouterPlusMoins(this.labelNbJoueur, "Joueurs"); // saisie du nombre de joueurs
 	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 50)));
 	    this.ajouterPlusMoins(this.labelNbIA, "IA"); // saisie du nombre d'IA
 
@@ -202,12 +202,14 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
-		int totalEquipe = this.nbJoueurs + this.nbIA;
+		final int equipeMax = 6;
+		int totalEquipe;
+		totalEquipe = this.nbJoueurs + this.nbIA;
 
 		if (actionCommand.contains("Joueurs")) {
 			if (actionCommand.equals("-Joueurs") && this.nbJoueurs > 0) {
 				this.nbJoueurs--;
-			} else if (actionCommand.equals("+Joueurs") && totalEquipe < 6 && this.nbJoueurs < 6) {
+			} else if (actionCommand.equals("+Joueurs") && totalEquipe < equipeMax && this.nbJoueurs < equipeMax) {
 				this.nbJoueurs++;
 			}
 			this.labelNbJoueur.setText(Integer.toString(this.nbJoueurs));
@@ -216,7 +218,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		if (actionCommand.contains("IA")) {
 			if (actionCommand.equals("-IA") && this.nbIA > 0) {
 				this.nbIA--;
-			} else if (actionCommand.equals("+IA") && totalEquipe < 6 && this.nbIA < 6) {
+			} else if (actionCommand.equals("+IA") && totalEquipe < equipeMax && this.nbIA < equipeMax) {
 				this.nbIA++;
 			}
 			this.labelNbIA.setText(Integer.toString(this.nbIA));
@@ -228,12 +230,13 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 		if (actionCommand.equals("Jouer")) {
 			if (totalEquipe < 2) {
-		    	JOptionPane.showMessageDialog(this.fenetre, "Pour pouvoir jouer, un minimum de 2 équipes est requis.", "Erreur", JOptionPane.ERROR_MESSAGE);
+				String contenu = "Pour pouvoir jouer, un minimum de 2 équipes est requis.";
+		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Erreur", JOptionPane.ERROR_MESSAGE);
 			} else {
 				this.fenetre.getContentPane().removeAll();
 				this.fenetre.setLayout(new BorderLayout());
 
-				this.fenetre.setBarreMenu(new BarreMenu());
+				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
 				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
 				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
 			}

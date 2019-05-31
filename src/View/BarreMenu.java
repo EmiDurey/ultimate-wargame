@@ -15,14 +15,21 @@ import javax.swing.JOptionPane;
 public class BarreMenu extends JMenuBar implements ActionListener {
 
 	/**
+	 * Fenetre.
+	 */
+	private InterfaceJeu fenetre;
+
+	/**
 	 * Menu.
 	 */
 	private JMenu menu;
 
 	/**
 	 *  Construit un objet de type BarreMenu.
+	 *  @param fenetre InterfaceJeu
 	 */
-	public BarreMenu() {
+	public BarreMenu(InterfaceJeu fenetre) {
+		this.fenetre = fenetre;
 		initComposant();
 	}
 
@@ -96,14 +103,20 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				System.out.println("Aide");
 				break;
 			case "Quitter":
-				int reponse = JOptionPane.showConfirmDialog(this,  "Etes-vous sûr de vouloir quitter le jeu ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
-	        	switch (reponse) {
+				String contenu, entete;
+				contenu = "Etes-vous sûr de vouloir quitter le jeu ?";
+				entete = "Confirmation";
+	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.OK_CANCEL_OPTION)) {
 	        		case JOptionPane.CLOSED_OPTION: break;
 	        		case JOptionPane.CANCEL_OPTION: break;
 	        		case JOptionPane.OK_OPTION:
 	        			System.exit(0);
 	        			break;
+	        		default :
+	    	        	break;
 	        	}
+	        default :
+	        	break;
 		}
 	}
 }

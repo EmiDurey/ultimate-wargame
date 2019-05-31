@@ -42,6 +42,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 */
 	public void initComposant() {
 		JPanel panel;
+		String texte;
+		Font font = new Font("Arial", Font.BOLD, 20);
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints contrainte = new GridBagConstraints();
 		this.setLayout(layout);
@@ -50,7 +52,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel.setPreferredSize(new Dimension(500, 300));
 		panel.setBackground(this.couleurFond);
 		Border border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		border = BorderFactory.createTitledBorder(border, "Aperçu de la carte", TitledBorder.LEFT, TitledBorder.TOP, new Font("Arial", Font.BOLD, 20), Color.WHITE);
+		texte = "Aperçu de la carte";
+		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		panel.setBorder(border);
 		contrainte.ipadx = 40;
 		contrainte.ipady = 20;
@@ -63,7 +66,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel.setPreferredSize(new Dimension(150, 150));
 		panel.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		border = BorderFactory.createTitledBorder(border, "Image perso", TitledBorder.LEFT, TitledBorder.TOP, new Font("Arial", Font.BOLD, 20), Color.WHITE);
+		texte = "Image perso";
+		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		panel.setBorder(border);
 		contrainte.gridx = 0;
 		contrainte.gridy = 1;
@@ -86,7 +90,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel.setPreferredSize(new Dimension(500, 100));
 		panel.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		border = BorderFactory.createTitledBorder(border, "Type du personnage + caratéristiques", TitledBorder.LEFT, TitledBorder.TOP, new Font("Arial", Font.BOLD, 20), Color.WHITE);
+		texte = "Type du personnage + caratéristiques";
+		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		panel.setBorder(border);
 		contrainte.gridx = 0;
 		contrainte.gridy = 2;
@@ -117,6 +122,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 		switch (actionCommand) {
 			case "Fin":
 				System.out.println("Changement de tour");
+				break;
+			default:
 				break;
 		}
 	}
