@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *  Class Joueur.
  */
-public class Joueur {
+public class Joueur implements Serializable {
 
 	/**
 	 *  Nom du joueur.

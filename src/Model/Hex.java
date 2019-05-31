@@ -3,6 +3,7 @@ package model;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.Serializable;
 import java.lang.Boolean;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  * On utilise un système de coordonnées cubiques pour le stockage.
  * On stocke donc notamment les coordonnées de l'hexagone sur la map.
  */
-public class Hex {
+public class Hex implements Serializable {
 
 	/**
 	 * Coordonnée x.

@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *  Class Unite.
  */
-public abstract class Unite {
+public abstract class Unite implements Serializable {
 
 	/**
 	 *  Joueur possédant l'unitée.
