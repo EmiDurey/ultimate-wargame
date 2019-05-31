@@ -4,6 +4,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Boolean;
+import java.util.HashMap;
 
 /**
  * Représente un hexagone sur la map.
@@ -43,7 +44,17 @@ public class Hex {
 	 */
 	private Unite unit = null;
 
+	/**
+	 * Utilisé pour la propagation du biome dans la génération de map
+	 */
 	protected float rarity;
+
+	/**
+	 * Permet de renseigner l'état du brouillard de guerre sur la map
+	 * L'indice représente l'ID du joueur concerné
+	 * La valeur est un booléen indiquant si la case a été découverte
+	 */
+	public HashMap<Integer, Boolean> discovered = new HashMap<Integer, Boolean>();
 
 
 
