@@ -15,12 +15,12 @@ public class Joueur implements Serializable {
 	/**
 	 *  Liste d'unités d'un joueur.
 	 */
-        
+
         /**
          * Détermine si un joueur est encore en vie
          */
         private boolean isAlive;
-         
+
 	private ArrayList<Unite> unites = new ArrayList<Unite>();
 	/**
 	 *  Identifiant unique du joueur
@@ -79,6 +79,15 @@ public class Joueur implements Serializable {
 		this.id = id;
 	}
 
+
+	/**
+	 *  Retourne l'ID du joueur
+	 *  @return int
+	 */
+	public int getID() {
+		return id;
+	}
+
     public boolean getIsIsAlive() {
         return isAlive;
     }
@@ -86,6 +95,6 @@ public class Joueur implements Serializable {
     public void setIsAlive(boolean isAlive) {
         this.isAlive = isAlive;
     }
-        
+
 
 }

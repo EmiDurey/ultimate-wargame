@@ -110,16 +110,14 @@ public class HexMap implements Serializable {
 	*/
 	public void setRectangleMap(int height, int width) {
 
-		for (int y = 0; y < height; y++) {
+        for (int y = 0; y <= width; y++) {
 
-			int yOffset = (int) floor(y / 2);
-
-    		for (int x = -yOffset; x < width - yOffset; x++) {
-				Plaine newHex = new Plaine(x, y, -x - y);
-	        	map.put(newHex.hashCode(), newHex);
-    		}
-		}
-	}
+            for (int x = -height/2; x <= height/2+1; x++) {
+                Plaine newHex = new Plaine(x, y, -x - y);
+                map.put(newHex.hashCode(), newHex);
+            }
+        }
+    }
 
 
 	/**
@@ -237,21 +235,153 @@ public class HexMap implements Serializable {
 	* @return ArrayList
 	*/
 	public void initMap(ArrayList<Joueur> players) {
-		
+		ArrayList<ArrayList<Hex>> unitsPositions = new ArrayList<ArrayList<Hex>>();
 
 		switch(players.size()) {
 			case 2:
 				setRectangleMap(8, 12);
+				for(int i=0; i<2; i++){
+					unitsPositions.add(new ArrayList<Hex>());
+				}
+
+				unitsPositions.get(0).add(getHex(0, 3));
+				unitsPositions.get(0).add(getHex(1, 3));
+				unitsPositions.get(0).add(getHex(2, 2));
+				unitsPositions.get(0).add(getHex(3, 2));
+				unitsPositions.get(0).add(getHex(4, 1));
+				unitsPositions.get(0).add(getHex(5, 1));
+
+				unitsPositions.get(1).add(getHex(1, 9));
+				unitsPositions.get(1).add(getHex(0, 9));
+				unitsPositions.get(1).add(getHex(-1, 10));
+				unitsPositions.get(1).add(getHex(-2, 10));
+				unitsPositions.get(1).add(getHex(-3, 11));
+				unitsPositions.get(1).add(getHex(-4, 11));
+
 				break;
+
 			case 3:
 				setTriangleMap(13);
+				for(int i=0; i<3; i++){
+					unitsPositions.add(new ArrayList<Hex>());
+				}
+
+				unitsPositions.get(0).add(getHex(3,3));
+				unitsPositions.get(0).add(getHex(3,1));
+				unitsPositions.get(0).add(getHex(2,2));
+				unitsPositions.get(0).add(getHex(1,3));
+				unitsPositions.get(0).add(getHex(1,1));
+				unitsPositions.get(0).add(getHex(0,0));
+
+				unitsPositions.get(1).add(getHex(2,8));
+				unitsPositions.get(1).add(getHex(0,9));
+				unitsPositions.get(1).add(getHex(1,9));
+				unitsPositions.get(1).add(getHex(2,10));
+				unitsPositions.get(1).add(getHex(1,11));
+				unitsPositions.get(1).add(getHex(0,13));
+
+				unitsPositions.get(2).add(getHex(8,2));
+				unitsPositions.get(2).add(getHex(9,0));
+				unitsPositions.get(2).add(getHex(9,1));
+				unitsPositions.get(2).add(getHex(10,2));
+				unitsPositions.get(2).add(getHex(11,1));
+				unitsPositions.get(2).add(getHex(13,0));
+
 				break;
+
 			case 4:
 				setRectangleMap(12, 18);
+				for(int i=0; i<4; i++){
+					unitsPositions.add(new ArrayList<Hex>());
+				}
+
+				unitsPositions.get(0).add(getHex(-3,3));
+				unitsPositions.get(0).add(getHex(-6,3));
+				unitsPositions.get(0).add(getHex(-5,2));
+				unitsPositions.get(0).add(getHex(-4,1));
+				unitsPositions.get(0).add(getHex(-3,0));
+				unitsPositions.get(0).add(getHex(-6,0));
+
+				unitsPositions.get(1).add(getHex(-3,15));
+				unitsPositions.get(1).add(getHex(-6,15));
+				unitsPositions.get(1).add(getHex(-5,16));
+				unitsPositions.get(1).add(getHex(-4,17));
+				unitsPositions.get(1).add(getHex(-3,18));
+				unitsPositions.get(1).add(getHex(-6,18));
+
+				unitsPositions.get(2).add(getHex(4,3));
+				unitsPositions.get(2).add(getHex(7,3));
+				unitsPositions.get(2).add(getHex(6,2));
+				unitsPositions.get(2).add(getHex(5,1));
+				unitsPositions.get(2).add(getHex(4,0));
+				unitsPositions.get(2).add(getHex(7,0));
+
+				unitsPositions.get(3).add(getHex(4,15));
+				unitsPositions.get(3).add(getHex(7,15));
+				unitsPositions.get(3).add(getHex(6,16));
+				unitsPositions.get(3).add(getHex(5,17));
+				unitsPositions.get(3).add(getHex(4,18));
+				unitsPositions.get(3).add(getHex(7,18));
+
 				break;
+
 
 			default:
 				setHexagonMap(13);
+				for(int i=0; i<6; i++){
+					unitsPositions.add(new ArrayList<Hex>());
+				}
+
+				unitsPositions.get(0).add(getHex(10,0));
+				unitsPositions.get(0).add(getHex(10,2));
+				unitsPositions.get(0).add(getHex(9,1));
+				unitsPositions.get(0).add(getHex(11,-1));
+				unitsPositions.get(0).add(getHex(10,-2));
+				unitsPositions.get(0).add(getHex(13,0));
+
+				unitsPositions.get(1).add(getHex(10,-10));
+				unitsPositions.get(1).add(getHex(10,-13));
+				unitsPositions.get(1).add(getHex(11,-12));
+				unitsPositions.get(1).add(getHex(12,-11));
+				unitsPositions.get(1).add(getHex(13,-10));
+				unitsPositions.get(1).add(getHex(13,-13));
+
+				unitsPositions.get(2).add(getHex(0,-10));
+				unitsPositions.get(2).add(getHex(-2,-10));
+				unitsPositions.get(2).add(getHex(-1,-9));
+				unitsPositions.get(2).add(getHex(1,-11));
+				unitsPositions.get(2).add(getHex(2,-10));
+				unitsPositions.get(2).add(getHex(0,-13));
+
+				unitsPositions.get(3).add(getHex(-10,0));
+				unitsPositions.get(3).add(getHex(-10,-2));
+				unitsPositions.get(3).add(getHex(-9,-1));
+				unitsPositions.get(3).add(getHex(-11,1));
+				unitsPositions.get(3).add(getHex(-10,2));
+				unitsPositions.get(3).add(getHex(-13,0));
+
+				unitsPositions.get(4).add(getHex(-10,10));
+				unitsPositions.get(4).add(getHex(-10,13));
+				unitsPositions.get(4).add(getHex(-11,12));
+				unitsPositions.get(4).add(getHex(-12,11));
+				unitsPositions.get(4).add(getHex(-13,10));
+				unitsPositions.get(4).add(getHex(-13,13));
+
+				unitsPositions.get(5).add(getHex(-0,10));
+				unitsPositions.get(5).add(getHex(2,10));
+				unitsPositions.get(5).add(getHex(1,9));
+				unitsPositions.get(5).add(getHex(-1,11));
+				unitsPositions.get(5).add(getHex(-2,10));
+				unitsPositions.get(5).add(getHex(0,13));
+		}
+
+		for(int i=0; i<players.size(); i++) {
+			players.get(i).addUnit(new Infanterie(unitsPositions.get(i).get(0), players.get(i)));
+			players.get(i).addUnit(new Archer(unitsPositions.get(i).get(1), players.get(i)));
+			players.get(i).addUnit(new Cavalerie(unitsPositions.get(i).get(2), players.get(i)));
+			players.get(i).addUnit(new Dragon(unitsPositions.get(i).get(3), players.get(i)));
+			players.get(i).addUnit(new Mage(unitsPositions.get(i).get(4), players.get(i)));
+			players.get(i).addUnit(new Pretre(unitsPositions.get(i).get(5), players.get(i)));
 		}
 
 	}
@@ -401,8 +531,8 @@ public class HexMap implements Serializable {
 
 		Hex current;
 
-		for(int i = getMinX(); i < getMaxX(); i++) {
-			for(int j = getMinY(); j < getMaxY(); j++) {
+		for(int i = getMinX(); i <= getMaxX(); i++) {
+			for(int j = getMinY(); j <= getMaxY(); j++) {
 				current = getHex(i, j);
 				if(current == null) {
 					System.out.print(" ");

@@ -1,7 +1,7 @@
 package model;
 
 public class Plaine extends Hex {
-	
+
 	Plaine(int newX, int newY) {
 		super(newX, newY);
 		this.cost = 15;
@@ -14,7 +14,10 @@ public class Plaine extends Hex {
 
 
 	public void print() {
-		System.out.print("P");
+		if(getUnit() != null)
+			System.out.print(getUnit().getJoueur().getID());
+		else
+			System.out.print("X");
 	}
 
 }
