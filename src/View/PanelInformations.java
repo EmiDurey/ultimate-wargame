@@ -16,15 +16,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import model.HexMap;
 
 /**
  *  Class PanelInformations.
  */
 public class PanelInformations extends JPanel implements ActionListener {
 
-	private JPanel panelImagePerso;
+	private JPanel panelImagePerso, panelApercu;
+	private int totalEquipe;
+	private HexMap map;
 	
 	/**
 	 * Couleur des composants graphiques.
@@ -34,13 +39,16 @@ public class PanelInformations extends JPanel implements ActionListener {
 	/**
 	 *  Construit un objet de type PanelInformations.
 	 */
-	public PanelInformations() {
+	public PanelInformations(int totalEquipe, HexMap map) {
+		this.totalEquipe = totalEquipe;
+		this.map = map;
 		this.couleurFond = new Color(48, 48, 48);
 	    this.setPreferredSize(new Dimension(600, 0));
 	    this.setBackground(this.couleurFond);
 	    this.setVisible(true);
 	    this.initComposant();
 	    this.affichePerso();
+	    this.afficheApercu();
 	}
 
 	/**
@@ -54,19 +62,19 @@ public class PanelInformations extends JPanel implements ActionListener {
 		GridBagConstraints contrainte = new GridBagConstraints();
 		this.setLayout(layout);
 
-		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(500, 300));
-		panel.setBackground(this.couleurFond);
+		this.panelApercu = new JPanel();
+		this.panelApercu.setPreferredSize(new Dimension(500, 300));
+		this.panelApercu.setBackground(this.couleurFond);
 		Border border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
 		texte = "Aperçu de la carte";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
-		panel.setBorder(border);
+		this.panelApercu.setBorder(border);
 		contrainte.ipadx = 40;
 		contrainte.ipady = 20;
 		contrainte.gridx = 0;
 		contrainte.gridy = 0;
 		contrainte.gridwidth = 3;
-		this.add(panel, contrainte);
+		this.add(this.panelApercu, contrainte);
 		
 		this.panelImagePerso = new JPanel();
 		this.panelImagePerso.setPreferredSize(new Dimension(150, 150));
@@ -120,10 +128,20 @@ public class PanelInformations extends JPanel implements ActionListener {
 	
 	public void affichePerso() {
 		String sep = File.separator;
-		JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "TailleInfo" + sep + "archer.png"));
+		JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "Info" + sep + "archer.png"));
 
 		this.panelImagePerso.setLayout(new BorderLayout());
 		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
+	}
+	
+	public void afficheApercu() {
+		PanelDessineurApercu dessinCarte;
+	    
+        dessinCarte = new PanelDessineurApercu(this.totalEquipe, this.map);
+        dessinCarte.setPreferredSize(new Dimension(530, 280));
+        dessinCarte.setBackground(this.couleurFond);;
+        
+        this.panelApercu.add(dessinCarte);
 	}
 	
 	/**

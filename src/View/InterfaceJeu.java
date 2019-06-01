@@ -21,7 +21,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 * Largeur de la fenêtre.
 	 */
-	private final int largeur = 1000;
+	private final int largeur = 1010;
 
 	/**
 	 * Image de fond.
