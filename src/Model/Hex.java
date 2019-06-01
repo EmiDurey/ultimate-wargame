@@ -37,12 +37,12 @@ public class Hex implements Serializable {
 	/**
 	 * Poucentage de défense de la case.
 	 */
-	private int defense = 1;
+	protected int defense = 1;
 	
 	/**
 	 * Coût de déplacement vers cette case.
 	 */
-	private int cost = 1;
+	protected int cost = 1;
 
 	/**
 	 * Référence de l'unité se trouvant sur la case.

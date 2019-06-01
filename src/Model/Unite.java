@@ -49,12 +49,17 @@ public abstract class Unite implements Serializable {
 	/**
 	 *  Points de vision d'une unitée.
 	 */
+        
 	protected int vision;
 	/**
 	 *  Position d'une unitée.
 	 */
 	protected Hex hex;
 
+        /**
+         * Si le joueur qui a cette unité l'utilise actuellement (l'a choisie pour se déplacer)
+         */
+        protected boolean isActive = false;
 	/**
 	 *  Constructeur d'une unitée.
 	 *  @param hex Hexagone
@@ -303,4 +308,54 @@ public abstract class Unite implements Serializable {
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
 	}
+
+    public int getPointsAttaque() {
+        return pointsAttaque;
+    }
+
+    public void setPointsAttaque(int pointsAttaque) {
+        this.pointsAttaque = pointsAttaque;
+    }
+
+    public int getPointsDefenseInit() {
+        return pointsDefenseInit;
+    }
+
+    public void setPointsDefenseInit(int pointsDefenseInit) {
+        this.pointsDefenseInit = pointsDefenseInit;
+    }
+
+    public int getPointsDefense() {
+        return pointsDefense;
+    }
+
+    public void setPointsDefense(int pointsDefense) {
+        this.pointsDefense = pointsDefense;
+    }
+
+    public int getPointsDeplacementInit() {
+        return pointsDeplacementInit;
+    }
+
+    public void setPointsDeplacementInit(int pointsDeplacementInit) {
+        this.pointsDeplacementInit = pointsDeplacementInit;
+    }
+
+    public int getVision() {
+        return vision;
+    }
+
+    public void setVision(int vision) {
+        this.vision = vision;
+    }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+        
+        
 }

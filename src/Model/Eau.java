@@ -2,13 +2,10 @@ package model;
 
 public class Eau extends Hex {
 
-	/* attributs du terrain */
-	private final int cout = -1; // cout du deplacement dans ce terrain
-	private final int defense = 0; // pourcentage
-
-
 	Eau(int newX, int newY) {
 		super(newX, newY);
+		this.cost = -1; 
+		this.defense = 0;
 		rarity = (float) 0.2;
 	}
 
