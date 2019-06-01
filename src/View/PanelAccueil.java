@@ -226,6 +226,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 		if (actionCommand.equals("Aide")) {
 			System.out.println("aide");
+			//AutoCloseDialog.showAutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
+			new AutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
 		}
 
 		if (actionCommand.equals("Jouer")) {
@@ -237,8 +239,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 				this.fenetre.setLayout(new BorderLayout());
 
 				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
-				this.fenetre.getContentPane().add(new PanelCarte(totalEquipe), BorderLayout.WEST);
-				this.fenetre.getContentPane().add(new PanelInformations(), BorderLayout.EAST);
+				this.fenetre.getContentPane().add(new PanelPartie(this.fenetre, totalEquipe));
 			}
 		}
 		this.fenetre.setVisible(true);
