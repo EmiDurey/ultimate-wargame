@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *  Class Unite.
  */
-public abstract class Unite {
+public abstract class Unite implements Serializable {
 
 	/**
 	 *  Joueur possédant l'unitée.
@@ -17,7 +18,12 @@ public abstract class Unite {
 	 */
 	protected int pointsAttaque;
 	/**
+	 *  Points de défense intial d'une unitée.
+	 */
+	protected int pointsDefenseInit;
+	/**
 	 *  Points de défense d'une unitée.
+	 *  Evolue au cours de la partie.
 	 */
 	protected int pointsDefense;
 	/**
@@ -102,6 +108,7 @@ public abstract class Unite {
 			 	this.getHex().setUnit(null);
 			 	trajet.get(trajet.size() - 2).setUnit(this);
 				this.setHex(trajet.get(trajet.size() - 2));
+				this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -171,8 +178,43 @@ public abstract class Unite {
 		  	this.getHex().setUnit(null);
 			newHex.setUnit(this);
 			this.setHex(newHex);
+			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 		}
 	}
+
+
+	public Hex flee(Hex source, HexMap map) {
+		//TODO Testing
+
+		int moveCapacity = pointsDeplacement;
+		Hex currentHex = getHex();
+		int minCost;
+		int minIndex;
+		Boolean nextFound;
+
+		while(moveCapacity > 0) {
+			ArrayList<Hex> neighbours = map.getNeighbours(currentHex);
+			minCost = neighbours.get(0).getCost();
+			minIndex = 0;
+
+			nextFound = false;
+			for(int i=1; i<neighbours.size(); i++) {
+				if(minCost > neighbours.get(i).getCost() && neighbours.get(i).isEmpty() && moveCapacity - neighbours.get(i).getCost() > 0) {
+					nextFound = true;
+					minCost = neighbours.get(i).getCost();
+					minIndex = i;
+				}
+
+				if(!nextFound)
+					break;
+
+				currentHex = neighbours.get(minIndex);
+			}
+		}
+
+		return currentHex;
+	}
+
 
 	/**
 	 * Récupère la position d'une unité.

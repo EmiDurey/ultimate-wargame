@@ -2,6 +2,8 @@ package model;
 
 import java.util.HashMap;
 import static java.lang.Math.*;
+
+import java.io.Serializable;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.Random;
 import java.util.Stack;
 
 
-public class HexMap {
+public class HexMap implements Serializable {
 	/**
  	* HashMap contenant l'ensemble des Hex de la map et servant à son stockage.
 	* Chaque Hex h aura pour clef Object.hashCode(h)

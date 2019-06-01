@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  Class Pretre.
@@ -22,13 +21,15 @@ public class Pretre extends Unite {
 		super(hex, joueur);
 		hex.setUnit(this);
 		this.pointsAttaque = 2;
-		this.pointsDefense = 1;
-		this.pointsDeplacement = 6;
-		this.pointsDeplacementInit = 6;
-		this.pointsDeVie = 60;
+		this.pointsDefenseInit = 3;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 100;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 		this.pointsDeVieMax = 60;
+		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 4;
 		this.pointsSoin = 15;
+		joueur.addUnit(this);
 	}
 
 	/**
@@ -61,7 +62,30 @@ public class Pretre extends Unite {
 	 */
 	@Override
 	public void joueurIA(Joueur joueur, HexMap map) {
-		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+		ArrayList<Unite> injuredAllies = new ArrayList<Unite>();
+		injuredAllies.add(joueur.getUnite().get(0));
+
+		//Tri des unités alliées par HP décroissants
+		for(int i=1; i<joueur.getUnite().size(); i++) {
+			for(int j=0; j<injuredAllies.size(); j++) {
+				if(injuredAllies.get(j).getPointsDeVie() > joueur.getUnite().get(i).getPointsDeVie()){
+					injuredAllies.add(j, joueur.getUnite().get(i));
+					break;
+				}
+			}
+			injuredAllies.add(joueur.getUnite().get(i));
+		}
+
+		//On essaie de soigner l'allié accessible le plus mal en point
+		for(int i=0; i<injuredAllies.size(); i++) {
+			if( map.moveCost(hex, injuredAllies.get(i).hex) <= getPointsDeplacement() ) {
+				//MOVE TO THE UNIT
+				soigne(map, joueur);
+			}
+		}
+
+		//Aucun allié accessible: on fuit l'ennemi le plus proche
+		Hex ennemyPosition = map.getClosestEnemy(hex, joueur).getHex();
 
 	}
 

@@ -3,6 +3,7 @@ package model;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.Serializable;
 import java.lang.Boolean;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  * On utilise un système de coordonnées cubiques pour le stockage.
  * On stocke donc notamment les coordonnées de l'hexagone sur la map.
  */
-public class Hex {
+public class Hex implements Serializable {
 
 	/**
 	 * Coordonnée x.
@@ -33,6 +34,11 @@ public class Hex {
 	 */
 	private Boolean empty = true;
 
+	/**
+	 * Poucentage de défense de la case.
+	 */
+	private int defense = 1;
+	
 	/**
 	 * Coût de déplacement vers cette case.
 	 */
@@ -169,6 +175,14 @@ public class Hex {
 		cost = newCost;
 	}
 
+	/**
+	* Retourne le poucentage de défense de la case.
+	* @return int
+	*/
+	public int getDefense() {
+		return defense;
+	}
+	
 	/**
 	* Indique si les deux hexagones sont géométriquement identiques.
 	* Utilisé dans l'implémentation de A*.

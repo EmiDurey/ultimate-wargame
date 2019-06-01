@@ -3,8 +3,8 @@ package model;
 public class Foret extends Hex {
 
 	/* attributs du terrain */
-	private final int cout = 2; // cout du deplacement dans ce terrain
-	private final int defense = 40; // pourcentage
+	private final int cout = 33; // cout du deplacement dans ce terrain
+	private final int defense = 35; // pourcentage
 
 
 	Foret(int newX, int newY) {

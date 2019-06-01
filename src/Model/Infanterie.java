@@ -13,13 +13,15 @@ public class Infanterie extends Unite {
 	public Infanterie(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 5;
-		this.pointsDefense = 2;
-		this.pointsDeplacement = 6;
-		this.pointsDeplacementInit = 6;
-		this.pointsDeVie = 30;
-		this.pointsDeVieMax = 30;
-		this.vision = 4;
+		this.pointsAttaque = 8;
+		this.pointsDefenseInit = 4;
+		this.pointsDefense = this.pointsDefenseInit;
+		this.pointsDeplacementInit = 100;
+		this.pointsDeplacement = this.pointsDeplacementInit;
+		this.pointsDeVieMax = 35;
+		this.pointsDeVie = this.pointsDeVieMax;
+		this.vision = 8;
+		joueur.addUnit(this);
 	}
 
 	/**

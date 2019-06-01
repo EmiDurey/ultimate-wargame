@@ -3,7 +3,7 @@ package model;
 public class Forteresse extends Hex {
 
 	/* attributs du terrain */
-	private final int cout = 1; // cout du deplacement dans ce terrain
+	private final int cout = 15; // cout du deplacement dans ce terrain
 	private final int defense = 60; // pourcentage
 
 
