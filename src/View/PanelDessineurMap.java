@@ -63,6 +63,11 @@ public class PanelDessineurMap extends JPanel {
                     imageY = (int) (15 + 33 * (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
                     image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY/*, current.getColor()*/);
+                    
+                    image = associeImageUnite(current);
+                    if (image != null) {
+                        this.afficheImage(g, image, imageX+13, imageY+10/*, current.getColor()*/);
+                    }
                 }
             }
         }
@@ -86,6 +91,11 @@ public class PanelDessineurMap extends JPanel {
                     
                     image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY/*, current.getColor()*/);
+                    
+                    image = associeImageUnite(current);
+                    if (image != null) {
+                        this.afficheImage(g, image, imageX+13, imageY+10/*, current.getColor()*/);
+                    }
                 }
             }
         }

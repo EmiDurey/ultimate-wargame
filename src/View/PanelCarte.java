@@ -58,6 +58,10 @@ public class PanelCarte extends JPanel implements MouseListener {
         //this.dessinCarte.setMapListener();
 	}
 	
+	public JScrollPane getScroll( ) {
+		return this.scroll;
+	}
+	
 	 public void ajoutScrollHex() {
     	final int W = 585;
         final int H = 860;

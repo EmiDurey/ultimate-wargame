@@ -27,6 +27,21 @@ public class InterfaceJeu extends JFrame {
 	 * Image de fond.
 	 */
 	private JLabel fond;
+	
+	/**
+	 * Panel d'accueil.
+	 */
+	private PanelAccueil panelAccueil;
+
+	/**
+	 * Panel de la carte.
+	 */
+	private PanelCarte panelCarte;
+
+	/**
+	 * Panel des informaitons du jeu.
+	 */
+	private PanelInformations panelInformations;
 
 	/**
 	 * Barre de menu.
@@ -40,6 +55,9 @@ public class InterfaceJeu extends JFrame {
 	public InterfaceJeu(String titre) {
 		super(titre);
 		this.barreMenu = null;
+		this.panelCarte = null;
+		this.panelInformations = null;
+		this.panelAccueil = new PanelAccueil(this);
 
 		this.setSize(longueur, largeur);
 		this.setResizable(false);
@@ -47,10 +65,40 @@ public class InterfaceJeu extends JFrame {
 
 		this.setContentPane(this.creerFond());
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
-	    this.getContentPane().add(new PanelAccueil(this));
-
+ 	    this.getContentPane().add(this.panelAccueil);
+ 	    
 	    this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	/**
+	 *  Retourne le panel de la carte.
+	 *  @return PanelCarte
+	 */
+	public PanelCarte getPanelCarte() {
+		return this.panelCarte;
+	}
+	
+	/**
+	 *  Retourne le panel des informations.
+	 *  @return PanelInformations
+	 */
+	public PanelInformations getPanelInformations() {
+		return this.panelInformations;
+	}
+	
+	/**
+	 *  Modifie le panel de la carte.
+	 */
+	public void setPanelCarte(PanelCarte panel) {
+		this.panelCarte = panel;
+	}
+	
+	/**
+	 *  Modifie le panel des informations.
+	 */
+	public void setPanelInformations(PanelInformations panel) {
+		this.panelInformations = panel;
 	}
 
 	/**
@@ -76,14 +124,5 @@ public class InterfaceJeu extends JFrame {
 			}
 		};
 		return fond;
-	}
-
-	/**
-	 *  Point d'entrée du programme.
-	 *  @param args argument
-	 *  @see InterfaceJeu
-	 */
-	public static void main(String[] args) {
-		new InterfaceJeu("Wargame");
 	}
 }

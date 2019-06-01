@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,6 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import controller.GameController;
+import model.HexMap;
+import model.Joueur;
 
 /**
  *  Class PanelAccueil.
@@ -195,6 +200,23 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	    }
 	    return police;
 	}
+	
+	/**
+	 *  Crée la liste des joueurs.
+	 *  @return ArrayList<Joueur>
+	 */
+	public ArrayList<Joueur> creerListeJoueurs() {
+		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
+		for (int i=1; i<=this.nbJoueurs; i++) {
+			joueurs.add(new Joueur(i));
+		}
+		for (int i=this.nbJoueurs+1; i<=this.nbIA; i++) {
+			Joueur ia = new Joueur(i);
+			ia.setIA(true);
+			joueurs.add(ia);
+		}
+		return joueurs;
+	}
 
 	/**
 	 *  Permet le traitement des évènements.
@@ -237,9 +259,15 @@ public class PanelAccueil extends JPanel implements ActionListener {
 			} else {
 				this.fenetre.getContentPane().removeAll();
 				this.fenetre.setLayout(new BorderLayout());
-
 				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
-				this.fenetre.getContentPane().add(new PanelPartie(this.fenetre, totalEquipe));
+				
+				GameController controleur = new GameController(this.creerListeJoueurs());
+				HexMap map = controleur.getMap();
+				
+				this.fenetre.setPanelCarte(new PanelCarte(totalEquipe, map));
+				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map));
+				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
+				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
 			}
 		}
 		this.fenetre.setVisible(true);
