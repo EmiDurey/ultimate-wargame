@@ -2,13 +2,10 @@ package model;
 
 public class Montagne extends Hex {
 
-	/* attributs du terrain */
-	private final int cout = 33; // cout du deplacement dans ce terrain
-	private final int defense = 40; // pourcentage
-
-
 	Montagne(int newX, int newY) {
 		super(newX, newY);
+		this.cost = 33;
+		this.defense = 40;
 		rarity = (float) 0.24;
 	}
 

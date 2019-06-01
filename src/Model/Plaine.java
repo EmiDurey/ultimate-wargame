@@ -1,14 +1,11 @@
 package model;
 
 public class Plaine extends Hex {
-
-	/* attributs du terrain */
-	private final int cout = 15; // cout du deplacement dans ce terrain
-	private final float defense = 10; // pourcentage
-
-
+	
 	Plaine(int newX, int newY) {
 		super(newX, newY);
+		this.cost = 15;
+		this.defense = 10;
 	}
 
 	Plaine(int newX, int newY, int newZ) {
