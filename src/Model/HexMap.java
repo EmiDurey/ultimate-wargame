@@ -193,7 +193,7 @@ public class HexMap implements Serializable {
 
 
 	/**
-	* Remplis aléatoirement la map avec différents biomes.
+	* Remplit aléatoirement la map avec différents biomes.
 	*/
 	public void populate() {
 		int nBiomes = (int) Math.sqrt(getWidth() * getHeight() / 4);
@@ -226,6 +226,34 @@ public class HexMap implements Serializable {
 			propagate(next, biomeValue, 0);
 
 		}
+	}
+
+
+
+	/**
+	* Initialise la map et les unités à partir du tableau des joueurs
+	* de la partie.
+	* @param a Hex
+	* @return ArrayList
+	*/
+	public void initMap(ArrayList<Joueur> players) {
+		
+
+		switch(players.size()) {
+			case 2:
+				setRectangleMap(8, 12);
+				break;
+			case 3:
+				setTriangleMap(13);
+				break;
+			case 4:
+				setRectangleMap(12, 18);
+				break;
+
+			default:
+				setHexagonMap(13);
+		}
+
 	}
 
 
