@@ -23,6 +23,7 @@ public class GameController {
     private boolean fin = false;
     private int offsetX;
     private int offsetY;
+    private int idMap;
     
     /* Booleen permettant de savoir la source du clic.
      * true = premier clic (il a choisit l'unité)
@@ -30,22 +31,26 @@ public class GameController {
      */
     private boolean source = false;
     
-    public GameController(List<Joueur> joueurs) {
+    public GameController(ArrayList<Joueur> joueurs) {
         this.joueurs.addAll(joueurs);
         this.joueurAct = joueurs.get(0);
         if (this.joueurs.size() == 3) {
+        	this.idMap = 1;
         	this.map.setTriangleMap(13);
         	this.offsetX=170;
         	this.offsetY=15;
         } else if (this.joueurs.size() <= 4) {
         	this.map.setRectangleMap(12, 18);
+        	this.idMap = 2;
         	this.offsetX=20;
         	this.offsetY=64;
         } else {
         	this.map.setHexagonMap(15);
+        	this.idMap = 3;
         	this.offsetX=755;
         	this.offsetY=960;
         }
+        map.initMap(joueurs);
     }
 
     /**
@@ -149,35 +154,104 @@ public class GameController {
      */
     Hex pixelToHex(HexMap map, int x, int y, int offsetX, int offsetY) {
 
-        //Substract offset
-        x-=offsetX;
-        y-=offsetY;
+    	switch(idMap) {
+    		case 1:
+    		{
+    			//Substract offset
+    	        x-=offsetX;
+    	        y-=offsetY;
 
 
-        //Calculating Hex coords
-        double xHex = (double) ( 2./3. * x ) / 37.5;
-        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+    	        //Calculating Hex coords
+    	        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
+    	        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
 
-        //Rounding
-        double zHex = -xHex -yHex;
+    	        //Rounding
+    	        double zHex = -xHex -yHex;
 
-        double rx = Math.round(xHex);
-        double ry = Math.round(yHex);
-        double rz = Math.round(zHex);
+    	        double rx = Math.round(xHex);
+    	        double ry = Math.round(yHex);
+    	        double rz = Math.round(zHex);
 
-        double xDiff = Math.abs(rx - xHex);
-        double yDiff = Math.abs(ry - yHex);
-        double zDiff = Math.abs(rz - zHex);
+    	        double xDiff = Math.abs(rx - xHex);
+    	        double yDiff = Math.abs(ry - yHex);
+    	        double zDiff = Math.abs(rz - zHex);
 
 
-        if (xDiff > yDiff && xDiff > zDiff)
-            rx = -ry-rz;
-        else if (yDiff > zDiff)
-            ry = -rx-rz;
-        else
-            rz = -rx-ry;
+    	        if (xDiff > yDiff && xDiff > zDiff)
+    	            rx = -ry-rz;
+    	        else if (yDiff > zDiff)
+    	            ry = -rx-rz;
+    	        else
+    	            rz = -rx-ry;
 
-        return map.getHex((int) rx, (int) ry);
+    	        return map.getHex((int) rx, (int) ry);
+    		}
+    		/*case 2:
+    		{
+    			//Substract offset
+    	        x-=offsetX;
+    	        y-=offsetY;
+
+
+    	        //Calculating Hex coords
+    	        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
+    	        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+
+    	        //Rounding
+    	        double zHex = -xHex -yHex;
+
+    	        double rx = Math.round(xHex);
+    	        double ry = Math.round(yHex);
+    	        double rz = Math.round(zHex);
+
+    	        double xDiff = Math.abs(rx - xHex);
+    	        double yDiff = Math.abs(ry - yHex);
+    	        double zDiff = Math.abs(rz - zHex);
+
+
+    	        if (xDiff > yDiff && xDiff > zDiff)
+    	            rx = -ry-rz;
+    	        else if (yDiff > zDiff)
+    	            ry = -rx-rz;
+    	        else
+    	            rz = -rx-ry;
+
+    	        return map.getHex((int) rx, (int) ry);
+    		}
+    		case 3 :
+    		{
+    				horizon = 
+    			 	x-=755-horizon;
+    		        y-=960-vertical;
+    		        
+    		        //Calculating Hex coords
+    		        double xHex = (double) (( 2./3. * x-37.5) / 37.5);
+    		        double yHex = (double) ((-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5);
+
+    		        //Rounding
+    		        double zHex = -xHex -yHex;
+
+    		        double rx = Math.round(xHex);
+    		        double ry = Math.round(yHex);
+    		        double rz = Math.round(zHex);
+
+    		        double xDiff = Math.abs(rx - xHex);
+    		        double yDiff = Math.abs(ry - yHex);
+    		        double zDiff = Math.abs(rz - zHex);
+
+
+    		        if (xDiff > yDiff && xDiff > zDiff)
+    		            rx = -ry-rz;
+    		        else if (yDiff > zDiff)
+    		            ry = -rx-rz;
+    		        else
+    		            rz = -rx-ry;
+
+    	        return map.getHex((int) rx, (int) ry);
+    		}*/
+    	}
+		return null; 
 }
 
     
