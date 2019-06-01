@@ -11,13 +11,4 @@ public class Plaine extends Hex {
 	Plaine(int newX, int newY, int newZ) {
 		super(newX, newY, newZ);
 	}
-
-
-	public void print() {
-		if(getUnit() != null)
-			System.out.print(getUnit().getJoueur().getID());
-		else
-			System.out.print("X");
-	}
-
 }
