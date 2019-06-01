@@ -1,62 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Controller;
+package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import model.HexMap;
 import model.Joueur;
 
-/**
- *
- * @author pavel
- */
 public class GameController {
 
+	private HexMap map;
     private List<Joueur> joueurs = new ArrayList<>();
+    
     private Joueur tourDeJouer;
-    private Date gameStarted;
-    public GameController(List<Joueur> joueurs) {
-        joueurs.addAll(joueurs);
-        tourDeJouer = joueurs.get(0);
-        gameStarted = new Date();
-        System.out.println("Au tour de " + this.tourDeJouer.getNom());
+    
+    public GameController(List<Joueur> joueurs, HexMap map) {
+        this.joueurs.addAll(joueurs);
+        this.tourDeJouer = joueurs.get(0);
+        this.map = map;
     }
 
     /**
-     * Change le tour de o joueur, le changement se fait en boucle sur la liste
-     * des joueurs tant que le joueur est en vie
+     * Change le tour des joueurs.
+     * Le changement se fait en boucle sur la liste des joueurs
      */
     private void changeTour() {
-        int lastIndexJoueur = joueurs.indexOf(tourDeJouer);
-        if (lastIndexJoueur < joueurs.size()) {
-            if (joueurs.size() > 0 && joueurs.get(0).getIsIsAlive()) {
-                tourDeJouer = joueurs.get(0);
-            } else {
-                System.out.println("Fin de jeu, il ne reste aucun joueur vivant");
-            }
-        } else {
-            if (joueurs.get(lastIndexJoueur + 1).getIsIsAlive()) {
-                tourDeJouer = joueurs.get(lastIndexJoueur + 1);
-            } else {
-                lastIndexJoueur++;
-                changeTour();
-            }
-
-        }
+    	
+    	this.verif();
+    	int lastIndexJoueur = joueurs.indexOf(tourDeJouer);
+    	if (lastIndexJoueur < joueurs.size()) {
+    		tourDeJouer = joueurs.get(lastIndexJoueur + 1);
+    	} else {
+    		tourDeJouer = joueurs.get(0);
+    	}
     }
 
-    private void addJoueur(Joueur joueur) {
-        this.joueurs.add(joueur);
+    /**
+     * Vérifie l'état des joueurs et la fin de partie. 
+     */
+    private void verif() {
+    	for(Joueur joueur : joueurs) {
+    		if(joueur.getUnite().isEmpty()) {
+    			joueurs.remove(joueur);
+    		}
+    	}
+    	if(joueurs.size() == 1) {
+    		//TODO FIN DE PARTIE
+    	}
     }
-
-    private void removeJoueur(Joueur joueur) {
-        this.joueurs.remove(joueur);
-    }
-
+    
     public List<Joueur> getJoueurs() {
         return joueurs;
     }
@@ -71,14 +61,6 @@ public class GameController {
 
     public void setTourDeJouer(Joueur tourDeJouer) {
         this.tourDeJouer = tourDeJouer;
-    }
-
-    public Date getGameStarted() {
-        return gameStarted;
-    }
-
-    public void setGameStarted(Date gameStarted) {
-        this.gameStarted = gameStarted;
     }
 
     
