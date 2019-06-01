@@ -32,6 +32,7 @@ public class GameController {
     private boolean source = false;
     
     public GameController(ArrayList<Joueur> joueurs) {
+    	this.map = new HexMap();
         this.joueurs.addAll(joueurs);
         this.joueurAct = joueurs.get(0);
         if (this.joueurs.size() == 3) {
@@ -50,7 +51,15 @@ public class GameController {
         	this.offsetX=755;
         	this.offsetY=960;
         }
-        map.initMap(joueurs);
+        this.map.initMap(joueurs);
+}
+    
+    /**
+	 *  Retourne la map.
+	 *  @return HexMap
+	 */
+    public HexMap getMap() {
+    	return this.map;
     }
 
     /**
