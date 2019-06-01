@@ -80,7 +80,7 @@ public class Joueur implements Serializable {
 	 *  Indique si le joueur est humain ou non
 	 *  @return nom String
 	 */
-	public String getIsIA() {
+	public boolean isIA() {
 		return isIA;
 	}
 
@@ -88,7 +88,7 @@ public class Joueur implements Serializable {
 	 *  Modifie le statut du joueur (humain / IA)
 	 *  @param nom String
 	 */
-	public void setIsIA(boolean isIA) {
+	public void setIA(boolean isIA) {
 		this.isIA = isIA;
 	}
 }

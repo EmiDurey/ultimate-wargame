@@ -104,4 +104,8 @@ public class Archer extends Unite {
 		}
 		this.pointsDeplacement = 0;
 	}
+
+	public int getPortee() {
+		return portee;
+	}
 }
