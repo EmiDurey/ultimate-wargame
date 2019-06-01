@@ -238,6 +238,7 @@ public class HexMap implements Serializable {
 		switch(players.size()) {
 			case 2:
 				setRectangleMap(8, 12);
+				populate();
 				for(int i=0; i<2; i++){
 					unitsPositions.add(new ArrayList<Hex>());
 				}
@@ -260,6 +261,7 @@ public class HexMap implements Serializable {
 
 			case 3:
 				setTriangleMap(13);
+				populate();
 				for(int i=0; i<3; i++){
 					unitsPositions.add(new ArrayList<Hex>());
 				}
@@ -289,6 +291,7 @@ public class HexMap implements Serializable {
 
 			case 4:
 				setRectangleMap(12, 18);
+				populate();
 				for(int i=0; i<4; i++){
 					unitsPositions.add(new ArrayList<Hex>());
 				}
@@ -326,6 +329,7 @@ public class HexMap implements Serializable {
 
 			default:
 				setHexagonMap(13);
+				populate();
 				for(int i=0; i<6; i++){
 					unitsPositions.add(new ArrayList<Hex>());
 				}
