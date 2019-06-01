@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.HexMap;
 import model.Joueur;
+import model.Pretre;
+import model.Unite;
 
 public class GameController {
 
@@ -25,6 +27,15 @@ public class GameController {
     private void changeTour() {
     	
     	this.verif();
+    	for(Unite unite: tourDeJouer.getUnite()) {
+    		unite.heal();
+    		// AFFICHAGE HEAL ????
+    		unite.initialize();
+    		if(unite instanceof Pretre) {
+    			((Pretre) unite).soigne(map, tourDeJouer);
+    			//AFFICHAGE HEAL ????
+    		}
+    	}
     	int lastIndexJoueur = joueurs.indexOf(tourDeJouer);
     	if (lastIndexJoueur < joueurs.size()) {
     		tourDeJouer = joueurs.get(lastIndexJoueur + 1);
