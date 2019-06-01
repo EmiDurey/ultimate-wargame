@@ -237,8 +237,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 				this.fenetre.setLayout(new BorderLayout());
 
 				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
-				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
-				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
+				this.fenetre.getContentPane().add(new PanelCarte(totalEquipe), BorderLayout.WEST);
+				this.fenetre.getContentPane().add(new PanelInformations(), BorderLayout.EAST);
 			}
 		}
 		this.fenetre.setVisible(true);

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,12 +14,12 @@ import javax.swing.JLabel;
 public class InterfaceJeu extends JFrame {
 
 	/**
-	 * Longueur de la fenï¿½tre.
+	 * Longueur de la fenêtre.
 	 */
 	private final int longueur = 1700;
 
 	/**
-	 * Largeur de la fenï¿½tre.
+	 * Largeur de la fenêtre.
 	 */
 	private final int largeur = 1000;
 
@@ -26,21 +27,6 @@ public class InterfaceJeu extends JFrame {
 	 * Image de fond.
 	 */
 	private JLabel fond;
-
-	/**
-	 * Panel d'accueil.
-	 */
-	private PanelAccueil panelAccueil;
-
-	/**
-	 * Panel de la carte.
-	 */
-	private PanelCarte panelCarte;
-
-	/**
-	 * Panel des informaitons du jeu.
-	 */
-	private PanelInformations panelInformations;
 
 	/**
 	 * Barre de menu.
@@ -53,9 +39,6 @@ public class InterfaceJeu extends JFrame {
 	 */
 	public InterfaceJeu(String titre) {
 		super(titre);
-		this.panelCarte = new PanelCarte();
-		this.panelAccueil = new PanelAccueil(this);
-		this.panelInformations = new PanelInformations();
 		this.barreMenu = null;
 
 		this.setSize(longueur, largeur);
@@ -64,26 +47,10 @@ public class InterfaceJeu extends JFrame {
 
 		this.setContentPane(this.creerFond());
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
-	    this.getContentPane().add(this.panelAccueil);
+	    this.getContentPane().add(new PanelAccueil(this));
 
 	    this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-
-	/**
-	 *  Retourne le panel de la carte.
-	 *  @return PanelCarte
-	 */
-	public PanelCarte getPanelCarte() {
-		return this.panelCarte;
-	}
-
-	/**
-	 *  Retourne le panel des informations.
-	 *  @return PanelInformations
-	 */
-	public PanelInformations getPanelInformations() {
-		return this.panelInformations;
 	}
 
 	/**
@@ -96,11 +63,11 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  Crï¿½e l'image de fond.
+	 *  Crée l'image de fond.
 	 *  @return JLabel
 	 */
 	public JLabel creerFond() {
-		this.fond = new JLabel(new ImageIcon("images\\carte.png")) {
+		this.fond = new JLabel(new ImageIcon("images" + File.separator + "carte.png")) {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				if (getIcon() != null) {
@@ -112,7 +79,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  Point d'entrï¿½e du programme.
+	 *  Point d'entrée du programme.
 	 *  @param args argument
 	 *  @see InterfaceJeu
 	 */

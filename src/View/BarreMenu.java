@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -68,7 +69,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	 *  @param nomFichier string
 	 */
 	public void ajouterMenuItem(String nom, String nomFichier) {
-		String chemin = "images\\JMenuBar\\";
+		String chemin = "images" + File.separator + "JMenuBar" + File.separator;
 		JMenuItem menuItem;
 
 		menuItem = new JMenuItem(nom);

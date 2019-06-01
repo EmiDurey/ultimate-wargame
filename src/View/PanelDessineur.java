@@ -19,70 +19,143 @@ import model.Plaine;
 public class PanelDessineur extends JPanel {
 	
 	private HexMap map;
+	private int totalEquipe;
+	private String sep;
 
-    public PanelDessineur() {
+    public PanelDessineur(int totalEquipe) {
+    	this.totalEquipe = totalEquipe;
+    	this.sep = File.separator;
     	this.map = new HexMap();
-	    this.map.setHexagonMap(15);
+	    this.creeMap();
 	    this.map.populate();
 	    //this.map.ASCIIDisplay();
     }
     
-    public File attribuImageHex(Object hex) {
-		String chemin = "images\\Terrain\\";
-		File image = null;
-		
-		if(hex instanceof Eau) {
-			chemin += "eau.png";
+    public void creeMap() {
+    	if(this.totalEquipe <= 3) {
+    		this.map.setTriangleMap(13);
 		}
-		else if(hex instanceof Plaine) {
-			chemin += "plaine.png";
+		else if(this.totalEquipe == 4) {
+			this.map.setRectangleMap(12, 18);
 		}
-		else if(hex instanceof Foret) {
-			chemin += "foret.png";
+		else { 
+			this.map.setHexagonMap(15);
 		}
-		else if(hex instanceof Forteresse) {
-			chemin += "forteresse.png";
-		}
-		else if(hex instanceof Montagne) {
-			chemin += "montagne.png";
-		}
-		else if(hex instanceof Neige) {
-			chemin += "neige.png";
-		}
-		else {
-			chemin += "plaine.png";
-		}
-		
-		image = new File(chemin);
-		
-		return image;		
-	}
+    }
     
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		Hex current;
-
-		for (int i = this.map.getMinX(); i < this.map.getMaxX(); i++) {
+		if(this.totalEquipe <= 3) {   // triangle
+			this.afficheMapTriangle(g);
+		}
+		else if(this.totalEquipe == 4) {   // rectangle
+			this.afficheMapRectangle(g);
+		}
+		else {   // hexagone
+			this.afficheMapHexagone(g);
+		}		
+	}
+    
+    public void afficheMapTriangle(Graphics g) {
+    	Hex current;
+        int imageX, imageY;
+        File image;
+        
+        for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
+            for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
+                current = this.map.getHex(i, j);
+                if (current != null) {
+                    imageX = 170 + 54 * (3/2 * current.getY());
+                    imageY = (int) (15 + 33 *  (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
+                    image = associeImageHex(current);
+                    this.afficheImage(g, image, imageX, imageY);
+                }
+            }
+        }
+    }
+    
+    public void afficheMapRectangle(Graphics g) {
+    	Hex current;
+        int imageX, imageY;
+    	File image;
+    	
+        for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
+            for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
+                current = this.map.getHex(i, j);
+                if (current != null) {
+                    imageX = 20 + 54 * (3/2 * current.getY());
+                    if (j%2 == 0) {
+                        imageY = (int) (384 + 33 *  (Math.sqrt(3) * current.getX()) + 32 + current.getX() * 7);
+                    } else {
+                        imageY = (int) (384 + 33 *  (Math.sqrt(3) * current.getX()) + current.getX() * 7);
+                    }
+                    
+                    image = associeImageHex(current);
+                    this.afficheImage(g, image, imageX, imageY);
+                }
+            }
+        }
+    }
+    
+    public void afficheMapHexagone(Graphics g) {
+    	Hex current;
+    	int imageX, imageY;
+    	File image;
+    	
+    	for (int i = this.map.getMinX(); i < this.map.getMaxX(); i++) {
 			for (int j = this.map.getMinY(); j < this.map.getMaxY(); j++) {
 				current = this.map.getHex(i, j);
 				if (current != null) {
-					int imageX, imageY;
-					imageX = 310 + (current.getX() + 8) * 52;
-					if(i%2 != 0) {
-						imageY = 455 + (current.getY() + 8) * 65 + 32;
-					}
-					else {
-						imageY = 455 + (current.getY() + 8) * 65;
-					}
-					File image = attribuImageHex(current);
-					try {
-						g.drawImage(ImageIO.read(image), imageX, imageY, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					imageX = 755 + 54 * (3/2 * current.getY());
+	                imageY = (int) (960 + 33 *  (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
+				
+					image = associeImageHex(current);
+					String[] nomImage = {"mage.png", "archer.png", "priest.png", "dragon.png", "infanterie.png", "infanterieLourde.png", "chevalier.png"};
+					String nom = nomImage[(int) (Math.random() * ( 7 - 0 ))];
+					File imagePerso = new File("images" + sep + "Unite" + sep + "TailleMap" + sep + nom);
+                    this.afficheImage(g, image, imageX, imageY);
+					//g.drawImage(ImageIO.read(imagePerso), imageX+13, imageY+10, this);
 				}
 			}
 		}
-	}
+    }
+    
+    public File associeImageHex(Object hex) {
+ 		String chemin = "images" + sep + "Terrain" + sep + "TailleMap" + sep;
+ 		File image = null;
+ 		
+ 		if(hex instanceof Eau) {
+ 			chemin += "eau.png";
+ 		}
+ 		else if(hex instanceof Plaine) {
+ 			chemin += "plaine.png";
+ 		}
+ 		else if(hex instanceof Foret) {
+ 			chemin += "foret.png";
+ 		}
+ 		else if(hex instanceof Forteresse) {
+ 			chemin += "forteresse.png";
+ 		}
+ 		else if(hex instanceof Montagne) {
+ 			chemin += "montagne.png";
+ 		}
+ 		else if(hex instanceof Neige) {
+ 			chemin += "neige.png";
+ 		}
+ 		else {
+ 			chemin += "plaine.png";
+ 		}
+ 		
+ 		image = new File(chemin);
+ 		
+ 		return image;		
+ 	}
+    
+    public void afficheImage(Graphics g, File image, int imageX, int imageY) {
+    	try {
+            g.drawImage(ImageIO.read(image), imageX, imageY, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

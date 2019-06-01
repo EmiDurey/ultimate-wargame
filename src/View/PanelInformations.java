@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,8 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +24,8 @@ import javax.swing.border.TitledBorder;
  */
 public class PanelInformations extends JPanel implements ActionListener {
 
+	private JPanel panelImagePerso;
+	
 	/**
 	 * Couleur des composants graphiques.
 	 */
@@ -35,6 +40,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	    this.setBackground(this.couleurFond);
 	    this.setVisible(true);
 	    this.initComposant();
+	    this.affichePerso();
 	}
 
 	/**
@@ -61,19 +67,19 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridy = 0;
 		contrainte.gridwidth = 3;
 		this.add(panel, contrainte);
-
-		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(150, 150));
-		panel.setBackground(this.couleurFond);
+		
+		this.panelImagePerso = new JPanel();
+		this.panelImagePerso.setPreferredSize(new Dimension(150, 150));
+		this.panelImagePerso.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
 		texte = "Image perso";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
-		panel.setBorder(border);
+		this.panelImagePerso.setBorder(border);
 		contrainte.gridx = 0;
 		contrainte.gridy = 1;
 		contrainte.gridwidth = 1;
 		contrainte.insets = new Insets(30, 0, 0, 0);
-		this.add(panel, contrainte);
+		this.add(this.panelImagePerso, contrainte);
 
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(90, 20));
@@ -111,7 +117,15 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.insets = new Insets(200, 0, 0, 0);
 		this.add(boutonFinTour, contrainte);
 	}
+	
+	public void affichePerso() {
+		String sep = File.separator;
+		JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "TailleInfo" + sep + "archer.png"));
 
+		this.panelImagePerso.setLayout(new BorderLayout());
+		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
+	}
+	
 	/**
 	 *  Permet le traitement des évènements.
 	 *  @param evt évènement
