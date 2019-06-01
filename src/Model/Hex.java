@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,9 @@ public class Hex implements Serializable {
 	 * (à mettre à jour dans les fonctions de déplacement)
 	 */
 	private Unite unit = null;
+        
+        /*Couleur permettant de gérer le surlignement des Hexagones*/
+        private Color color = null; 
 
 	/**
 	 * Utilisé pour la propagation du biome dans la génération de map
@@ -379,5 +383,24 @@ public class Hex implements Serializable {
 	public float getRarity() {
 		return rarity;
 	}
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Boolean getEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(Boolean empty) {
+        this.empty = empty;
+    }
+      
+    
+        
 
 };

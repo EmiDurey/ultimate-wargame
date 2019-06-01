@@ -236,7 +236,7 @@ public class HexMap implements Serializable {
 	* @param a Hex
 	* @return ArrayList
 	*/
-	public ArrayList getNeighbours(Hex a) {
+	public ArrayList<Hex> getNeighbours(Hex a) {
 		Hex[] geometricNeighbours = a.getNeighbours();
 
 		ArrayList<Hex> neighbours = new ArrayList<Hex>();
