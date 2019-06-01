@@ -49,7 +49,7 @@ public abstract class Unite implements Serializable {
 	/**
 	 *  Points de vision d'une unitée.
 	 */
-        
+
 	protected int vision;
 	/**
 	 *  Position d'une unitée.
@@ -144,7 +144,18 @@ public abstract class Unite implements Serializable {
 			}
 			if (unitInRange.isEmpty()) {
 				if (this.pointsDeVie >= this.pointsDeVieMax / 2) {
-					//ON SE RAPPROCHE
+					//Très sale =/
+					Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
+					Hex goal = flee (enemy.getHex(), map);
+					ArrayList<Hex> path = map.pathfinding( getHex(), map.getClosestEnemy(getHex(), joueur).getHex());
+					if(path.size() > 1) {
+						seDeplace(map, path.get(path.size()-2));
+					}else if(path.size() > 0) {
+						seDeplace(map, path.get(path.size()-1));
+					}
+
+
+
 				} else {
 					this.setPointsDeplacement(0);
 					break;
@@ -167,7 +178,9 @@ public abstract class Unite implements Serializable {
 			}
 		}
 		if (this.pointsDeplacement != 0) {
-			//ON S'ELOIGNE
+			Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
+			Hex goal = flee (enemy.getHex(), map);
+			seDeplace(map, goal);
 		}
 	}
 
@@ -188,7 +201,7 @@ public abstract class Unite implements Serializable {
 	}
 
 
-	public Hex flee(Hex source, HexMap map) {
+	public Hex flee (Hex source, HexMap map) {
 		//TODO Testing
 
 		int moveCapacity = pointsDeplacement;
@@ -356,6 +369,6 @@ public abstract class Unite implements Serializable {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
-        
-        
+
+
 }
