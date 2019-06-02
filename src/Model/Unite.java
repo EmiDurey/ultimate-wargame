@@ -272,7 +272,7 @@ public abstract class Unite implements Serializable {
 	 * Récupère les points de déplacement d'une unité.
 	 * @return pointsDeplacement int
 	 */
-	public float getPointsDeplacement() {
+	public int getPointsDeplacement() {
 		return pointsDeplacement;
 	}
 

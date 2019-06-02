@@ -135,7 +135,8 @@ public class GameController implements Serializable {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
         			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
-        			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
+        			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
+        			System.out.println(surligne);
         			if(uniteSelectionne instanceof Archer) {
         				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
         			}
@@ -148,13 +149,13 @@ public class GameController implements Serializable {
         } else {
             if (hexSelectionne.getUnit() == null) {
             	System.out.println("Il se passe rien");
-            	//this.hexSelectionne.getUnit().seDeplace(this.map, this.hexSelectionne);
+            	uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	System.out.println("Clique allé");
             	surligne.clear();
             	uniteSelectionne = hexSelectionne.getUnit();
-            	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
+            	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
     			if(uniteSelectionne instanceof Archer) {
     				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
     			}

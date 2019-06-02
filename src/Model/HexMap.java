@@ -509,14 +509,13 @@ public class HexMap implements Serializable {
             }
         }
 
-		/*Hex hexInit = players.get(0).getUnite().get(0).getHex();
+		Hex hexInit = players.get(0).getUnite().get(0).getHex();
 		for(int i=1; i<players.size(); i++) {
 			Hex hexFin = players.get(i).getUnite().get(0).getHex();
 			if(pathfinding(hexInit,hexFin).size() == 0) {
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				initMap(players);
 			}
-		}	*/
+		}	
 	}
 
 	/**
