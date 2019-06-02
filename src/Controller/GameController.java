@@ -41,12 +41,12 @@ public class GameController {
         	this.idMap = 1;
         	this.map.setTriangleMap(13);
         	this.offsetX = 170 + 38;
-        	this.offsetY = 33;
+        	this.offsetY = 15 + 33;
         } else if (this.joueurs.size() <= 4) {
         	this.map.setRectangleMap(12, 18);
         	this.idMap = 2;
-        	this.offsetX = 38;
-        	this.offsetY = 33;
+        	this.offsetX = 40+38;
+        	this.offsetY = 70+33;
         } else {
         	this.map.setHexagonMap(15);
         	this.idMap = 3;
@@ -75,13 +75,13 @@ public class GameController {
     	annonce.clear();
     	hexAnnonce.clear();
     	for(Unite unite: joueurAct.getUnite()) {
-    		
+
     		int pvInit = unite.getPointsDeVie();
         	unite.heal();
         	int pvFin = unite.getPointsDeVie();
         	annonce.add(String.valueOf(pvFin-pvInit));
         	hexAnnonce.add(unite.getHex());
-        	
+
     		unite.initialize();
     		if(unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
@@ -194,8 +194,8 @@ public class GameController {
 
 
         //Calculating Hex coords
-        double yHex = (double) ( 2./3 * x )/ 37.5;
-        double xHex = (double) (-1./3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+        double yHex = (double) ( 2./3 * x )/ 37;
+        double xHex = (double) (-1./3 * x  +  Math.sqrt(3)/3 * y) / 37;
 
         //Rounding
         double zHex = -xHex -yHex;

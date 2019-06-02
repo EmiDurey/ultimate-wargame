@@ -81,8 +81,8 @@ public class PanelDessineurMap extends JPanel {
                 current = this.map.getHex(i, j);
                 if (current != null) {
 
-					imageX = (int) (offsetX + 37.5 * (3./2 * current.getY()) );
-					imageY = (int) (offsetY + 37.5 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
+					imageX = (int) (offsetX + 37 * (3./2 * current.getY()) );
+					imageY = (int) (offsetY + 37 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
 
 					image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY);
@@ -101,7 +101,7 @@ public class PanelDessineurMap extends JPanel {
 	 * Affiche la map triangle.
 	 */
     public void afficheMapTriangle(Graphics g) {
-		afficheMap(g, 170, 0);
+		afficheMap(g, 170, 15);
     }
 
     /**
@@ -109,7 +109,7 @@ public class PanelDessineurMap extends JPanel {
 	 * @param g Graphics
 	 */
     public void afficheMapRectangle(Graphics g) {
-		afficheMap(g, 0, 0);
+		afficheMap(g, 40, 70);
     }
 
     /**
