@@ -89,11 +89,11 @@ public class HexMap implements Serializable {
 	* @param mapSize int
 	*/
 	public void setHexagonMap(int mapSize) {
-        for (int x = -mapSize; x < mapSize; x++) {
+        for (int x = -mapSize; x < mapSize-1; x++) {
             int y1 = max(-mapSize+1, -x - mapSize);
-            int y2 = min(mapSize, -x + mapSize-2);
+            int y2 = min(mapSize, -x + mapSize-1);
 
-            for (int y = y1; y <= y2; y++) {
+            for (int y = y1; y < y2; y++) {
                 Plaine newHex = new Plaine(x, y, -x - y);
                 map.put(newHex.hashCode(), newHex);
             }
