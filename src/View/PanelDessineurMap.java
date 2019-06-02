@@ -19,6 +19,7 @@ import model.Hex;
 import model.HexMap;
 import model.Infanterie;
 import model.InfanterieLourde;
+import model.Joueur;
 import model.Mage;
 import model.Montagne;
 import model.Neige;
@@ -149,11 +150,22 @@ public class PanelDessineurMap extends JPanel {
  	}
     
     public File associeImageUnite(Hex hex) {
- 		String chemin = "images" + sep + "Unite" + sep + "Map" + sep + "1" + sep;
+    	File image = null;
+ 		String chemin = "images" + sep + "Unite" + sep + "Map" + sep;
  		Unite unite = hex.getUnit();
- 		File image = null;
- 		
- 		if (unite != null) {
+ 		if(unite != null) {
+ 			int nbJoueur = unite.getJoueur().getID();
+	 		switch(nbJoueur) {
+	 			case(1): chemin += "1"; break;
+	 			case(2): chemin += "2"; break;
+	 			case(3): chemin += "3"; break;
+	 			case(4): chemin += "4"; break;
+	 			case(5): chemin += "5"; break;
+	 			case(6): chemin += "6"; break;
+	 			default: break;
+	 		}
+	 		chemin += sep;
+
 	 		if (unite instanceof Dragon) {
 	 			chemin += "dragon.png";
 	 		} else if (unite instanceof Cavalerie) {

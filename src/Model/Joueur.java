@@ -44,7 +44,14 @@ public class Joueur implements Serializable {
 		unites.add(unit);
 	}
 
-
+	/**
+	 *  Récupère l'id du joueur.
+	 *  @return id int
+	 */
+	public int getID() {
+		return this.id;
+	}
+	
 	/**
 	 *  Assigne un id au joueur.
 	 *  @param id ind
