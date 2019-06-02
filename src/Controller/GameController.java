@@ -29,7 +29,7 @@ public class GameController {
      * true = premier clic (il a choisit l'unité)
      * false = deuxieme clic (il a choisit l'hexagone sur lequel il veut déplacer l'unité)
      */
-    private boolean source = false;
+    private boolean source = true;
 
     public GameController(ArrayList<Joueur> joueurs) {
 
@@ -126,10 +126,12 @@ public class GameController {
 
 		if (this.hexSelectionne == null)
 			return;
-
+		System.out.println("###############"+ source +"#########");
         if (source) {
-        	if(!hexSelectionne.isEmpty()) {
+        	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
+        	if(!(hexSelectionne.getUnit() == null)) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
+        			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
         			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
         			if(uniteSelectionne instanceof Archer) {
@@ -137,14 +139,17 @@ public class GameController {
         			}
         			toggleSource();
         		} else {
+        			System.out.println("Clique ennemi");
         			uniteSelectionne = hexSelectionne.getUnit();
         		}
         	}
         } else {
-            if (hexSelectionne.isEmpty()) {
-            	hexSelectionne.getUnit().seDeplace(map, hexSelectionne);
+            if (hexSelectionne.getUnit() == null) {
+            	System.out.println("Il se passe rien");
+            	//this.hexSelectionne.getUnit().seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
+            	System.out.println("Clique allé");
             	surligne.clear();
             	uniteSelectionne = hexSelectionne.getUnit();
             	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
@@ -153,10 +158,11 @@ public class GameController {
     			}
     			toggleSource();
             } else {
+            	System.out.println("Clique ennemi");
             	int pvFin = 0;
             	int pvInit = hexSelectionne.getUnit().getPointsDeVie();
             	uniteSelectionne.combat(map, joueurAct, hexSelectionne.getUnit());
-            	if(!hexSelectionne.isEmpty()) {
+            	if(!(hexSelectionne.getUnit()==null)) {
             		pvFin = hexSelectionne.getUnit().getPointsDeVie();
             	}
             	else {
@@ -166,8 +172,8 @@ public class GameController {
             	hexAnnonce.add(hexSelectionne);
             	surligne.clear();
             }
-        }
         toggleSource();
+        }
     }
 
     /**
