@@ -31,7 +31,7 @@ import model.Joueur;
 public class PanelAccueil extends JPanel implements ActionListener {
 
 	/**
-	 * Fenêtre principale.
+	 * Fenï¿½tre principale.
 	 */
 	private InterfaceJeu fenetre;
 
@@ -86,12 +86,12 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		conteneur.setPreferredSize(new Dimension(500, 570));
 	    conteneur.setBorder(BorderFactory.createLoweredBevelBorder());
 
-		// création d'une box à gestion verticale
+		// crï¿½ation d'une box ï¿½ gestion verticale
 	    this.boxVerticale = Box.createVerticalBox();
 	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 10)));
 	    //this.boxVerticale.setOpaque(true);
 
-        // création des boxs à gestion horizontale
+        // crï¿½ation des boxs ï¿½ gestion horizontale
 
 	    // titre
 	    boxHorizontal = Box.createHorizontalBox();
@@ -126,7 +126,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Ajoute la zone de saisie du nombre d'équipes.
+	 *  Ajoute la zone de saisie du nombre d'ï¿½quipes.
 	 *  @param labelNb jlabel
 	 *  @param type string
 	 */
@@ -184,13 +184,13 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Crée une nouvelle police.
+	 *  Crï¿½e une nouvelle police.
 	 *  @return Font
 	 */
 	public Font creerPolice() {
 		Font police = null;
 	    try {
-	    	police = Font.createFont(Font.TRUETYPE_FONT, new File("polices\\Fancy_Card.ttf")).deriveFont(200f);
+	    	police = Font.createFont(Font.TRUETYPE_FONT, new File("polices"+File.separator+"Fancy_Card.ttf")).deriveFont(200f);
 	        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	        ge.registerFont(police);
 	    } catch (IOException e) {
@@ -202,7 +202,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Crée la liste des joueurs.
+	 *  Crï¿½e la liste des joueurs.
 	 *  @return ArrayList<Joueur>
 	 */
 	public ArrayList<Joueur> creerListeJoueurs() {
@@ -219,8 +219,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des évènements.
-	 *  @param evt évènement
+	 *  Permet le traitement des ï¿½vï¿½nements.
+	 *  @param evt ï¿½vï¿½nement
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
@@ -253,7 +253,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 		if (actionCommand.equals("Jouer")) {
 			if (totalEquipe < 2) {
-				String contenu = "Pour pouvoir jouer, un minimum de 2 équipes est requis.";
+				String contenu = "Pour pouvoir jouer, un minimum de 2 ï¿½quipes est requis.";
 		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Erreur", JOptionPane.ERROR_MESSAGE);
 			} else {
 				this.fenetre.getContentPane().removeAll();
