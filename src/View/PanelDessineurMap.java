@@ -46,7 +46,7 @@ public class PanelDessineurMap extends JPanel {
 	 * S�parateur de fichier.
 	 */
 	private String sep;
-	
+
 	/**
 	 * Instance de la classe GameController, controleur de l'application.
 	 */
@@ -54,7 +54,7 @@ public class PanelDessineurMap extends JPanel {
 
 	/**
 	 * Construit un objet de type PanelDessineurMap.
-	 * @param controller 
+	 * @param controller
 	 */
     public PanelDessineurMap(int totalEquipe, HexMap map, GameController controller) {
     	this.totalEquipe = totalEquipe;
@@ -96,10 +96,16 @@ public class PanelDessineurMap extends JPanel {
 					image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY);
 
-                    image = associeImageUnite(current);
-                    if (image != null) {
-                        this.afficheImage(g, image, imageX+13, imageY+10);
-                    }
+					Boolean discovered = current.discovered.get(this.controller.getJoueurAct().getID());
+					if(discovered != null) {
+						if(discovered){
+							image = associeImageUnite(current);
+							if (image != null) {
+								this.afficheImage(g, image, imageX+13, imageY+10);
+							}
+						}
+					}
+
                 }
             }
         }
@@ -141,27 +147,36 @@ public class PanelDessineurMap extends JPanel {
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
 
- 		if (hex instanceof Eau) {
- 			chemin += "eau" + surbrillance(hex);
- 		} else if (hex instanceof Plaine) {
- 			chemin += "plaine" + surbrillance(hex);
- 		} else if (hex instanceof Foret) {
- 			chemin += "foret";
- 		} else if (hex instanceof Forteresse) {
- 			chemin += "forteresse" + surbrillance(hex);
- 		} else if (hex instanceof Montagne) {
- 			chemin += "montagne" + surbrillance(hex);
- 		} else if (hex instanceof Neige) {
- 			chemin += "neige" + surbrillance(hex);
- 		}
- 		
+		Boolean discovered = hex.discovered.get(this.controller.getJoueurAct().getID());
+
+		if(discovered != null) {
+			if(!discovered)
+				chemin += "brouillard" + surbrillance(hex);
+			else if (hex instanceof Eau) {
+				chemin += "eau" + surbrillance(hex);
+			} else if (hex instanceof Plaine) {
+				chemin += "plaine" + surbrillance(hex);
+			} else if (hex instanceof Foret) {
+				chemin += "foret";
+			} else if (hex instanceof Forteresse) {
+				chemin += "forteresse" + surbrillance(hex);
+			} else if (hex instanceof Montagne) {
+				chemin += "montagne" + surbrillance(hex);
+			} else if (hex instanceof Neige) {
+				chemin += "neige" + surbrillance(hex);
+			}
+		}
+ 		else {
+			chemin += "brouillard" + surbrillance(hex);
+		}
+
  		chemin += ".png";
- 		
+
  		image = new File(chemin);
 
  		return image;
  	}
-    
+
     public String surbrillance(Hex hex) {
     	List<Hex> surligne = this.controller.getSurligne();
     	if(surligne.size() > 0) {

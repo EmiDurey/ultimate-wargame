@@ -18,7 +18,7 @@ public class GameController implements Serializable {
     private List<String> annonce = new ArrayList<>();
     private List<Hex> hexAnnonce = new ArrayList<>();
     private List<Hex> surligne = new ArrayList<>();
-    private Joueur joueurAct = null;
+    public Joueur joueurAct = null;
     private Unite uniteSelectionne = null;
     private Hex hexSelectionne = null;
     private boolean fin = false;
@@ -241,10 +241,14 @@ public class GameController implements Serializable {
     	changeTour();
 
     }
-    
+
     public List<Hex> getSurligne() {
     	return this.surligne;
     }
+
+	public Joueur getJoueurAct() {
+		return this.joueurAct;
+	}
 
     public void toggleSource() {
         if(source == false) {
