@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,6 +23,10 @@ public class HexMap implements Serializable {
 	* formes pour celle-ci.
 	*/
 	private HashMap<Integer, Hex> map = new HashMap<>();
+
+	//Pas le temps
+	public List<Hex> highlightH = new ArrayList<Hex>();
+	public List<Hex> highlightH2 = new ArrayList<Hex>();
 
 
 	/**

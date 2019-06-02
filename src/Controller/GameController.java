@@ -129,13 +129,17 @@ public class GameController {
 		System.out.println("###############"+ source +"#########");
 
         if (source) {
+
+			//Unit selection
+
         	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
         	if(!(hexSelectionne.getUnit() == null)) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
         			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
-        			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
-        			if(uniteSelectionne instanceof Archer) {
+        			surligne = map.movementHighlight(uniteSelectionne.getHex(), (int) uniteSelectionne.getPointsDeplacement());
+					map.highlightH = surligne;
+					if(uniteSelectionne instanceof Archer) {
         				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
         			}
         			toggleSource();
@@ -144,21 +148,32 @@ public class GameController {
         			uniteSelectionne = hexSelectionne.getUnit();
         		}
         	}
-        } else {
+
+		} else {
+
+			//Unit already selected
+
             if (hexSelectionne.getUnit() == null) {
             	System.out.println("Il se passe rien");
             	//this.hexSelectionne.getUnit().seDeplace(this.map, this.hexSelectionne);
+				uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
+				map.highlightH = surligne;
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	System.out.println("Clique allé");
             	surligne.clear();
+				map.highlightH = surligne;
+
             	uniteSelectionne = hexSelectionne.getUnit();
-            	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
-    			if(uniteSelectionne instanceof Archer) {
+            	surligne = map.movementHighlight(uniteSelectionne.getHex(), (int) uniteSelectionne.getPointsDeplacement());
+				map.highlightH = surligne;
+
+				if(uniteSelectionne instanceof Archer) {
     				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
     			}
     			toggleSource();
-            } else {
+
+		    } else {
             	System.out.println("Clique ennemi");
             	int pvFin = 0;
             	int pvInit = hexSelectionne.getUnit().getPointsDeVie();
