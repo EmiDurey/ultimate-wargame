@@ -127,6 +127,7 @@ public class GameController {
 		if (this.hexSelectionne == null)
 			return;
 		System.out.println("###############"+ source +"#########");
+
         if (source) {
         	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
         	if(!(hexSelectionne.getUnit() == null)) {
@@ -216,7 +217,7 @@ public class GameController {
         else
             rz = -rx-ry;
 
-		System.out.println(rx + " " + ry);
+		System.out.println((int) rx + " " + (int) ry);
 
         return this.map.getHex((int) rx, (int) ry);
 }
