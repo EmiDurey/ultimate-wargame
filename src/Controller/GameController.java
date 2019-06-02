@@ -115,7 +115,7 @@ public class GameController {
     public void handleMove(int Xcord, int Ycord) {
     	annonce.clear();
     	hexAnnonce.clear();
-        this.hexSelectionne = pixelToHex(map,Xcord, Ycord,this.offsetX,this.offsetY);
+        this.hexSelectionne = pixelToHex(Xcord, Ycord);
         if (source) {
         	if(!hexSelectionne.isEmpty()) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
@@ -154,21 +154,21 @@ public class GameController {
     }
 
     /**
-     * Reourne le l'hexagone sur lequel l'utilisateur à cliqué
+     * Reourne l'hexagone sur lequel l'utilisateur à cliqué
      *
      * @param Xcord : Coordonné X du clic
      * @param Ycord : Coordonné Y du clic
      * @return : L'hexagone
      *
      */
-    Hex pixelToHex(HexMap map, int x, int y, int offsetX, int offsetY) {
+    Hex pixelToHex(int x, int y) {
 
     	switch(idMap) {
     		case 1:
     		{
     			//Substract offset
-    	        x-=offsetX;
-    	        y-=offsetY;
+    	        x -= this.offsetX;
+    	        y -= this.offsetY;
 
 
     	        //Calculating Hex coords
@@ -194,13 +194,13 @@ public class GameController {
     	        else
     	            rz = -rx-ry;
 
-    	        return map.getHex((int) rx, (int) ry);
+    	        return this.map.getHex((int) rx, (int) ry);
     		}
     		/*case 2:
     		{
     			//Substract offset
-    	        x-=offsetX;
-    	        y-=offsetY;
+    	        x -= this.offsetX;
+    	        y -= this.offsetY;
 
 
     	        //Calculating Hex coords
@@ -226,7 +226,7 @@ public class GameController {
     	        else
     	            rz = -rx-ry;
 
-    	        return map.getHex((int) rx, (int) ry);
+    	        return this.map.getHex((int) rx, (int) ry);
     		}
     		case 3 :
     		{
@@ -257,7 +257,7 @@ public class GameController {
     		        else
     		            rz = -rx-ry;
 
-    	        return map.getHex((int) rx, (int) ry);
+    	        return this.map.getHex((int) rx, (int) ry);
     		}*/
     	}
 		return null; 
