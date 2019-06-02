@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import model.Joueur;
 import model.Pretre;
 import model.Unite;
 
-public class GameController {
+public class GameController implements Serializable {
 
 	private HexMap map = null;
     private List<Joueur> joueurs = new ArrayList<>();

@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -8,21 +8,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import model.HexMap;
+import model.Joueur;
+
 /**
  *  Class Sauvegarde.
  */
 public class Sauvegarde {
 	
 	/**
-	 *  Chemin du fichier contenant les joueurs sauvegardés.
+	 *  Chemin du fichier contenant la partie sauvegardée.
 	 */
-	private static String path_joueurs = "saves/joueurs";
-	
-	/**
-	 *  Chemin du fichier contenant la map sauvegardée.
-	 */
-	private static String path_map = "saves/map";
-	
+	private static String path_file = "save/partie";
+		
 	/**
 	 *  Retourne l'objet lu dans un fichier.
 	 *  @return objet Object
@@ -72,35 +70,19 @@ public class Sauvegarde {
 	}
 
 	/**
-	 *  Appelle la fonction de sauvegarde avec des joueurs.
+	 *  Appelle la fonction de sauvegarde avec une instance de GameController.
 	 *  @param map HexMap
 	 */
-	public static void saveJoueurs(Joueur joueur) {
-		ecriture(getFichierJoueurs(), joueur);
-	}
-	
-	/**
-	 *  Appelle la fonction de sauvegarde avec une map.
-	 *  @param map HexMap
-	 */
-	public static void saveMap(HexMap map) {
-		ecriture(getFichierMap(), map);
+	public static void savePartie(GameController partie) {
+		ecriture(getFichierPartie(), partie);
 	}
 	
 	/**
 	 *  Retourne le fichier demandé.
-	 *  @return newFile(path_joueurs)
+	 *  @return new File(path_file)
 	 */
-	public static File getFichierJoueurs() {
-		return new File(path_joueurs);
-	}
-	
-	/**
-	 *  Retourne le fichier demandé.
-	 *  @return newFile(path_map)
-	 */
-	public static File getFichierMap() {
-		return new File(path_map);
+	public static File getFichierPartie() {
+		return new File(path_file);
 	}
 	
 }
