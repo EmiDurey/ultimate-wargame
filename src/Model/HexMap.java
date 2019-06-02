@@ -509,13 +509,14 @@ public class HexMap implements Serializable {
             }
         }
 
-		Hex hexInit = players.get(0).getUnite().get(0).getHex();
+		/*Hex hexInit = players.get(0).getUnite().get(0).getHex();
 		for(int i=1; i<players.size(); i++) {
 			Hex hexFin = players.get(i).getUnite().get(0).getHex();
+			System.out.println(pathfinding(hexInit,hexFin).size());
 			if(pathfinding(hexInit,hexFin).size() == 0) {
 				initMap(players);
 			}
-		}	
+		}*/
 	}
 
 	/**
@@ -761,6 +762,7 @@ public class HexMap implements Serializable {
 				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
 					stack.push(neighbours.get(i));
 					costList.put(neighbours.get(i).hashCode(), newCost);
+					viewDist -= newCost;
 				}
 			}
 		}
