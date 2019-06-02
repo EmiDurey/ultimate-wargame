@@ -505,7 +505,7 @@ public class HexMap implements Serializable {
             players.get(i).addUnit(new Mage(unitsPositions.get(i).get(5), players.get(i)));
             players.get(i).addUnit(new InfanterieLourde(unitsPositions.get(i).get(6), players.get(i)));
             for(Unite unit : players.get(i).getUnite()) {
-            	reveal(players.get(i), unit.getHex(), unit.getVision());            	
+            	reveal(players.get(i), unit.getHex(), unit.getVision());
             }
         }
 
@@ -884,7 +884,7 @@ public class HexMap implements Serializable {
 					continue;
 
 
-				if(closed.contains(next) != -1 || next.getCost() <= 0 || next.isEmpty())
+				if(closed.contains(next) != -1 || next.getCost() <= 0 || !next.isEmpty())
 					continue;
 
 
