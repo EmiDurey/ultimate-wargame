@@ -113,7 +113,7 @@ public abstract class Unite implements Serializable {
 			 	this.getHex().setUnit(null);
 			 	trajet.get(trajet.size() - 2).setUnit(this);
 				this.setHex(trajet.get(trajet.size() - 2));
-				map.reveal(joueurAct, this.hex);
+				map.reveal(joueurAct, this.hex, this.vision);
 				this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
@@ -197,7 +197,7 @@ public abstract class Unite implements Serializable {
 		  	this.getHex().setUnit(null);
 			newHex.setUnit(this);
 			this.setHex(newHex);
-			map.reveal(this.hex.getUnit().getJoueur(), this.hex);
+			map.reveal(this.hex.getUnit().getJoueur(), this.hex, this.vision);
 			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 		}
 	}

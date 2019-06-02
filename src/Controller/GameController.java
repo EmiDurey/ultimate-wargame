@@ -75,8 +75,13 @@ public class GameController {
     	annonce.clear();
     	hexAnnonce.clear();
     	for(Unite unite: joueurAct.getUnite()) {
-    		unite.heal();
-    		// AFFICHAGE HEAL ????
+    		
+    		int pvInit = unite.getPointsDeVie();
+        	unite.heal();
+        	int pvFin = unite.getPointsDeVie();
+        	annonce.add(String.valueOf(pvFin-pvInit));
+        	hexAnnonce.add(unite.getHex());
+        	
     		unite.initialize();
     		if(unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
@@ -157,7 +162,7 @@ public class GameController {
             	else {
             		this.verif();
             	}
-            	annonce.add(String.valueOf(pvInit-pvFin));
+            	annonce.add(String.valueOf(pvFin-pvInit));
             	hexAnnonce.add(hexSelectionne);
             	surligne.clear();
             }

@@ -505,7 +505,7 @@ public class HexMap implements Serializable {
             players.get(i).addUnit(new Mage(unitsPositions.get(i).get(5), players.get(i)));
             players.get(i).addUnit(new InfanterieLourde(unitsPositions.get(i).get(6), players.get(i)));
             for(Unite unit : players.get(i).getUnite()) {
-            	reveal(players.get(i), unit.getHex());            	
+            	reveal(players.get(i), unit.getHex(), unit.getVision());            	
             }
         }
 
@@ -723,9 +723,8 @@ public class HexMap implements Serializable {
 	* @param Joueur player
 	* @param Hex source
 	*/
-	public void reveal(Joueur player, Hex source) {
-		//TODO Modify view distance ?
-		ArrayList<Hex> tiles = viewHighlight(source, 4);
+	public void reveal(Joueur player, Hex source , int dist) {
+		ArrayList<Hex> tiles = viewHighlight(source, dist);
 
 		for(int i=0; i<tiles.size(); i++) {
 			tiles.get(i).discovered.put(player.id, true);
