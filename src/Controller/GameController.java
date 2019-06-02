@@ -32,6 +32,7 @@ public class GameController {
     private boolean source = false;
 
     public GameController(ArrayList<Joueur> joueurs) {
+
     	this.map = new HexMap();
         this.joueurs.addAll(joueurs);
         this.joueurAct = joueurs.get(0);
@@ -117,6 +118,11 @@ public class GameController {
     	annonce.clear();
     	hexAnnonce.clear();
         this.hexSelectionne = pixelToHex(Xcord, Ycord);
+
+
+		if (this.hexSelectionne == null)
+			return;
+
         if (source) {
         	if(!hexSelectionne.isEmpty()) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
@@ -132,7 +138,7 @@ public class GameController {
         	}
         } else {
             if (hexSelectionne.isEmpty()) {
-            	hexSelectionne.getUnit().seDeplace(map, hexSelectionne);
+            	//hexSelectionne.getUnit().seDeplace(map, hexSelectionne);
             	surligne.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	surligne.clear();
@@ -168,10 +174,12 @@ public class GameController {
         x -= this.offsetX;
         y -= this.offsetY;
 
+		System.out.println(x + "/" + y);
+
 
         //Calculating Hex coords
-        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
-        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+        double yHex = (double) ( 2./3 * x )/ 37.5;
+        double xHex = (double) (-1./3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
 
         //Rounding
         double zHex = -xHex -yHex;
@@ -191,6 +199,8 @@ public class GameController {
             ry = -rx-rz;
         else
             rz = -rx-ry;
+
+		System.out.println(rx + " " + ry);
 
         return this.map.getHex((int) rx, (int) ry);
 }

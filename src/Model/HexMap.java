@@ -242,35 +242,35 @@ public class HexMap implements Serializable {
 					unitsPositions.add(new ArrayList<Hex>());
 				}
 
-				addHex(new Forteresse( -3,0));
-                addHex(new Forteresse( -2,0));
-                addHex(new Forteresse( -1,0));
-                addHex(new Forteresse( 0,0));
-                addHex(new Forteresse( 1,0));
-                addHex(new Forteresse( 2,0));
-                addHex(new Forteresse( 3,0));
-                unitsPositions.get(0).add(getHex(-3,0));
-                unitsPositions.get(0).add(getHex(-2,0));
-                unitsPositions.get(0).add(getHex(-1,0));
-                unitsPositions.get(0).add(getHex(0,0));
-                unitsPositions.get(0).add(getHex(1,0));
-                unitsPositions.get(0).add(getHex(2,0));
+				addHex(new Forteresse( 3,0));
+                addHex(new Forteresse( 4,0));
+                addHex(new Forteresse( 5,0));
+                addHex(new Forteresse( 6,0));
+                addHex(new Forteresse( 7,0));
+                addHex(new Forteresse( 8,0));
+                addHex(new Forteresse( 9,0));
                 unitsPositions.get(0).add(getHex(3,0));
+                unitsPositions.get(0).add(getHex(4,0));
+                unitsPositions.get(0).add(getHex(5,0));
+                unitsPositions.get(0).add(getHex(6,0));
+                unitsPositions.get(0).add(getHex(7,0));
+                unitsPositions.get(0).add(getHex(8,0));
+                unitsPositions.get(0).add(getHex(9,0));
 
-                addHex(new Forteresse( 3,18));
-                addHex(new Forteresse( 2,18));
-                addHex(new Forteresse( 1,18));
-                addHex(new Forteresse( 0,18));
-                addHex(new Forteresse( -1,18));
-                addHex(new Forteresse( -2,18));
-                addHex(new Forteresse( -3,18));
-                unitsPositions.get(1).add(getHex(3,18));
-                unitsPositions.get(1).add(getHex(2,18));
-                unitsPositions.get(1).add(getHex(1,18));
-                unitsPositions.get(1).add(getHex(0,18));
-                unitsPositions.get(1).add(getHex(-1,18));
-                unitsPositions.get(1).add(getHex(-2,18));
-                unitsPositions.get(1).add(getHex(-3,18));
+                addHex(new Forteresse( 1,17));
+                addHex(new Forteresse( 0,17));
+                addHex(new Forteresse( -1,17));
+                addHex(new Forteresse( -2,17));
+                addHex(new Forteresse( -3,17));
+                addHex(new Forteresse( -4,17));
+                addHex(new Forteresse( -5,17));
+                unitsPositions.get(1).add(getHex(1,17));
+                unitsPositions.get(1).add(getHex(0,17));
+                unitsPositions.get(1).add(getHex(-1,17));
+                unitsPositions.get(1).add(getHex(-2,17));
+                unitsPositions.get(1).add(getHex(-3,17));
+                unitsPositions.get(1).add(getHex(-4,17));
+                unitsPositions.get(1).add(getHex(-5,17));
 
 				break;
 

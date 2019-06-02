@@ -263,7 +263,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 				GameController controleur = new GameController(this.creerListeJoueurs());
 				HexMap map = controleur.getMap();
 
-				this.fenetre.setPanelCarte(new PanelCarte(totalEquipe, map));
+				this.fenetre.setPanelCarte(new PanelCarte(totalEquipe, map, controleur));
 				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map));
 				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
 				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);

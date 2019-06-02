@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import model.HexMap;
+import controller.GameController;
 
 /**
  * Class PanelCarte.
@@ -23,13 +24,15 @@ public class PanelCarte extends JPanel implements MouseListener {
     private int totalEquipe;
 	private HexMap map;
 	private JScrollPane scroll;
+	private GameController controller;
 
 	/**
 	 * Construit un objet de type Carte.
 	 */
-	public PanelCarte(int totalEquipe, HexMap map) {
+	public PanelCarte(int totalEquipe, HexMap map, GameController controller) {
 		this.totalEquipe = totalEquipe;
 		this.map = map;
+		this.controller = controller;
 	    this.setPreferredSize(new Dimension(1095, 0));
         this.setBackground(new Color(48, 48, 48));
 	    this.setVisible(true);
@@ -62,57 +65,57 @@ public class PanelCarte extends JPanel implements MouseListener {
 		return this.scroll;
 	}
 
-	 public void ajoutScrollHex() {
-    	final int W = 585;
-        final int H = 860;
-        boolean changed = true;
+	public void ajoutScrollHex() {
+		final int W = 585;
+		final int H = 860;
+		boolean changed = true;
 
-        int x = 1000;
-        int y = 1000;
-        Rectangle rect = new Rectangle(W, H);
-        this.dessinCarte.scrollRectToVisible(rect);
+		int x = 1000;
+		int y = 1000;
+		Rectangle rect = new Rectangle(W, H);
+		this.dessinCarte.scrollRectToVisible(rect);
 
-        int this_width = (x + W);
-        if (this_width > this.dim.width) {
-        	this.dim.width = this_width;
-            changed = true;
-        }
+		int this_width = (x + W);
+		if (this_width > this.dim.width) {
+			this.dim.width = this_width;
+		    changed = true;
+		}
 
-        int this_height = (y + H);
-        if (this_height > this.dim.height) {
-        	this.dim.height = this_height;
-            changed = true;
-        }
+		int this_height = (y + H);
+		if (this_height > this.dim.height) {
+			this.dim.height = this_height;
+		    changed = true;
+		}
 
-        if (changed) {
-            this.dessinCarte.setPreferredSize(this.dim);
-            this.dessinCarte.revalidate();
-        }
-        this.dessinCarte.repaint();
-    }
+		if (changed) {
+		    this.dessinCarte.setPreferredSize(this.dim);
+		    this.dessinCarte.revalidate();
+		}
+		this.dessinCarte.repaint();
+	}
 
 	public void mouseClicked(MouseEvent event) {
-		System.out.println("\nScrool vertical : " + this.scroll.getVerticalScrollBar().getValue());
-		System.out.println("Scrool horizontal : " + this.scroll.getHorizontalScrollBar().getValue());
 
 		Point clik = event.getPoint().getLocation();
 		final int W = 585;
-        final int H = 860;
+		final int H = 860;
 
-        int x = (int) clik.getX();
-        int y = (int) clik.getY();
-        System.out.println("X : " + x + " Y : " + y);
+		int x = (int) clik.getX() + this.scroll.getVerticalScrollBar().getValue();
+		int y = (int) clik.getY() + this.scroll.getHorizontalScrollBar().getValue();
+		System.out.println("X : " + x + " Y : " + y);
 
-        //Rectangle rect = new Rectangle(x, y, W, H);
+		controller.handleMove(x, y);
 
-        //this.dessinCarte.scrollRectToVisible(rect);
+		//Rectangle rect = new Rectangle(x, y, W, H);
 
-        //this.dessinCarte.repaint();
+		//this.dessinCarte.scrollRectToVisible(rect);
 
-        // Contoleur, appel de l'�couteur sur l'hexagone cliqu�
-        //PanelCarteListener panelCarteListener = new PanelCarteListener();
-        //panelCarteListener.handleMove(x, y);
-    	}
+		//this.dessinCarte.repaint();
+
+		// Contoleur, appel de l'�couteur sur l'hexagone cliqu�
+		//PanelCarteListener panelCarteListener = new PanelCarteListener();
+		//panelCarteListener.handleMove(x, y);
+	}
 
 	public void mouseEntered(MouseEvent event) {}
 	public void mouseExited(MouseEvent event) {}
