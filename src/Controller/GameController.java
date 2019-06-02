@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import model.Joueur;
 import model.Pretre;
 import model.Unite;
 
-public class GameController {
+public class GameController implements Serializable {
 
 	private HexMap map = null;
     private List<Joueur> joueurs = new ArrayList<>();
@@ -69,7 +70,7 @@ public class GameController {
      * Le changement se fait en boucle sur la liste des joueurs
      * @throws InterruptedException
      */
-    private void changeTour() throws InterruptedException {
+    public void changeTour() throws InterruptedException {
 
     	this.verif();
     	annonce.clear();
@@ -129,51 +130,37 @@ public class GameController {
 		System.out.println("###############"+ source +"#########");
 
         if (source) {
-
-			//Unit selection
-
         	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
         	if(!(hexSelectionne.getUnit() == null)) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
         			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
-        			surligne = map.movementHighlight(uniteSelectionne.getHex(), (int) uniteSelectionne.getPointsDeplacement());
-					map.highlightH = surligne;
-					if(uniteSelectionne instanceof Archer) {
+        			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
+        			//System.out.println(surligne);
+        			if(uniteSelectionne instanceof Archer) {
         				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
         			}
         			toggleSource();
         		} else {
-        			System.out.println("Clique ennemi");
+        			//System.out.println("Clique ennemi");
         			uniteSelectionne = hexSelectionne.getUnit();
         		}
         	}
-
-		} else {
-
-			//Unit already selected
-
+        } else {
             if (hexSelectionne.getUnit() == null) {
             	System.out.println("Il se passe rien");
-            	//this.hexSelectionne.getUnit().seDeplace(this.map, this.hexSelectionne);
-				uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
+            	uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
-				map.highlightH = surligne;
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	System.out.println("Clique allé");
             	surligne.clear();
-				map.highlightH = surligne;
-
             	uniteSelectionne = hexSelectionne.getUnit();
-            	surligne = map.movementHighlight(uniteSelectionne.getHex(), (int) uniteSelectionne.getPointsDeplacement());
-				map.highlightH = surligne;
-
-				if(uniteSelectionne instanceof Archer) {
+            	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
+    			if(uniteSelectionne instanceof Archer) {
     				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
     			}
     			toggleSource();
-
-		    } else {
+            } else {
             	System.out.println("Clique ennemi");
             	int pvFin = 0;
             	int pvInit = hexSelectionne.getUnit().getPointsDeVie();
@@ -253,6 +240,10 @@ public class GameController {
     	}
     	changeTour();
 
+    }
+    
+    public List<Hex> getSurligne() {
+    	return this.surligne;
     }
 
     public void toggleSource() {

@@ -4,12 +4,12 @@ package view;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import java.util.Iterator;
 
-
+import controller.GameController;
 import model.Archer;
 import model.Cavalerie;
 import model.Dragon;
@@ -46,13 +46,20 @@ public class PanelDessineurMap extends JPanel {
 	 * S�parateur de fichier.
 	 */
 	private String sep;
+	
+	/**
+	 * Instance de la classe GameController, controleur de l'application.
+	 */
+	private GameController controller;
 
 	/**
 	 * Construit un objet de type PanelDessineurMap.
+	 * @param controller 
 	 */
-    public PanelDessineurMap(int totalEquipe, HexMap map) {
+    public PanelDessineurMap(int totalEquipe, HexMap map, GameController controller) {
     	this.totalEquipe = totalEquipe;
 		this.map = map;
+		this.controller = controller;
 		//this.map.getHex(-8, 0).setUnit(new Cavalerie());
     	this.sep = File.separator;
     }
@@ -99,73 +106,11 @@ public class PanelDessineurMap extends JPanel {
     }
 
 
-	public void afficheMapH(Graphics g, int offsetX, int offsetY) {
-		Hex current = null;
-		int imageX, imageY;
-		File image;
-
-
-		Iterator<Hex> iterator = this.map.highlightH.iterator();
-
-		while (iterator.hasNext()) {
-			System.out.println("iterator next="+iterator.next());
-			current = iterator.next();
-
-			if (current != null) {
-
-				imageX = (int) (offsetX + 37 * (3./2 * current.getY()) );
-				imageY = (int) (offsetY + 37 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
-
-				image = associeImageHexH(current);
-				this.afficheImage(g, image, imageX, imageY);
-
-				image = associeImageUnite(current);
-				if (image != null) {
-					this.afficheImage(g, image, imageX+13, imageY+10);
-				}
-			}
-		}
-
-	}
-
-
-	public void afficheMapH2(Graphics g, int offsetX, int offsetY) {
-		Hex current = null;
-		int imageX, imageY;
-		File image;
-
-
-		Iterator<Hex> iterator = this.map.highlightH.iterator();
-
-		while (iterator.hasNext()) {
-			System.out.println("iterator next="+iterator.next());
-			current = iterator.next();
-
-			if (current != null) {
-
-				imageX = (int) (offsetX + 37 * (3./2 * current.getY()) );
-				imageY = (int) (offsetY + 37 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
-
-				image = associeImageHexH2(current);
-				this.afficheImage(g, image, imageX, imageY);
-
-				image = associeImageUnite(current);
-				if (image != null) {
-					this.afficheImage(g, image, imageX+13, imageY+10);
-				}
-			}
-		}
-
-	}
-
-
     /**
 	 * Affiche la map triangle.
 	 */
     public void afficheMapTriangle(Graphics g) {
 		afficheMap(g, 170, 15);
-		afficheMapH(g, 170, 15);
-		afficheMapH2(g, 170, 15);
     }
 
     /**
@@ -174,8 +119,6 @@ public class PanelDessineurMap extends JPanel {
 	 */
     public void afficheMapRectangle(Graphics g) {
 		afficheMap(g, 40, 70);
-		afficheMapH(g, 40, 70);
-		afficheMapH2(g, 40, 70);
     }
 
     /**
@@ -184,85 +127,51 @@ public class PanelDessineurMap extends JPanel {
 	 */
     public void afficheMapHexagone(Graphics g) {
 		afficheMap(g, 800, 980);
-		afficheMapH(g, 800, 980);
-		afficheMapH2(g, 800, 980);
     }
-
 
     /**
 	 * Associe un hexagone � son image.
 	 * @param hex Hex
 	 * @return image
 	 */
+
     public File associeImageHex(Hex hex) {
+    	List<Hex> surligne = this.controller.getSurligne();
+
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
 
  		if (hex instanceof Eau) {
- 			chemin += "eau.png";
+ 			chemin += "eau" + surbrillance(hex);
  		} else if (hex instanceof Plaine) {
- 			chemin += "plaine.png";
+ 			chemin += "plaine" + surbrillance(hex);
  		} else if (hex instanceof Foret) {
- 			chemin += "foret.png";
+ 			chemin += "foret";
  		} else if (hex instanceof Forteresse) {
- 			chemin += "forteresse.png";
+ 			chemin += "forteresse" + surbrillance(hex);
  		} else if (hex instanceof Montagne) {
- 			chemin += "montagne.png";
+ 			chemin += "montagne" + surbrillance(hex);
  		} else if (hex instanceof Neige) {
- 			chemin += "neige.png";
+ 			chemin += "neige" + surbrillance(hex);
  		}
-
+ 		
+ 		chemin += ".png";
+ 		
  		image = new File(chemin);
 
  		return image;
  	}
-
-	public File associeImageHexH(Hex hex) {
-		String chemin = "images" + sep + "Terrain" + sep + "Surbrillance" + sep;
-		File image = null;
-
-		if (hex instanceof Eau) {
-			chemin += "eauH.png";
-		} else if (hex instanceof Plaine) {
-			chemin += "plaineH.png";
-		} else if (hex instanceof Foret) {
-			chemin += "foretH.png";
-		} else if (hex instanceof Forteresse) {
-			chemin += "forteresseH.png";
-		} else if (hex instanceof Montagne) {
-			chemin += "montagneH.png";
-		} else if (hex instanceof Neige) {
-			chemin += "neigeH.png";
-		}
-
-		image = new File(chemin);
-
-		return image;
-	}
-
-	public File associeImageHexH2(Hex hex) {
-		String chemin = "images" + sep + "Terrain" + sep + "Surbrillance" + sep;
-		File image = null;
-
-		if (hex instanceof Eau) {
-			chemin += "eauH2.png";
-		} else if (hex instanceof Plaine) {
-			chemin += "plaineH2.png";
-		} else if (hex instanceof Foret) {
-			chemin += "foretH2.png";
-		} else if (hex instanceof Forteresse) {
-			chemin += "forteresseH2.png";
-		} else if (hex instanceof Montagne) {
-			chemin += "montagneH2.png";
-		} else if (hex instanceof Neige) {
-			chemin += "neigeH2.png";
-		}
-
-		image = new File(chemin);
-
-		return image;
-	}
-
+    
+    public String surbrillance(Hex hex) {
+    	List<Hex> surligne = this.controller.getSurligne();
+    	if(surligne.size() > 0) {
+    		System.out.println("taille de surligne "+surligne.size());
+    	}
+    	if(surligne.contains(hex)) {
+    		return "H";
+    	}
+    	return "";
+    }
     /**
 	 * Associe une unit� � son image.
 	 * @param hex Hex

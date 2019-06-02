@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -23,10 +22,6 @@ public class HexMap implements Serializable {
 	* formes pour celle-ci.
 	*/
 	private HashMap<Integer, Hex> map = new HashMap<>();
-
-	//Pas le temps
-	public List<Hex> highlightH = new ArrayList<Hex>();
-	public List<Hex> highlightH2 = new ArrayList<Hex>();
 
 
 	/**
@@ -517,11 +512,11 @@ public class HexMap implements Serializable {
 		/*Hex hexInit = players.get(0).getUnite().get(0).getHex();
 		for(int i=1; i<players.size(); i++) {
 			Hex hexFin = players.get(i).getUnite().get(0).getHex();
+			System.out.println(pathfinding(hexInit,hexFin).size());
 			if(pathfinding(hexInit,hexFin).size() == 0) {
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				initMap(players);
 			}
-		}	*/
+		}*/
 	}
 
 	/**
@@ -767,6 +762,7 @@ public class HexMap implements Serializable {
 				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
 					stack.push(neighbours.get(i));
 					costList.put(neighbours.get(i).hashCode(), newCost);
+					viewDist -= newCost;
 				}
 			}
 		}

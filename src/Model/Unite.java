@@ -191,8 +191,6 @@ public abstract class Unite implements Serializable {
 	 * @param newHex Hex
 	 */
 	public void seDeplace(HexMap map, Hex newHex){
-		System.out.println("moving");
-
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
 		if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)) {
 			this.pointsDeplacement -= map.moveCost(this.hex, trajet.get(trajet.size() - 1));
@@ -274,7 +272,7 @@ public abstract class Unite implements Serializable {
 	 * Récupère les points de déplacement d'une unité.
 	 * @return pointsDeplacement int
 	 */
-	public float getPointsDeplacement() {
+	public int getPointsDeplacement() {
 		return pointsDeplacement;
 	}
 
