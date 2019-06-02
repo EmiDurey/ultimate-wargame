@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
@@ -27,10 +26,26 @@ import model.HexMap;
  */
 public class PanelInformations extends JPanel implements ActionListener {
 
-	private JPanel panelImagePerso, panelApercu;
+	/**
+	 * Panel de l'image du perosnnage.
+	 */
+	private JPanel panelImagePerso;
+
+	/**
+	 * Panel de l'aperçu de la carte.
+	 */
+	private JPanel panelApercu;
+
+	/**
+	 * Nombre total d'équipes.
+	 */
 	private int totalEquipe;
+
+	/**
+	 * Carte de jeu.
+	 */
 	private HexMap map;
-	
+
 	/**
 	 * Couleur des composants graphiques.
 	 */
@@ -75,7 +90,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridy = 0;
 		contrainte.gridwidth = 3;
 		this.add(this.panelApercu, contrainte);
-		
+
 		this.panelImagePerso = new JPanel();
 		this.panelImagePerso.setPreferredSize(new Dimension(150, 150));
 		this.panelImagePerso.setBackground(this.couleurFond);
@@ -125,25 +140,31 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.insets = new Insets(200, 0, 0, 0);
 		this.add(boutonFinTour, contrainte);
 	}
-	
+
+	/**
+	 * Affiche l'image du personnage.
+	 */
 	public void affichePerso() {
 		String sep = File.separator;
-		JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "Info" + sep + "archer.png"));
+	JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "Info" + sep + "archer.png"));
 
 		this.panelImagePerso.setLayout(new BorderLayout());
 		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
 	}
-	
+
+	/**
+	 * Affiche l'aperçu de la carte
+	 */
 	public void afficheApercu() {
 		PanelDessineurApercu dessinCarte;
-	    
+
         dessinCarte = new PanelDessineurApercu(this.totalEquipe, this.map);
         dessinCarte.setPreferredSize(new Dimension(530, 280));
-        dessinCarte.setBackground(this.couleurFond);;
-        
+        dessinCarte.setBackground(this.couleurFond);
+
         this.panelApercu.add(dessinCarte);
 	}
-	
+
 	/**
 	 *  Permet le traitement des évènements.
 	 *  @param evt évènement

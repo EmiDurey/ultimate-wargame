@@ -200,7 +200,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	    }
 	    return police;
 	}
-	
+
 	/**
 	 *  Crée la liste des joueurs.
 	 *  @return ArrayList<Joueur>
@@ -259,10 +259,10 @@ public class PanelAccueil extends JPanel implements ActionListener {
 				this.fenetre.getContentPane().removeAll();
 				this.fenetre.setLayout(new BorderLayout());
 				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
-				
+
 				GameController controleur = new GameController(this.creerListeJoueurs());
 				HexMap map = controleur.getMap();
-				
+
 				this.fenetre.setPanelCarte(new PanelCarte(totalEquipe, map));
 				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map));
 				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);

@@ -27,7 +27,7 @@ public class InterfaceJeu extends JFrame {
 	 * Image de fond.
 	 */
 	private JLabel fond;
-	
+
 	/**
 	 * Panel d'accueil.
 	 */
@@ -66,11 +66,11 @@ public class InterfaceJeu extends JFrame {
 		this.setContentPane(this.creerFond());
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
  	    this.getContentPane().add(this.panelAccueil);
- 	    
+
 	    this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
+
 	/**
 	 *  Retourne le panel de la carte.
 	 *  @return PanelCarte
@@ -78,7 +78,7 @@ public class InterfaceJeu extends JFrame {
 	public PanelCarte getPanelCarte() {
 		return this.panelCarte;
 	}
-	
+
 	/**
 	 *  Retourne le panel des informations.
 	 *  @return PanelInformations
@@ -86,16 +86,18 @@ public class InterfaceJeu extends JFrame {
 	public PanelInformations getPanelInformations() {
 		return this.panelInformations;
 	}
-	
+
 	/**
 	 *  Modifie le panel de la carte.
+	 *  @param panel PanelCarte
 	 */
 	public void setPanelCarte(PanelCarte panel) {
 		this.panelCarte = panel;
 	}
-	
+
 	/**
 	 *  Modifie le panel des informations.
+	 *  @param panel PanelInformations
 	 */
 	public void setPanelInformations(PanelInformations panel) {
 		this.panelInformations = panel;

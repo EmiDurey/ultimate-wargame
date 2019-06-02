@@ -14,32 +14,31 @@ public class OptionPaneAide {
 	 */
 	private static String path_aide = "aide" + File.separator + "aide.txt";
 	private static String path_regles = "aide" + File.separator + "regles.txt";
-	
-	
+
 	/**
 	 *  Affiche une JOptionPane concernant l'aide.
 	 *  @param fenetre InterfaceJeu
 	 */
 	public static void afficheAide(InterfaceJeu fenetre) {
-		JOptionPane.showMessageDialog(fenetre, 
-				contenuFichier(path_aide), 
-				"Regles du jeu", 
+		JOptionPane.showMessageDialog(fenetre,
+				contenuFichier(path_aide),
+				"Regles du jeu",
 				JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}
-	
+
 	/**
 	 *  Affiche une JOptionPane concernant les règles du jeu.
-	 *  @param path String
+	 *  @param fenetre InterfaceJeu
 	 */
 	public static void afficheRegles(InterfaceJeu fenetre) {
-		JOptionPane.showMessageDialog(fenetre, 
-				contenuFichier(path_regles), 
-				"Regles du jeu", 
+		JOptionPane.showMessageDialog(fenetre,
+				contenuFichier(path_regles),
+				"Regles du jeu",
 				JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}
-	
+
 	/**
 	 *  Lit un fichier et renvoie son contenu en tant que String.
 	 *  @param path String
@@ -51,17 +50,15 @@ public class OptionPaneAide {
 	       BufferedReader buffer = new BufferedReader(lecture);
 	       String line;
 	       StringBuilder chaine = new StringBuilder("");
-	       while((line = buffer.readLine()) !=null) {
-	           chaine.append(line+"\n");
+	       while ((line = buffer.readLine()) != null) {
+	           chaine.append(line + "\n");
 	       }
 	       buffer.close();
 	       lecture.close();
 	       return chaine.toString();
-	    }
-	    catch (IOException ie)
-	    {
-	         ie.printStackTrace(); 
+	    } catch (IOException ie) {
+	         ie.printStackTrace();
 	    }
 		return null;
-	}	
+	}
 }
