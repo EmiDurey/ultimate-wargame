@@ -264,7 +264,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 				HexMap map = controleur.getMap();
 
 				this.fenetre.setPanelCarte(new PanelCarte(totalEquipe, map, controleur));
-				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map));
+				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map, controleur));
 				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
 				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
 			}

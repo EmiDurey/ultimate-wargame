@@ -4,10 +4,12 @@ package view;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import controller.GameController;
 import model.Archer;
 import model.Cavalerie;
 import model.Dragon;
@@ -44,13 +46,20 @@ public class PanelDessineurMap extends JPanel {
 	 * S�parateur de fichier.
 	 */
 	private String sep;
+	
+	/**
+	 * Instance de la classe GameController, controleur de l'application.
+	 */
+	private GameController controller;
 
 	/**
 	 * Construit un objet de type PanelDessineurMap.
+	 * @param controller 
 	 */
-    public PanelDessineurMap(int totalEquipe, HexMap map) {
+    public PanelDessineurMap(int totalEquipe, HexMap map, GameController controller) {
     	this.totalEquipe = totalEquipe;
 		this.map = map;
+		this.controller = controller;
 		//this.map.getHex(-8, 0).setUnit(new Cavalerie());
     	this.sep = File.separator;
     }
@@ -125,29 +134,44 @@ public class PanelDessineurMap extends JPanel {
 	 * @param hex Hex
 	 * @return image
 	 */
+
     public File associeImageHex(Hex hex) {
+    	List<Hex> surligne = this.controller.getSurligne();
+
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
 
  		if (hex instanceof Eau) {
- 			chemin += "eau.png";
+ 			chemin += "eau" + surbrillance(hex);
  		} else if (hex instanceof Plaine) {
- 			chemin += "plaine.png";
+ 			chemin += "plaine" + surbrillance(hex);
  		} else if (hex instanceof Foret) {
- 			chemin += "foret.png";
+ 			chemin += "foret";
  		} else if (hex instanceof Forteresse) {
- 			chemin += "forteresse.png";
+ 			chemin += "forteresse" + surbrillance(hex);
  		} else if (hex instanceof Montagne) {
- 			chemin += "montagne.png";
+ 			chemin += "montagne" + surbrillance(hex);
  		} else if (hex instanceof Neige) {
- 			chemin += "neige.png";
+ 			chemin += "neige" + surbrillance(hex);
  		}
-
+ 		
+ 		chemin += ".png";
+ 		
  		image = new File(chemin);
 
  		return image;
  	}
-
+    
+    public String surbrillance(Hex hex) {
+    	List<Hex> surligne = this.controller.getSurligne();
+    	if(surligne.size() > 0) {
+    		System.out.println("taille de surligne "+surligne.size());
+    	}
+    	if(surligne.contains(hex)) {
+    		return "H";
+    	}
+    	return "";
+    }
     /**
 	 * Associe une unit� � son image.
 	 * @param hex Hex

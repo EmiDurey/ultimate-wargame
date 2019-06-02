@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import controller.GameController;
 import model.HexMap;
 
 /**
@@ -50,14 +51,20 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 * Couleur des composants graphiques.
 	 */
 	private Color couleurFond;
+	
+	/**
+	 * Controleur de l'application.
+	 */
+	private GameController controleur;
 
 	/**
 	 *  Construit un objet de type PanelInformations.
 	 */
-	public PanelInformations(int totalEquipe, HexMap map) {
+	public PanelInformations(int totalEquipe, HexMap map, GameController controleur) {
 		this.totalEquipe = totalEquipe;
 		this.map = map;
 		this.couleurFond = new Color(48, 48, 48);
+		this.controleur = controleur;
 	    this.setPreferredSize(new Dimension(600, 0));
 	    this.setBackground(this.couleurFond);
 	    this.setVisible(true);
@@ -169,12 +176,18 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 *  Permet le traitement des �v�nements.
 	 *  @param evt �v�nement
 	 */
+
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
 
 		switch (actionCommand) {
 			case "Fin":
 				System.out.println("Changement de tour");
+				try {
+					controleur.changeTour();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				break;
 			default:
 				break;

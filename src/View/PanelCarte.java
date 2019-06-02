@@ -39,7 +39,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 
 	    this.dim = new Dimension(0, 0);
 
-        this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map);
+        this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
         this.dessinCarte.setBackground(new Color(48, 48, 48));
 
         this.scroll = new JScrollPane(this.dessinCarte);
@@ -105,6 +105,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 		System.out.println("X : " + x + " Y : " + y);
 
 		controller.handleMove(x, y);
+        this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
 
 		//Rectangle rect = new Rectangle(x, y, W, H);
 

@@ -70,7 +70,7 @@ public class GameController implements Serializable {
      * Le changement se fait en boucle sur la liste des joueurs
      * @throws InterruptedException
      */
-    private void changeTour() throws InterruptedException {
+    public void changeTour() throws InterruptedException {
 
     	this.verif();
     	annonce.clear();
@@ -136,13 +136,13 @@ public class GameController implements Serializable {
         			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
         			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
-        			System.out.println(surligne);
+        			//System.out.println(surligne);
         			if(uniteSelectionne instanceof Archer) {
         				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
         			}
         			toggleSource();
         		} else {
-        			System.out.println("Clique ennemi");
+        			//System.out.println("Clique ennemi");
         			uniteSelectionne = hexSelectionne.getUnit();
         		}
         	}
@@ -240,6 +240,10 @@ public class GameController implements Serializable {
     	}
     	changeTour();
 
+    }
+    
+    public List<Hex> getSurligne() {
+    	return this.surligne;
     }
 
     public void toggleSource() {
