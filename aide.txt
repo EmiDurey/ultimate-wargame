@@ -1,6 +1,0 @@
-					Manuel d'utilisation de l'application 
-
-L'interface dispose de plusieurs sections pour faciliter le gameplay. Nous avons premièrement la carte du jeu qui prend une partie non négligeable de l'écran sur laquelle vous pouvez aperçevoir vos unités et vos terrains. A droite un mini aperçu de ce à quoi ressemble votre carte vu de loin.
-En cliquant sur une unité, vous aurez la possibilité d'accéder à ses informations tels que son habillement, ses points de vie etc...
-Vous aurez aussi l'occasion de découvrir les caractéristiques de l'unité que vous sélectionnez.
-Lorsque vous n'avez plus de déplacements possibles ou que vous ne voulez pas utilisé votre tour, vous pouvez cliquer sur le bouton "Fin de tour" situé en bas à droite de votre fenêtre.

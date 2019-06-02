@@ -1,0 +1,14 @@
+I. Déroulement de la partie
+C'est un jeu par tour. Chaque joueur déplace ses unités sur la carte.
+Un déplacement peut se terminer par un combat. 
+Fin de tour quand le joueur ne peut plus déplacer une unité ou ne veut pas utiliser ses possibilités.
+
+II. Les Unités
+Chaque unité appartient à une catégorie (fantassin, archer..). 
+Selon la catégorie choisie, les déplacements et les combats ne seront pas les mêmes. 
+Chaque unité a des points de vie : arrivé à 0, l'unité meurt.
+
+III. Déplacement
+Chaque Unité a des points de mouvements. 
+Ces derniers donnent l'opportunité de bouger d'une case à une autre. 
+Le déplacement est plus libre que dans d'autres jeux.

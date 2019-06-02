@@ -98,10 +98,10 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				System.out.println("Sauvegarder");
 				break;
 			case "Règles":
-				System.out.println("Règles");
+				OptionPaneAide.afficheRegles(this.fenetre);
 				break;
 			case "Aide":
-				System.out.println("Aide");
+				OptionPaneAide.afficheAide(this.fenetre);
 				break;
 			case "Quitter":
 				String contenu, entete;

@@ -247,9 +247,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		}
 
 		if (actionCommand.equals("Aide")) {
-			System.out.println("aide");
-			//AutoCloseDialog.showAutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
-			new AutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
+			//new AutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
+			OptionPaneAide.afficheAide(this.fenetre);
 		}
 
 		if (actionCommand.equals("Jouer")) {
