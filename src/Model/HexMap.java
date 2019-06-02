@@ -504,6 +504,9 @@ public class HexMap implements Serializable {
             players.get(i).addUnit(new Archer(unitsPositions.get(i).get(4), players.get(i)));
             players.get(i).addUnit(new Mage(unitsPositions.get(i).get(5), players.get(i)));
             players.get(i).addUnit(new InfanterieLourde(unitsPositions.get(i).get(6), players.get(i)));
+            for(Unite unit : players.get(i).getUnite()) {
+            	reveal(players.get(i), unit.getHex());            	
+            }
         }
 
 		/*Hex hexInit = players.get(0).getUnite().get(0).getHex();

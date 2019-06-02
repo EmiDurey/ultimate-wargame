@@ -90,7 +90,6 @@ public class GameController {
     			tourIA();
 	    	} else {
 	    		joueurAct = joueurs.get(0);
-	    		//BROUILLARD DE GUERRE
 	    	}
     	}
     }
@@ -138,10 +137,16 @@ public class GameController {
         	}
         } else {
             if (hexSelectionne.isEmpty()) {
-            	//hexSelectionne.getUnit().seDeplace(map, hexSelectionne);
+            	hexSelectionne.getUnit().seDeplace(map, hexSelectionne);
             	surligne.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	surligne.clear();
+            	uniteSelectionne = hexSelectionne.getUnit();
+            	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getVision());
+    			if(uniteSelectionne instanceof Archer) {
+    				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+    			}
+    			toggleSource();
             } else {
             	int pvFin = 0;
             	int pvInit = hexSelectionne.getUnit().getPointsDeVie();
@@ -219,6 +224,7 @@ public class GameController {
     		unit.joueurIA(joueurAct, map);
     		wait(1);
     	}
+    	changeTour();
 
     }
 
