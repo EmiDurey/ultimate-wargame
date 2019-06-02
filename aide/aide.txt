@@ -1,6 +1,10 @@
-					Manuel d'utilisation de l'application 
+Manuel d'utilisation de l'application :
 
-L'interface dispose de plusieurs sections pour faciliter le gameplay. Nous avons premièrement la carte du jeu qui prend une partie non négligeable de l'écran sur laquelle vous pouvez aperçevoir vos unités et vos terrains. A droite un mini aperçu de ce à quoi ressemble votre carte vu de loin.
-En cliquant sur une unité, vous aurez la possibilité d'accéder à ses informations tels que son habillement, ses points de vie etc...
-Vous aurez aussi l'occasion de découvrir les caractéristiques de l'unité que vous sélectionnez.
+En arrivant sur le menu principal de l'application, vous devez choisir le nombre de joueurs humain et le nombre d'IA que vous souhaitez pour réaliser votre partie.
+Un minimum de 2 joueurs (humains et IA confondu) est requis.
+
+L'interface de jeu dispose de plusieurs sections pour faciliter le gameplay. 
+Nous avons tout d'abord la carte du jeu, à gauche de l'écran, sur laquelle vous pouvez aperçevoir vos unités. 
+A droite de l'interface, vous disposez d'un aperçu global de la carte de jeu.
+En cliquant sur une unité, vous aurez la possibilité d'accéder à ses informations (points de vie, caractéristiques (point d'attaque, point de défense...)).
 Lorsque vous n'avez plus de déplacements possibles ou que vous ne voulez pas utilisé votre tour, vous pouvez cliquer sur le bouton "Fin de tour" situé en bas à droite de votre fenêtre.

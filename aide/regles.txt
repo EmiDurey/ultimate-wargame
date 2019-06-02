@@ -3,12 +3,17 @@ C'est un jeu par tour. Chaque joueur déplace ses unités sur la carte.
 Un déplacement peut se terminer par un combat. 
 Fin de tour quand le joueur ne peut plus déplacer une unité ou ne veut pas utiliser ses possibilités.
 
-II. Les Unités
-Chaque unité appartient à une catégorie (fantassin, archer..). 
-Selon la catégorie choisie, les déplacements et les combats ne seront pas les mêmes. 
-Chaque unité a des points de vie : arrivé à 0, l'unité meurt.
+II. Les unités
+Un joueur possède 6 unités. Elles appartiennent chacune à une catégorie (archer, cavalier, infantrie...). 
+Selon la catégorie, les déplacements et les combats ne seront pas les mêmes. 
+Chaque unité possède des points de défense et d'attaque qui lui est propre.
+Elle possède également des points de vie : arrivé à 0, l'unité meurt.
 
-III. Déplacement
-Chaque Unité a des points de mouvements. 
-Ces derniers donnent l'opportunité de bouger d'une case à une autre. 
-Le déplacement est plus libre que dans d'autres jeux.
+III. Les terrains
+Il existe 6 types de terrain (eau, forêt, montagne...).
+Chaque terrain possède un coût de déplacement. Lorsqu'une unité arrive sur celui-ci, ses points de déplecement diminuent du coût de déplecament du terrain.
+
+IV. Déplacement
+Chaque unité a des points de mouvements. 
+Ces derniers lui donnent l'opportunité de bouger d'une case à une autre. 
+Le déplacement est libre, dans la limite des points de mouvement et selon les terrains qui entourent l'unité.
