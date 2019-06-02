@@ -24,36 +24,37 @@ public class GameController {
     private int offsetX;
     private int offsetY;
     private int idMap;
-    
+
     /* Booleen permettant de savoir la source du clic.
      * true = premier clic (il a choisit l'unité)
      * false = deuxieme clic (il a choisit l'hexagone sur lequel il veut déplacer l'unité)
      */
     private boolean source = false;
-    
+
     public GameController(ArrayList<Joueur> joueurs) {
     	this.map = new HexMap();
         this.joueurs.addAll(joueurs);
         this.joueurAct = joueurs.get(0);
+
         if (this.joueurs.size() == 3) {
         	this.idMap = 1;
         	this.map.setTriangleMap(13);
-        	this.offsetX=170;
-        	this.offsetY=15;
+        	this.offsetX = 170 + 38;
+        	this.offsetY = 33;
         } else if (this.joueurs.size() <= 4) {
         	this.map.setRectangleMap(12, 18);
         	this.idMap = 2;
-        	this.offsetX=20;
-        	this.offsetY=64;
+        	this.offsetX = 38;
+        	this.offsetY = 33;
         } else {
         	this.map.setHexagonMap(15);
         	this.idMap = 3;
-        	this.offsetX=755;
-        	this.offsetY=960;
+        	this.offsetX = 800 + 38;
+        	this.offsetY = 980 + 33;
         }
         this.map.initMap(joueurs);
 }
-    
+
     /**
 	 *  Retourne la map.
 	 *  @return HexMap
@@ -65,10 +66,10 @@ public class GameController {
     /**
      * Change le tour des joueurs.
      * Le changement se fait en boucle sur la liste des joueurs
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void changeTour() throws InterruptedException {
-    	
+
     	this.verif();
     	annonce.clear();
     	hexAnnonce.clear();
@@ -94,7 +95,7 @@ public class GameController {
     }
 
     /**
-     * Vérifie l'état des joueurs et la fin de partie. 
+     * Vérifie l'état des joueurs et la fin de partie.
      */
     private void verif() {
     	for(Joueur joueur : joueurs) {
@@ -163,107 +164,38 @@ public class GameController {
      */
     Hex pixelToHex(int x, int y) {
 
-    	switch(idMap) {
-    		case 1:
-    		{
-    			//Substract offset
-    	        x -= this.offsetX;
-    	        y -= this.offsetY;
+		//Substract offset
+        x -= this.offsetX;
+        y -= this.offsetY;
 
 
-    	        //Calculating Hex coords
-    	        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
-    	        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+        //Calculating Hex coords
+        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
+        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
 
-    	        //Rounding
-    	        double zHex = -xHex -yHex;
+        //Rounding
+        double zHex = -xHex -yHex;
 
-    	        double rx = Math.round(xHex);
-    	        double ry = Math.round(yHex);
-    	        double rz = Math.round(zHex);
+        double rx = Math.round(xHex);
+        double ry = Math.round(yHex);
+        double rz = Math.round(zHex);
 
-    	        double xDiff = Math.abs(rx - xHex);
-    	        double yDiff = Math.abs(ry - yHex);
-    	        double zDiff = Math.abs(rz - zHex);
-
-
-    	        if (xDiff > yDiff && xDiff > zDiff)
-    	            rx = -ry-rz;
-    	        else if (yDiff > zDiff)
-    	            ry = -rx-rz;
-    	        else
-    	            rz = -rx-ry;
-
-    	        return this.map.getHex((int) rx, (int) ry);
-    		}
-    		/*case 2:
-    		{
-    			//Substract offset
-    	        x -= this.offsetX;
-    	        y -= this.offsetY;
+        double xDiff = Math.abs(rx - xHex);
+        double yDiff = Math.abs(ry - yHex);
+        double zDiff = Math.abs(rz - zHex);
 
 
-    	        //Calculating Hex coords
-    	        double xHex = (double) (( 2./3. * x -37.5) / 37.5);
-    	        double yHex = (double) (-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5;
+        if (xDiff > yDiff && xDiff > zDiff)
+            rx = -ry-rz;
+        else if (yDiff > zDiff)
+            ry = -rx-rz;
+        else
+            rz = -rx-ry;
 
-    	        //Rounding
-    	        double zHex = -xHex -yHex;
-
-    	        double rx = Math.round(xHex);
-    	        double ry = Math.round(yHex);
-    	        double rz = Math.round(zHex);
-
-    	        double xDiff = Math.abs(rx - xHex);
-    	        double yDiff = Math.abs(ry - yHex);
-    	        double zDiff = Math.abs(rz - zHex);
-
-
-    	        if (xDiff > yDiff && xDiff > zDiff)
-    	            rx = -ry-rz;
-    	        else if (yDiff > zDiff)
-    	            ry = -rx-rz;
-    	        else
-    	            rz = -rx-ry;
-
-    	        return this.map.getHex((int) rx, (int) ry);
-    		}
-    		case 3 :
-    		{
-    				horizon = 
-    			 	x-=755-horizon;
-    		        y-=960-vertical;
-    		        
-    		        //Calculating Hex coords
-    		        double xHex = (double) (( 2./3. * x-37.5) / 37.5);
-    		        double yHex = (double) ((-1/3 * x  +  Math.sqrt(3)/3 * y) / 37.5);
-
-    		        //Rounding
-    		        double zHex = -xHex -yHex;
-
-    		        double rx = Math.round(xHex);
-    		        double ry = Math.round(yHex);
-    		        double rz = Math.round(zHex);
-
-    		        double xDiff = Math.abs(rx - xHex);
-    		        double yDiff = Math.abs(ry - yHex);
-    		        double zDiff = Math.abs(rz - zHex);
-
-
-    		        if (xDiff > yDiff && xDiff > zDiff)
-    		            rx = -ry-rz;
-    		        else if (yDiff > zDiff)
-    		            ry = -rx-rz;
-    		        else
-    		            rz = -rx-ry;
-
-    	        return this.map.getHex((int) rx, (int) ry);
-    		}*/
-    	}
-		return null; 
+        return this.map.getHex((int) rx, (int) ry);
 }
 
-    
+
     public void tourIA() throws InterruptedException {
     	List<Unite> unitTri = new ArrayList<Unite>();
     	for(Unite unit : joueurAct.getUnite()) {
@@ -277,9 +209,9 @@ public class GameController {
     		unit.joueurIA(joueurAct, map);
     		wait(1);
     	}
-    	
+
     }
-    
+
     public void toggleSource() {
         if(source == false) {
         	source = true;
@@ -287,5 +219,5 @@ public class GameController {
         	source = false;
         }
     }
-    
+
 }

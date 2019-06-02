@@ -36,12 +36,12 @@ public class PanelDessineurMap extends JPanel {
 	private HexMap map;
 
 	/**
-	 * Nombre total d'équipes.
+	 * Nombre total d'ï¿½quipes.
 	 */
 	private int totalEquipe;
 
 	/**
-	 * Séparateur de fichier.
+	 * Sï¿½parateur de fichier.
 	 */
 	private String sep;
 
@@ -56,7 +56,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Défini l'affichage.
+	 * Dï¿½fini l'affichage.
 	 * @param g Graphics
 	 */
     public void paintComponent(Graphics g) {
@@ -70,10 +70,8 @@ public class PanelDessineurMap extends JPanel {
 		}
 	}
 
-    /**
-	 * Affiche la map triangle.
-	 */
-    public void afficheMapTriangle(Graphics g) {
+
+	public void afficheMap(Graphics g, int offsetX, int offsetY) {
     	Hex current;
         int imageX, imageY;
         File image;
@@ -82,18 +80,28 @@ public class PanelDessineurMap extends JPanel {
             for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
                 current = this.map.getHex(i, j);
                 if (current != null) {
-                    imageX = 170 + 54 * (3 / 2 * current.getY());
-                    imageY = (int) (15 + 33 * (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
-                    image = associeImageHex(current);
-                    this.afficheImage(g, image, imageX, imageY/*, current.getColor()*/);
+
+					imageX = (int) (offsetX + 37.5 * (3./2 * current.getY()) );
+					imageY = (int) (offsetY + 37.5 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
+
+					image = associeImageHex(current);
+                    this.afficheImage(g, image, imageX, imageY);
 
                     image = associeImageUnite(current);
                     if (image != null) {
-                        this.afficheImage(g, image, imageX + 13, imageY + 10/*, current.getColor()*/);
+                        this.afficheImage(g, image, imageX+13, imageY+10);
                     }
                 }
             }
         }
+    }
+
+
+    /**
+	 * Affiche la map triangle.
+	 */
+    public void afficheMapTriangle(Graphics g) {
+		afficheMap(g, 170, 0);
     }
 
     /**
@@ -101,31 +109,7 @@ public class PanelDessineurMap extends JPanel {
 	 * @param g Graphics
 	 */
     public void afficheMapRectangle(Graphics g) {
-    	Hex current;
-        int imageX, imageY;
-    	File image;
-
-        for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
-            for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
-                current = this.map.getHex(i, j);
-                if (current != null) {
-                    imageX = 20 + 54 * (3 / 2 * current.getY());
-                    if (j % 2 == 0) {
-                        imageY = (int) (384 + 33 * (Math.sqrt(3) * current.getX()) + 32 + current.getX() * 7);
-                    } else {
-                        imageY = (int) (384 + 33 * (Math.sqrt(3) * current.getX()) + current.getX() * 7);
-                    }
-
-                    image = associeImageHex(current);
-                    this.afficheImage(g, image, imageX, imageY/*, current.getColor()*/);
-
-                    image = associeImageUnite(current);
-                    if (image != null) {
-                        this.afficheImage(g, image, imageX + 13, imageY + 10/*, current.getColor()*/);
-                    }
-                }
-            }
-        }
+		afficheMap(g, 0, 0);
     }
 
     /**
@@ -133,31 +117,11 @@ public class PanelDessineurMap extends JPanel {
 	 * @param g Graphics
 	 */
     public void afficheMapHexagone(Graphics g) {
-    	Hex current;
-    	int imageX, imageY;
-    	File image;
-
-    	for (int i = this.map.getMinX(); i < this.map.getMaxX(); i++) {
-			for (int j = this.map.getMinY(); j < this.map.getMaxY(); j++) {
-				current = this.map.getHex(i, j);
-				if (current != null) {
-					imageX = 755 + 54 * (3 / 2 * current.getY());
-	                imageY = (int) (960 + 33 * (Math.sqrt(3 / 2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
-
-					image = associeImageHex(current);
-					this.afficheImage(g, image, imageX, imageY/*, current.getColor()*/);
-
-                    image = associeImageUnite(current);
-                    if (image != null) {
-                        this.afficheImage(g, image, imageX+13, imageY+10/*, current.getColor()*/);
-                    }
-				}
-			}
-		}
+		afficheMap(g, 800, 980);
     }
 
     /**
-	 * Associe un hexagone à son image.
+	 * Associe un hexagone ï¿½ son image.
 	 * @param hex Hex
 	 * @return image
 	 */
@@ -185,7 +149,7 @@ public class PanelDessineurMap extends JPanel {
  	}
 
     /**
-	 * Associe une unité à son image.
+	 * Associe une unitï¿½ ï¿½ son image.
 	 * @param hex Hex
 	 * @return image
 	 */

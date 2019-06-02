@@ -32,12 +32,12 @@ public class PanelInformations extends JPanel implements ActionListener {
 	private JPanel panelImagePerso;
 
 	/**
-	 * Panel de l'aperçu de la carte.
+	 * Panel de l'aperï¿½u de la carte.
 	 */
 	private JPanel panelApercu;
 
 	/**
-	 * Nombre total d'équipes.
+	 * Nombre total d'ï¿½quipes.
 	 */
 	private int totalEquipe;
 
@@ -81,7 +81,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelApercu.setPreferredSize(new Dimension(500, 300));
 		this.panelApercu.setBackground(this.couleurFond);
 		Border border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Aperçu de la carte";
+		texte = "Aperï¿½u de la carte";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelApercu.setBorder(border);
 		contrainte.ipadx = 40;
@@ -119,7 +119,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel.setPreferredSize(new Dimension(500, 100));
 		panel.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Type du personnage + caratéristiques";
+		texte = "Type du personnage + caratï¿½ristiques";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		panel.setBorder(border);
 		contrainte.gridx = 0;
@@ -153,7 +153,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Affiche l'aperçu de la carte
+	 * Affiche l'aperï¿½u de la carte
 	 */
 	public void afficheApercu() {
 		PanelDessineurApercu dessinCarte;
@@ -166,8 +166,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des évènements.
-	 *  @param evt évènement
+	 *  Permet le traitement des ï¿½vï¿½nements.
+	 *  @param evt ï¿½vï¿½nement
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();

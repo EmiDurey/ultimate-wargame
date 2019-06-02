@@ -55,8 +55,8 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 
         // Menu "Aide"
         this.menu = new JMenu("Aide");
-        // Sous_menu "Règles"
-        this.ajouterMenuItem("Règles", "regles.png");
+        // Sous_menu "Rï¿½gles"
+        this.ajouterMenuItem("Rï¿½gles", "regles.png");
 		// Sous_menu "Aide"
 		this.ajouterMenuItem("Aide", "aide.png");
 
@@ -80,8 +80,8 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des évènements.
-	 *  @param evt évènement
+	 *  Permet le traitement des ï¿½vï¿½nements.
+	 *  @param evt ï¿½vï¿½nement
 	 */
 	public void actionPerformed(ActionEvent evt) {
 
@@ -97,7 +97,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 			case "Sauvegarder":
 				System.out.println("Sauvegarder");
 				break;
-			case "Règles":
+			case "Rï¿½gles":
 				OptionPaneAide.afficheRegles(this.fenetre);
 				break;
 			case "Aide":
@@ -105,7 +105,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Quitter":
 				String contenu, entete;
-				contenu = "Etes-vous sûr de vouloir quitter le jeu ?";
+				contenu = "Etes-vous sï¿½r de vouloir quitter le jeu ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.OK_CANCEL_OPTION)) {
 	        		case JOptionPane.CLOSED_OPTION: break;

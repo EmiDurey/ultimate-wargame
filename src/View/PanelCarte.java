@@ -109,7 +109,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 
         //this.dessinCarte.repaint();
 
-        // Contoleur, appel de l'écouteur sur l'hexagone cliqué
+        // Contoleur, appel de l'ï¿½couteur sur l'hexagone cliquï¿½
         //PanelCarteListener panelCarteListener = new PanelCarteListener();
         //panelCarteListener.handleMove(x, y);
     	}

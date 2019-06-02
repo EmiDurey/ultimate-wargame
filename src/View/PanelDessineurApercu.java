@@ -50,7 +50,7 @@ public class PanelDessineurApercu extends JPanel {
 	}
 
     public void afficheMapTriangle(Graphics g) {
-    	Hex current;
+		Hex current;
         int imageX, imageY;
         File image;
 
@@ -58,55 +58,58 @@ public class PanelDessineurApercu extends JPanel {
             for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
                 current = this.map.getHex(i, j);
                 if (current != null) {
-                	imageX = 200 + 13 * (3/2 * current.getY());
-                    imageY = (int) (30 + 5 *  (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX() * 7);
-                    image = associeImageHex(current);
+
+					imageX = (int) (190 + 10 * (3./2 * current.getY()) );
+					imageY = (int) (20 + 10 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
+
+					image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY);
+
                 }
             }
         }
     }
 
     public void afficheMapRectangle(Graphics g) {
-    	Hex current;
+		Hex current;
         int imageX, imageY;
-    	File image;
+        File image;
 
         for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
             for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
                 current = this.map.getHex(i, j);
                 if (current != null) {
-                    imageX = 150 + 13 * (3/2 * current.getY());
-                    if (j % 2 == 0) {
-                        imageY = (int) (110 + 5 *  (Math.sqrt(3) * current.getX()) + 4 + current.getX() * 7);
-                    } else {
-                        imageY = (int) (110 + 5 *  (Math.sqrt(3) * current.getX()) + current.getX() * 7);
-                    }
 
-                    image = associeImageHex(current);
+					imageX = (int) (120 + 10 * (3./2 * current.getY()) );
+					imageY = (int) (20 + 10 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
+
+					image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY);
+
                 }
             }
         }
     }
 
     public void afficheMapHexagone(Graphics g) {
-    	Hex current;
-    	int imageX, imageY;
-    	File image;
+		Hex current;
+        int imageX, imageY;
+        File image;
 
-    	for (int i = this.map.getMinX(); i < this.map.getMaxX(); i++) {
-			for (int j = this.map.getMinY(); j < this.map.getMaxY(); j++) {
-				current = this.map.getHex(i, j);
-				if (current != null) {
-					imageX = 270 + 10 * (3/2 * current.getY());
-	                imageY = (int) (144 + 5 *  (Math.sqrt(3/2) * current.getY() + Math.sqrt(3) * current.getX()) + current.getX());
+        for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
+            for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
+                current = this.map.getHex(i, j);
+                if (current != null) {
+
+					imageX = (int) (270 + 5 * (3./2 * current.getY()) );
+					imageY = (int) (140 + 5 * (Math.sqrt(3)/2 * current.getY() + Math.sqrt(3) * current.getX()) );
 
 					image = associeImageHex(current);
                     this.afficheImage(g, image, imageX, imageY);
-				}
-			}
-		}
+
+                }
+            }
+        }
     }
 
     public File associeImageHex(Hex hex) {

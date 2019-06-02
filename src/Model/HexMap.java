@@ -107,14 +107,13 @@ public class HexMap implements Serializable {
 	* @param width int
 	*/
 	public void setRectangleMap(int height, int width) {
-
-        for (int y = 0; y <= width; y++) {
-
-            for (int x = -height/2; x <= height/2+1; x++) {
-                Plaine newHex = new Plaine(x, y, -x - y);
-                map.put(newHex.hashCode(), newHex);
-            }
-        }
+		for (int x = 0; x < width; x++) {
+		    int x_offset = (int) Math.floor(x/2); // or r>>1
+		    for (int y = -x_offset; y < height - x_offset; y++) {
+				Plaine newHex = new Plaine(y, x);
+				map.put(newHex.hashCode(), newHex);
+		    }
+		}
     }
 
 
@@ -296,7 +295,7 @@ public class HexMap implements Serializable {
                 unitsPositions.get(0).add(getHex(2,1));
                 unitsPositions.get(0).add(getHex(1,2));
                 unitsPositions.get(0).add(getHex(0,3));
-                
+
                 addHex(new Forteresse(0, 12));
                 addHex(new Forteresse(1, 12));
                 addHex(new Forteresse(1, 11));
@@ -311,7 +310,7 @@ public class HexMap implements Serializable {
                 unitsPositions.get(1).add(getHex(1,10));
                 unitsPositions.get(1).add(getHex(2,10));
                 unitsPositions.get(1).add(getHex(3,10));
-                
+
                 addHex(new Forteresse(12, 1));
                 addHex(new Forteresse(12, 0));
                 addHex(new Forteresse(11, 1));
@@ -365,7 +364,7 @@ public class HexMap implements Serializable {
                 unitsPositions.get(3).add(getHex(-5,17));
                 unitsPositions.get(3).add(getHex(-5,18));
                 unitsPositions.get(3).add(getHex(-4,18));
-                
+
                 addHex(new Forteresse( 5,0));
                 addHex(new Forteresse( 6,1));
                 addHex(new Forteresse( 6,2));
@@ -514,7 +513,7 @@ public class HexMap implements Serializable {
 				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 				initMap(players);
 			}
-		}	*/	
+		}	*/
 	}
 
 	/**

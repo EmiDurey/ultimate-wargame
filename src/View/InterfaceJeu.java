@@ -14,12 +14,12 @@ import javax.swing.JLabel;
 public class InterfaceJeu extends JFrame {
 
 	/**
-	 * Longueur de la fenêtre.
+	 * Longueur de la fenï¿½tre.
 	 */
 	private final int longueur = 1700;
 
 	/**
-	 * Largeur de la fenêtre.
+	 * Largeur de la fenï¿½tre.
 	 */
 	private final int largeur = 1010;
 
@@ -113,7 +113,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  Crée l'image de fond.
+	 *  Crï¿½e l'image de fond.
 	 *  @return JLabel
 	 */
 	public JLabel creerFond() {
