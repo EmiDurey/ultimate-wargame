@@ -58,8 +58,8 @@ public class PanelDessineurMap extends JPanel {
 	 */
     public PanelDessineurMap(int totalEquipe, HexMap map, GameController controller) {
     	this.totalEquipe = totalEquipe;
-		this.map = map;
 		this.controller = controller;
+		this.map = controller.getMap();
 		//this.map.getHex(-8, 0).setUnit(new Cavalerie());
     	this.sep = File.separator;
     }
@@ -84,7 +84,7 @@ public class PanelDessineurMap extends JPanel {
     	Hex current;
         int imageX, imageY;
         File image;
-
+        this.map = this.controller.getMap();
         for (int i = this.map.getMinX(); i <= this.map.getMaxX(); i++) {
             for (int j = this.map.getMinY(); j <= this.map.getMaxY(); j++) {
                 current = this.map.getHex(i, j);
@@ -142,7 +142,7 @@ public class PanelDessineurMap extends JPanel {
 	 */
 
     public File associeImageHex(Hex hex) {
-    	List<Hex> surligne = this.controller.getSurligne();
+    	List<Hex> surbrillance = this.controller.getSurligne();
 
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
