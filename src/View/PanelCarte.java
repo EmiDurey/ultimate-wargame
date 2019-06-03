@@ -105,7 +105,12 @@ public class PanelCarte extends JPanel implements MouseListener {
 		System.out.println("X : " + x + " Y : " + y);
 
 		controller.handleMove(x, y);
-        this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
+		this.dessinCarte.repaint();
+		
+		//this.dessinCarte.afficheMap(g, 170, 15);
+		
+        //this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
+        //add(dessinCarte);
 
 		//Rectangle rect = new Rectangle(x, y, W, H);
 

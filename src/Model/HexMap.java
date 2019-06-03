@@ -762,7 +762,6 @@ public class HexMap implements Serializable {
 				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
 					stack.push(neighbours.get(i));
 					costList.put(neighbours.get(i).hashCode(), newCost);
-					viewDist -= newCost;
 				}
 			}
 		}
