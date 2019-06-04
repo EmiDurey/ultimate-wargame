@@ -21,7 +21,6 @@ public class Infanterie extends Unite {
 		this.pointsDeVieMax = 35;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 8;
-		joueur.addUnit(this);
 	}
 
 	/**

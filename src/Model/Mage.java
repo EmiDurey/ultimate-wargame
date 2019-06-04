@@ -21,7 +21,6 @@ public class Mage extends Unite {
 		this.pointsDeVieMax = 35;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 6;
-		joueur.addUnit(this);
 	}
 
 	/**

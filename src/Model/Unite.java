@@ -68,7 +68,6 @@ public abstract class Unite implements Serializable {
 	public Unite(Hex hex, Joueur joueur) {
 		this.hex = hex;
 		this.joueur = joueur;
-		joueur.getUnite().add(this);
 		hex.setUnit(this);
 	}
 

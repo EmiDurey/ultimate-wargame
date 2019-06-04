@@ -21,7 +21,6 @@ public class InfanterieLourde extends Unite {
 		this.pointsDeVieMax = 45;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 5;
-		joueur.addUnit(this);
 	}
 
 	/**

@@ -24,7 +24,6 @@ public class Dragon extends Unite {
 		this.pointsDeVieMax = 45;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 8;
-		joueur.addUnit(this);
 	}
 
 	/**

@@ -31,7 +31,6 @@ public class Archer extends Unite {
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 6;
 		this.portee = 4;
-		joueur.addUnit(this);
 
 	}
 

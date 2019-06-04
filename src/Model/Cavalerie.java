@@ -21,7 +21,6 @@ public class Cavalerie extends Unite {
 		this.pointsDeVieMax = 40;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 6;
-		joueur.addUnit(this);
 	}
 
 	/**

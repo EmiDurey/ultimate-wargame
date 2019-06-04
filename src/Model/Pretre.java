@@ -29,7 +29,6 @@ public class Pretre extends Unite {
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 4;
 		this.pointsSoin = 10;
-		joueur.addUnit(this);
 	}
 
 	/**
