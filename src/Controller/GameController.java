@@ -85,20 +85,22 @@ public class GameController implements Serializable {
         	hexAnnonce.add(unite.getHex());
 
     		unite.initialize();
-    		if(unite instanceof Pretre) {
+    		/*if(unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
     			//AFFICHAGE HEAL ????
-    		}
+    		}*/
     	}
     	int lastIndexJoueur = joueurs.indexOf(joueurAct);
-    	if (lastIndexJoueur < joueurs.size()) {
+    	System.out.println(lastIndexJoueur+"   <    "+(joueurs.size()-1));
+    	if (lastIndexJoueur < joueurs.size()-1) {
     		joueurAct = joueurs.get(lastIndexJoueur + 1);
-    		if(joueurAct.isIA()) {
-    			tourIA();
-	    	} else {
-	    		joueurAct = joueurs.get(0);
-	    	}
     	}
+    	else {
+    		joueurAct = joueurs.get(0);
+    	}
+    	/*if(joueurAct.isIA()) {
+			tourIA();
+    	}*/
     }
 
     /**
@@ -139,7 +141,9 @@ public class GameController implements Serializable {
         			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
         			//System.out.println(surligne);
         			if(uniteSelectionne instanceof Archer) {
-        				surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+        				if(uniteSelectionne.getPointsDeplacement()!=0) {
+        					surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+        				}
         			}
         			toggleSource();
         		} else {
@@ -160,7 +164,9 @@ public class GameController implements Serializable {
             	uniteSelectionne = hexSelectionne.getUnit();
             	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
     			if(uniteSelectionne instanceof Archer) {
-    				surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+    				if(uniteSelectionne.getPointsDeplacement()!=0) {
+    					surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+    				}
     			}
     			toggleSource();
             } else {
