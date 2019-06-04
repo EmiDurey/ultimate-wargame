@@ -151,19 +151,24 @@ public class PanelDessineurMap extends JPanel {
 
 		if(discovered != null) {
 			if(!discovered)
-				chemin += "brouillard" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "brouillard";
 			else if (hex instanceof Eau) {
-				chemin += "eau" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "eau" + surbrillanceArc(hex,chemin);
 			} else if (hex instanceof Plaine) {
-				chemin += "plaine" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "plaine" + surbrillance(hex);
+				chemin += surbrillanceArc(hex,chemin);
 			} else if (hex instanceof Foret) {
-				chemin += "foret"+ surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "foret"+ surbrillance(hex);
+				chemin += surbrillanceArc(hex,chemin);
 			} else if (hex instanceof Forteresse) {
-				chemin += "forteresse" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "forteresse" + surbrillance(hex);
+				chemin += surbrillanceArc(hex,chemin);
 			} else if (hex instanceof Montagne) {
-				chemin += "montagne" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "montagne" + surbrillance(hex);
+				chemin += surbrillanceArc(hex,chemin);
 			} else if (hex instanceof Neige) {
-				chemin += "neige" + surbrillance(hex) + surbrillanceArc(hex);
+				chemin += "neige" + surbrillance(hex);
+				chemin +=  surbrillanceArc(hex,chemin);
 			}
 		}
  		else {
@@ -173,7 +178,8 @@ public class PanelDessineurMap extends JPanel {
  		chemin += ".png";
 
  		image = new File(chemin);
-
+ 		if(!surbrillanceArc(hex,chemin).isEmpty()) {
+ 		}
  		return image;
  	}
 
@@ -185,10 +191,15 @@ public class PanelDessineurMap extends JPanel {
     	return "";
     }
     
-    public String surbrillanceArc(Hex hex) {
+    public String surbrillanceArc(Hex hex, String chemin) {
     	List<Hex> surligne = this.controller.getSurligneArc();
     	if(surligne.contains(hex)) {
-    		return "2";
+    		if(chemin.endsWith("H")) {
+    			return "2";
+        	} else {
+        		return "H2";
+        	}
+    		
     	}
     	return "";
     }

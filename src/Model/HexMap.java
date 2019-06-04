@@ -755,7 +755,7 @@ public class HexMap implements Serializable {
 			ArrayList<Hex> neighbours = getNeighbours(current);
 
 			for(int i=0; i<neighbours.size(); i++) {
-				if(neighbours.get(i).getCost() != -1) {
+				if(neighbours.get(i).getCost() != -1 && neighbours.get(i).getUnit() == null) {
 	
 					int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
 	
