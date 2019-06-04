@@ -13,7 +13,7 @@ public class InfanterieLourde extends Unite {
 	public InfanterieLourde(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 8;
+		this.pointsAttaque = 16;
 		this.pointsDefenseInit = 5;
 		this.pointsDefense = this.pointsDefenseInit;
 		this.pointsDeplacementInit = 80;
@@ -30,7 +30,7 @@ public class InfanterieLourde extends Unite {
 	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
-			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.10);
 			if (this.pointsDeVie > this.pointsDeVieMax) {
 				this.pointsDeVie = this.pointsDeVieMax;
 			}

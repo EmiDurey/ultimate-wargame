@@ -97,7 +97,7 @@ public abstract class Unite implements Serializable {
 	 * @param unite Unite
 	 */
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
-		final int crit = 3;
+		final int crit = 2;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
@@ -109,7 +109,7 @@ public abstract class Unite implements Serializable {
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
-			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)) {
+			if ((!trajet.isEmpty()) && (map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement) && trajet.get(trajet.size() - 2).getUnit() == null) {
 			 	this.getHex().setUnit(null);
 			 	trajet.get(trajet.size() - 2).setUnit(this);
 				this.setHex(trajet.get(trajet.size() - 2));
@@ -127,6 +127,7 @@ public abstract class Unite implements Serializable {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
+		System.out.println(unite+" : "+unite.pointsDeVie+"/"+unite.pointsDeVieMax);
 	}
 
 	/**

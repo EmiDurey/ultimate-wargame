@@ -22,7 +22,7 @@ public class Archer extends Unite {
 	public Archer(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 9;
+		this.pointsAttaque = 17;
 		this.pointsDefenseInit = 3;
 		this.pointsDefense = this.pointsDefenseInit;
 		this.pointsDeplacementInit = 100;
@@ -47,7 +47,7 @@ public class Archer extends Unite {
 	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
-			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.10);
 			if (this.pointsDeVie > this.pointsDeVieMax) {
 				this.pointsDeVie = this.pointsDeVieMax;
 			}
@@ -71,7 +71,7 @@ public class Archer extends Unite {
 	 */
 	@Override
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
-		final int crit = 3;
+		final int crit = 2;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
 		List<Hex> trajet = new ArrayList<Hex>();
@@ -84,7 +84,7 @@ public class Archer extends Unite {
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
 			for (Hex hex : trajet) {
-				if ((hex.distance(unite.hex) <= portee) && ((map.moveCost(hex, unite.hex)) <= this.pointsDeplacement)) {
+				if ((hex.distance(unite.hex) <= portee) && ((map.moveCost(hex, unite.hex)) <= this.pointsDeplacement) && hex.getUnit() == null) {
 					this.getHex().setUnit(null);
 				 	hex.setUnit(this);
 					this.setHex(hex);
@@ -104,6 +104,7 @@ public class Archer extends Unite {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
+		System.out.println(unite+" : "+unite.pointsDeVie+"/"+unite.pointsDeVieMax);
 	}
 
 	public int getPortee() {

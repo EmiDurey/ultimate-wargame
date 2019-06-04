@@ -13,7 +13,7 @@ public class Cavalerie extends Unite {
 	public Cavalerie(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 9;
+		this.pointsAttaque = 17;
 		this.pointsDefenseInit = 4;
 		this.pointsDefense = this.pointsDefenseInit;
 		this.pointsDeplacementInit = 120;
@@ -36,7 +36,7 @@ public class Cavalerie extends Unite {
 	@Override
 	public void heal() {
 		if (this.pointsDeplacement == 8) {
-			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.10);
 			if (this.pointsDeVie > this.pointsDeVieMax) {
 				this.pointsDeVie = this.pointsDeVieMax;
 			}
@@ -48,7 +48,7 @@ public class Cavalerie extends Unite {
 	 */
 	@Override
 	public void initialize() {
-		this.pointsDeplacement = 8;
+		this.pointsDeplacement = this.pointsDeplacementInit;
 	}
 
 }

@@ -20,7 +20,7 @@ public class Pretre extends Unite {
 	public Pretre(Hex hex, Joueur joueur) {
 		super(hex, joueur);
 		hex.setUnit(this);
-		this.pointsAttaque = 2;
+		this.pointsAttaque = 13;
 		this.pointsDefenseInit = 3;
 		this.pointsDefense = this.pointsDefenseInit;
 		this.pointsDeplacementInit = 100;
@@ -28,7 +28,7 @@ public class Pretre extends Unite {
 		this.pointsDeVieMax = 60;
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 4;
-		this.pointsSoin = 15;
+		this.pointsSoin = 10;
 		joueur.addUnit(this);
 	}
 
@@ -103,7 +103,7 @@ public class Pretre extends Unite {
 	@Override
 	public void heal() {
 		if (this.pointsDeplacement == this.pointsDeplacementInit) {
-			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.15);
+			this.pointsDeVie = (int) ((float) this.pointsDeVie * 1.10);
 			if (this.pointsDeVie > this.pointsDeVieMax) {
 				this.pointsDeVie = this.pointsDeVieMax;
 			}
