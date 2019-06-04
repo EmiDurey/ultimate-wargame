@@ -87,10 +87,10 @@ public class GameController implements Serializable {
         	hexAnnonce.add(unite.getHex());
 
     		unite.initialize();
-    		/*if(unite instanceof Pretre) {
+    		if(unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
     			//AFFICHAGE HEAL ????
-    		}*/
+    		}
     	}
     	int lastIndexJoueur = joueurs.indexOf(joueurAct);
     	System.out.println(lastIndexJoueur+"   <    "+(joueurs.size()-1));

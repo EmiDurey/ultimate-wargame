@@ -206,15 +206,17 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	 *  @return ArrayList<Joueur>
 	 */
 	public ArrayList<Joueur> creerListeJoueurs() {
+
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 		for (int i=1; i<=this.nbJoueurs; i++) {
 			joueurs.add(new Joueur(i));
 		}
-		for (int i=this.nbJoueurs+1; i<=this.nbIA; i++) {
-			Joueur ia = new Joueur(i);
+		for (int i=1; i<=this.nbIA; i++) {
+			Joueur ia = new Joueur(this.nbJoueurs+i);
 			ia.setIA(true);
 			joueurs.add(ia);
 		}
+
 		return joueurs;
 	}
 
