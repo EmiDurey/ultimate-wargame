@@ -100,15 +100,15 @@ public class PanelCarte extends JPanel implements MouseListener {
 		final int W = 585;
 		final int H = 860;
 
-		int x = (int) clik.getX() + this.scroll.getVerticalScrollBar().getValue();
-		int y = (int) clik.getY() + this.scroll.getHorizontalScrollBar().getValue();
-		System.out.println("X : " + x + " Y : " + y);
+		int x = (int) clik.getX() + this.scroll.getHorizontalScrollBar().getValue();
+		int y = (int) clik.getY() + this.scroll.getVerticalScrollBar().getValue();
+
 
 		controller.handleMove(x, y);
 		this.dessinCarte.repaint();
-		
+
 		//this.dessinCarte.afficheMap(g, 170, 15);
-		
+
         //this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
         //add(dessinCarte);
 

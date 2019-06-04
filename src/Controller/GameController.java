@@ -210,7 +210,6 @@ public class GameController implements Serializable {
         x -= this.offsetX;
         y -= this.offsetY;
 
-		System.out.println(x + "/" + y);
 
 
         //Calculating Hex coords
@@ -236,8 +235,6 @@ public class GameController implements Serializable {
         else
             rz = -rx-ry;
 
-		System.out.println((int) rx + " " + (int) ry);
-
         return this.map.getHex((int) rx, (int) ry);
 }
 
@@ -252,6 +249,7 @@ public class GameController implements Serializable {
     		}
     	}
     	for(Unite unit : unitTri) {
+			System.out.println("Need to play with "+unit);
     		unit.joueurIA(joueurAct, map);
     		wait(1);
     	}

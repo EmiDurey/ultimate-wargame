@@ -136,18 +136,21 @@ public abstract class Unite implements Serializable {
 	 * @param map HexMap
 	 */
 	public void joueurIA(Joueur joueur, HexMap map) {
-		List<Hex> positionPossible = new ArrayList<Hex>();// NEED FONCTION
+		List<Hex> positionPossible = map.movementHighlight(hex, pointsDeplacement);// NEED FONCTION
 		List<Hex> unitInRange = new ArrayList<Hex>();
 		List<Hex> trajet = new ArrayList<Hex>();
+
 		for (Hex hex : positionPossible) {
+
 			if (!hex.isEmpty()) {
 				unitInRange.add(hex);
 			}
 			if (unitInRange.isEmpty()) {
 				if (this.pointsDeVie >= this.pointsDeVieMax / 2) {
 					//Très sale =/
+
 					Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
-					Hex goal = flee (enemy.getHex(), map);
+
 					ArrayList<Hex> path = map.pathfinding( getHex(), map.getClosestEnemy(getHex(), joueur).getHex());
 					if(path.size() > 1) {
 						seDeplace(map, path.get(path.size()-2));
@@ -155,10 +158,10 @@ public abstract class Unite implements Serializable {
 						seDeplace(map, path.get(path.size()-1));
 					}
 
-
-
 				} else {
-					this.setPointsDeplacement(0);
+					Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
+					Hex goal = flee (enemy.getHex(), map);
+					seDeplace(map, goal);
 					break;
 				}
 			} else {

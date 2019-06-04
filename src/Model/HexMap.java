@@ -756,9 +756,9 @@ public class HexMap implements Serializable {
 
 			for(int i=0; i<neighbours.size(); i++) {
 				if(neighbours.get(i).getCost() != -1 && neighbours.get(i).getUnit() == null) {
-	
+
 					int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
-	
+
 					if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
 						stack.push(neighbours.get(i));
 						costList.put(neighbours.get(i).hashCode(), newCost);
@@ -851,6 +851,7 @@ public class HexMap implements Serializable {
 	* @return ArrayList<Hex>
 	*/
 	public ArrayList<Hex> pathfinding(Hex start, Hex goal) {
+
 		SortedHexList open = new SortedHexList();
 		SortedHexList closed = new SortedHexList();
 		HashMap<Integer, Hex> cameFrom = new HashMap<Integer, Hex>();
