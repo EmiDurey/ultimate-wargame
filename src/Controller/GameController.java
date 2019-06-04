@@ -81,6 +81,7 @@ public class GameController implements Serializable {
 
     		int pvInit = unite.getPointsDeVie();
         	unite.heal();
+			unite.setPointsDeplacement(unite.getPointsDeplacementInit());
         	int pvFin = unite.getPointsDeVie();
         	annonce.add(String.valueOf(pvFin-pvInit));
         	hexAnnonce.add(unite.getHex());
@@ -97,11 +98,14 @@ public class GameController implements Serializable {
     		joueurAct = joueurs.get(lastIndexJoueur + 1);
     	}
     	else {
+			System.out.println("Default player");
     		joueurAct = joueurs.get(0);
     	}
-    	/*if(joueurAct.isIA()) {
+    	if(joueurAct.isIA()) {
 			tourIA();
-    	}*/
+    	}
+
+		System.out.println("New player: "+joueurAct);
     }
 
     /**
@@ -135,6 +139,8 @@ public class GameController implements Serializable {
 
         if (source) {
         	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
+
+
         	if(!(hexSelectionne.getUnit() == null)) {
         		if(joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
         			System.out.println("Clique allié");
