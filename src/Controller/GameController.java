@@ -77,6 +77,7 @@ public class GameController implements Serializable {
     	annonce.clear();
     	hexAnnonce.clear();
 
+    	System.out.println("NOMBRE UNITE DE"+joueurAct.getID()+" : "+joueurAct.getUnite().size());
     	for(Unite unite: joueurAct.getUnite()) {
 
     		int pvInit = unite.getPointsDeVie();
@@ -93,7 +94,6 @@ public class GameController implements Serializable {
     		}
     	}
     	int lastIndexJoueur = joueurs.indexOf(joueurAct);
-    	System.out.println(lastIndexJoueur+"   <    "+(joueurs.size()-1));
     	if (lastIndexJoueur < joueurs.size()-1) {
     		joueurAct = joueurs.get(lastIndexJoueur + 1);
     	}
@@ -121,6 +121,7 @@ public class GameController implements Serializable {
     		annonce.clear();
     		annonce.add("Fin de la partie !");
     		fin = true;
+    		System.out.println();
     	}
     }
 

@@ -57,6 +57,11 @@ public class PanelCarte extends JPanel implements MouseListener {
 
         this.add(this.scroll);
 
+        try {
+			controller.changeTour();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         // Controleur, ajout de la carte au Listener
         //this.dessinCarte.setMapListener();
 	}
@@ -102,8 +107,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 
 		int x = (int) clik.getX() + this.scroll.getHorizontalScrollBar().getValue();
 		int y = (int) clik.getY() + this.scroll.getVerticalScrollBar().getValue();
-
-
+		
 		controller.handleMove(x, y);
 		this.dessinCarte.repaint();
 
