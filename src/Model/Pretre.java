@@ -39,8 +39,8 @@ public class Pretre extends Unite {
 	 * @param joueur Joueur
 	 */
 	public void soigne(HexMap map, Joueur joueur) {
-		Hex[] voisins = new Hex[6];
-		voisins = this.hex.getNeighbours();
+
+		ArrayList<Hex> voisins = map.getNeighbours(hex);
 		for (Hex voisin : voisins) {
 			if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) {
 				Unite unite = map.getHex(voisin.getX(), voisin.getY()).getUnit();
@@ -52,6 +52,7 @@ public class Pretre extends Unite {
 				}
 			}
 		}
+
 	}
 
 	/**

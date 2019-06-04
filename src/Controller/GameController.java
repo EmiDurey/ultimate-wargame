@@ -76,6 +76,7 @@ public class GameController implements Serializable {
     	this.verif();
     	annonce.clear();
     	hexAnnonce.clear();
+
     	for(Unite unite: joueurAct.getUnite()) {
 
     		int pvInit = unite.getPointsDeVie();
@@ -90,7 +91,8 @@ public class GameController implements Serializable {
     			//AFFICHAGE HEAL ????
     		}
     	}
-    	int lastIndexJoueur = joueurs.indexOf(joueurAct);
+
+		int lastIndexJoueur = joueurs.indexOf(joueurAct);
     	if (lastIndexJoueur < joueurs.size()) {
     		joueurAct = joueurs.get(lastIndexJoueur + 1);
     		if(joueurAct.isIA()) {
@@ -249,7 +251,7 @@ public class GameController implements Serializable {
     public List<Hex> getSurligne() {
     	return this.surligne;
     }
-    
+
     public List<Hex> getSurligneArc() {
     	return this.surligneArc;
     }
