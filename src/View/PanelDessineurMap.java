@@ -195,7 +195,7 @@ public class PanelDessineurMap extends JPanel {
     	List<Hex> surligne = this.controller.getSurligneArc();
     	if(surligne.contains(hex)) {
     		if(chemin.endsWith("H")) {
-    			return "2";
+    			return "3";
         	} else {
         		return "H2";
         	}
