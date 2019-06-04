@@ -70,8 +70,8 @@ public class PanelCarte extends JPanel implements MouseListener {
 		final int H = 860;
 		boolean changed = true;
 
-		int x = 1000;
-		int y = 1000;
+		int x = 1080;
+		int y = 1030;
 		Rectangle rect = new Rectangle(W, H);
 		this.dessinCarte.scrollRectToVisible(rect);
 
