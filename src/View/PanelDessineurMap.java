@@ -151,23 +151,23 @@ public class PanelDessineurMap extends JPanel {
 
 		if(discovered != null) {
 			if(!discovered)
-				chemin += "brouillard" + surbrillance(hex);
+				chemin += "brouillard" + surbrillance(hex) + surbrillanceArc(hex);
 			else if (hex instanceof Eau) {
-				chemin += "eau" + surbrillance(hex);
+				chemin += "eau" + surbrillance(hex) + surbrillanceArc(hex);
 			} else if (hex instanceof Plaine) {
-				chemin += "plaine" + surbrillance(hex);
+				chemin += "plaine" + surbrillance(hex) + surbrillanceArc(hex);
 			} else if (hex instanceof Foret) {
-				chemin += "foret";
+				chemin += "foret"+ surbrillance(hex) + surbrillanceArc(hex);
 			} else if (hex instanceof Forteresse) {
-				chemin += "forteresse" + surbrillance(hex);
+				chemin += "forteresse" + surbrillance(hex) + surbrillanceArc(hex);
 			} else if (hex instanceof Montagne) {
-				chemin += "montagne" + surbrillance(hex);
+				chemin += "montagne" + surbrillance(hex) + surbrillanceArc(hex);
 			} else if (hex instanceof Neige) {
-				chemin += "neige" + surbrillance(hex);
+				chemin += "neige" + surbrillance(hex) + surbrillanceArc(hex);
 			}
 		}
  		else {
-			chemin += "brouillard" + surbrillance(hex);
+			chemin += "brouillard";
 		}
 
  		chemin += ".png";
@@ -179,14 +179,20 @@ public class PanelDessineurMap extends JPanel {
 
     public String surbrillance(Hex hex) {
     	List<Hex> surligne = this.controller.getSurligne();
-    	if(surligne.size() > 0) {
-    		System.out.println("taille de surligne "+surligne.size());
-    	}
     	if(surligne.contains(hex)) {
     		return "H";
     	}
     	return "";
     }
+    
+    public String surbrillanceArc(Hex hex) {
+    	List<Hex> surligne = this.controller.getSurligneArc();
+    	if(surligne.contains(hex)) {
+    		return "2";
+    	}
+    	return "";
+    }
+    
     /**
 	 * Associe une unit� � son image.
 	 * @param hex Hex

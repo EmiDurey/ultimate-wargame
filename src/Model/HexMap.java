@@ -755,13 +755,14 @@ public class HexMap implements Serializable {
 			ArrayList<Hex> neighbours = getNeighbours(current);
 
 			for(int i=0; i<neighbours.size(); i++) {
-
-
-				int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
-
-				if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
-					stack.push(neighbours.get(i));
-					costList.put(neighbours.get(i).hashCode(), newCost);
+				if(neighbours.get(i).getCost() != -1) {
+	
+					int newCost = costList.get(current.hashCode())+neighbours.get(i).getCost();
+	
+					if(newCost <= viewDist && costList.get(neighbours.get(i).hashCode()) == null){
+						stack.push(neighbours.get(i));
+						costList.put(neighbours.get(i).hashCode(), newCost);
+					}
 				}
 			}
 		}

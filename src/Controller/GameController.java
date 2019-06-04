@@ -18,6 +18,7 @@ public class GameController implements Serializable {
     private List<String> annonce = new ArrayList<>();
     private List<Hex> hexAnnonce = new ArrayList<>();
     private List<Hex> surligne = new ArrayList<>();
+    private List<Hex> surligneArc = new ArrayList<>();
     public Joueur joueurAct = null;
     private Unite uniteSelectionne = null;
     private Hex hexSelectionne = null;
@@ -138,7 +139,7 @@ public class GameController implements Serializable {
         			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
         			//System.out.println(surligne);
         			if(uniteSelectionne instanceof Archer) {
-        				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+        				surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
         			}
         			toggleSource();
         		} else {
@@ -151,13 +152,15 @@ public class GameController implements Serializable {
             	System.out.println("Il se passe rien");
             	uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
+            	surligneArc.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
             	System.out.println("Clique allé");
             	surligne.clear();
+            	surligneArc.clear();
             	uniteSelectionne = hexSelectionne.getUnit();
             	surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
     			if(uniteSelectionne instanceof Archer) {
-    				surligne.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
+    				surligneArc.addAll(map.viewHighlight(uniteSelectionne.getHex(), ((Archer) uniteSelectionne).getPortee()));
     			}
     			toggleSource();
             } else {
@@ -174,6 +177,7 @@ public class GameController implements Serializable {
             	annonce.add(String.valueOf(pvFin-pvInit));
             	hexAnnonce.add(hexSelectionne);
             	surligne.clear();
+            	surligneArc.clear();
             }
         toggleSource();
         }
@@ -244,6 +248,10 @@ public class GameController implements Serializable {
 
     public List<Hex> getSurligne() {
     	return this.surligne;
+    }
+    
+    public List<Hex> getSurligneArc() {
+    	return this.surligneArc;
     }
 
 	public Joueur getJoueurAct() {
