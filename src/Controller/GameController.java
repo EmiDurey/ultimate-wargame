@@ -82,7 +82,7 @@ public class GameController implements Serializable {
     		int pvInit = unite.getPointsDeVie();
         	unite.heal();
 			unite.setPointsDeplacement(unite.getPointsDeplacementInit());
-			unite.setHasAttacked(false);
+			unite.setHasAttacked(false); 
         	int pvFin = unite.getPointsDeVie();
         	annonce.add(String.valueOf(pvFin-pvInit));
         	hexAnnonce.add(unite.getHex());
