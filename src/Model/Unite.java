@@ -136,7 +136,6 @@ public abstract class Unite implements Serializable {
 	 * @param map HexMap
 	 */
 	public void joueurIA(Joueur joueur, HexMap map) {
-		System.out.println("Entering joueurIA");
 
 		Unite closestEnemy = map.getClosestEnemy(this.hex, joueur);
 
@@ -168,7 +167,6 @@ public abstract class Unite implements Serializable {
 			}
 		}
 
-		System.out.println("Exiting joueurIA");
 	}
 
 	/**

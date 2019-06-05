@@ -62,6 +62,7 @@ public class Pretre extends Unite {
 	 */
 	@Override
 	public void joueurIA(Joueur joueur, HexMap map) {
+
 		ArrayList<Unite> injuredAllies = new ArrayList<Unite>();
 		injuredAllies.add(joueur.getUnite().get(0));
 
@@ -76,23 +77,8 @@ public class Pretre extends Unite {
 			injuredAllies.add(joueur.getUnite().get(i));
 		}
 
-		//On essaie de soigner l'allié accessible le plus mal en point
-		for(int i=0; i<injuredAllies.size(); i++) {
-			if( map.moveCost(hex, injuredAllies.get(i).hex) <= getPointsDeplacement() ) {
-				ArrayList<Hex> path = map.pathfinding (getHex(), injuredAllies.get(i).getHex());
-				if(path.size() > 1) {
-					seDeplace(map, path.get(path.size()-2));
-				}
-				else if(path.size() > 0) {
-					seDeplace(map, path.get(path.size()-1));
-				}
-			}
-		}
 
-		//Aucun allié accessible: on fuit l'ennemi le plus proche
-		Hex enemyPosition = map.getClosestEnemy(hex, joueur).getHex();
-		Hex goal = flee (enemyPosition, map);
-		seDeplace(map, goal);
+		seDeplace(map, injuredAllies.get(0).getHex());
 
 	}
 
