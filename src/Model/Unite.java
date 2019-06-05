@@ -140,11 +140,13 @@ public abstract class Unite implements Serializable {
 		Unite closestEnemy = map.getClosestEnemy(this.hex, joueur);
 
 		//Si il n'y a pas d'unité à portée
+		//FIXME Sometimes throws NullPointerException
 		if(pointsDeplacement < map.moveCost(this.hex, closestEnemy.getHex())) {
 
 			//Si les PV sont supérieurs à 50%
 			if(this.pointsDeVie > this.pointsDeVieMax / 2) {
 				//On se rapproche de closestEnemy
+				getCloser(map, closestEnemy.getHex());
 				this.combat(map, joueur, closestEnemy);
 			}
 
@@ -152,15 +154,16 @@ public abstract class Unite implements Serializable {
 		}
 
 		else {
+
 			//Si l'unité la plus proche peut nous tuer
 			//Flemme de calculer avec les points de défense ¯\_(ツ)_/¯
 			if(closestEnemy.getPointsAttaque() > this.pointsDeVie) {
 				Hex goal = flee(closestEnemy.getHex(), map);
-				seDeplace(map, goal);
 			}
 
 			else {
 				//On attaque et on fuit
+				getCloser(map, closestEnemy.getHex());
 				this.combat(map, joueur, closestEnemy);
 				Hex goal = flee(closestEnemy.getHex(), map);
 				seDeplace(map, goal);
@@ -182,6 +185,34 @@ public abstract class Unite implements Serializable {
 			newHex.setUnit(this);
 			this.setHex(newHex);
 			map.reveal(this.hex.getUnit().getJoueur(), this.hex, this.vision);
+			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
+		}
+	}
+
+
+	/**
+	 * Déplace une unité le plus loin possible.
+	 * @param map HexMap
+	 * @param newHex Hex
+	 */
+	public void getCloser(HexMap map, Hex newHex){
+
+
+		List<Hex> trajet = map.pathfinding(this.hex, newHex);
+		for (int i=0; i<trajet.size(); i++) {
+
+			if(trajet.get(i).getCost() > pointsDeplacement) {
+				return;
+			}
+
+			pointsDeplacement -= trajet.get(i).getCost();
+
+			System.out.println("Moving "+this+" from 1 tile");
+			this.getHex().setUnit(null);
+			newHex.setUnit(this);
+			this.setHex(trajet.get(i));
+			System.out.println("this.hex = " + this.hex);
+			map.reveal(getJoueur(), this.hex, this.vision);
 			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 		}
 	}
