@@ -91,7 +91,7 @@ public class PanelCarte extends JPanel implements MouseListener {
         }
 
         this.add(this.scroll);
-		
+
 		try {
 			controller.changeTour();
 		} catch (InterruptedException e) {
@@ -169,8 +169,6 @@ public class PanelCarte extends JPanel implements MouseListener {
 				new AutoCloseDialog(this.fenetre, x, y, annonce);
 			}
 		}
-
-		//new AutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
 
 		//this.dessinCarte.afficheMap(g, 170, 15);
 

@@ -56,7 +56,7 @@ public class GameController implements Serializable {
         	this.offsetY = 980 + 33;
         }
         this.map.initMap(joueurs);
-}
+    }
 
     /**
 	 *  Retourne la map.
@@ -280,6 +280,10 @@ public class GameController implements Serializable {
 
 	public Joueur getJoueurAct() {
 		return this.joueurAct;
+	}
+
+	public List<Joueur> getJoueurs() {
+		return this.joueurs;
 	}
 
     public void toggleSource() {
