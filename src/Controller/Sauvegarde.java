@@ -71,6 +71,20 @@ public class Sauvegarde {
 	}
 
 	/**
+	 *  Vérifie si une sauvegarde existe.
+	 *  @return Boolean
+	 */
+	public static Boolean existe() {
+		File fichier = new File("save" + File.separator + "partie");
+		if (fichier.exists()) {
+			if (fichier.length() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 *  Retourne le fichier demandÃ©.
 	 *  @return new File(path_file)
 	 */

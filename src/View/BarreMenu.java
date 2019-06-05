@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import controller.GameController;
 import controller.Sauvegarde;
+import model.HexMap;
 
 /**
  *  Class BarreMenu.
@@ -22,6 +24,16 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	 * Fenetre.
 	 */
 	private InterfaceJeu fenetre;
+
+	/**
+	 * Panel carte.
+	 */
+	private PanelCarte panelCarte;
+
+	/**
+	 * Panel informations.
+	 */
+	private PanelInformations panelInfo;
 
 	/**
 	 * Contrôleur.
@@ -36,10 +48,14 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	/**
 	 *  Construit un objet de type BarreMenu.
 	 *  @param fenetre InterfaceJeu
+	 *  @param panelCarte PanelCarte
+	 *  @param panelInfo panelInformations
 	 *  @param controleur GameController
 	 */
-	public BarreMenu(InterfaceJeu fenetre, GameController controleur) {
+	public BarreMenu(InterfaceJeu fenetre, PanelCarte panelCarte, PanelInformations panelInfo, GameController controleur) {
 		this.fenetre = fenetre;
+		this.panelCarte = panelCarte;
+		this.panelInfo = panelInfo;
 		this.controleur = controleur;
 		initComposant();
 	}
@@ -53,8 +69,10 @@ public class BarreMenu extends JMenuBar implements ActionListener {
         // Sous_menu "Nouvelle partie"
         this.ajouterMenuItem("Nouvelle partie", "nouveau.png");
         this.menu.addSeparator();
-		// Sous_menu "Ouvrir sauvegarde"
-        this.ajouterMenuItem("Ouvrir sauvegarde", "ouvrir.png");
+        if (Sauvegarde.existe()) {
+        	// Sous_menu "Ouvrir sauvegarde"
+            this.ajouterMenuItem("Ouvrir sauvegarde", "ouvrir.png");
+        }
         // Sous_menu "Sauvegarder"
 		this.ajouterMenuItem("Sauvegarder", "sauvegarder.png");
 		this.menu.addSeparator();
@@ -89,6 +107,20 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 		this.menu.add(menuItem);
 	}
 
+	public void afficheJeu(int totalEquipe, HexMap map, GameController controleur) {
+		this.fenetre.getContentPane().removeAll();
+		this.fenetre.setLayout(new BorderLayout());
+		PanelCarte panelCarte = new PanelCarte(this.fenetre, totalEquipe, map, controleur);
+		PanelInformations panelInfo = new PanelInformations(totalEquipe, map, controleur);
+		this.fenetre.setBarreMenu(new BarreMenu(this.fenetre, panelCarte, panelInfo, controleur));
+
+		this.fenetre.setPanelCarte(panelCarte);
+		this.fenetre.setPanelInformations(panelInfo);
+		this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
+		this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
+		this.fenetre.setVisible(true);
+	}
+
 	/**
 	 *  Permet le traitement des ï¿½vï¿½nements.
 	 *  @param evt ï¿½vï¿½nement
@@ -103,6 +135,10 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Ouvrir sauvegarde":
 				System.out.println("Ouvrir sauvegarde");
+				GameController controleur = (GameController) Sauvegarde.lecture();
+				HexMap map = controleur.getMap();
+				int totalEquipe = controleur.getJoueurs().size();
+				this.afficheJeu(totalEquipe, map, controleur);
 				break;
 			case "Sauvegarder":
 				Sauvegarde.savePartie(this.controleur);

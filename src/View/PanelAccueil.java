@@ -83,7 +83,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		GridBagConstraints contraint = new GridBagConstraints();
 		Dimension rigidAreaPlusMoins, rigidAreaBouton;
 
-		if (this.existeSauvegarde()) {
+		if (Sauvegarde.existe()) {
 	    	rigidAreaPlusMoins = new Dimension(0, 30);
 	    	rigidAreaBouton = new Dimension(0, 50);
 	    } else {
@@ -126,7 +126,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	    this.boxVerticale.add(Box.createRigidArea(rigidAreaBouton));
 	    this.ajouterBouton(this.boxVerticale, "Jouer", ""); // bouton Jouer
 
-	    if (this.existeSauvegarde()) {
+	    if (Sauvegarde.existe()) {
 	    	this.boxVerticale.add(Box.createRigidArea(rigidAreaBouton));
 	    	this.ajouterBouton(this.boxVerticale, "Reprendre partie", ""); // bouton reprendre partie
 	    }
@@ -200,20 +200,6 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Vérifie si une sauvegarde existe.
-	 *  @return Boolean
-	 */
-	public Boolean existeSauvegarde() {
-		File fichier = new File("save" + File.separator + "partie");
-		if (fichier.exists()) {
-			if (fichier.length() > 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 *  Crï¿½e une nouvelle police.
 	 *  @return Font
 	 */
@@ -259,10 +245,12 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	public void afficheJeu(int totalEquipe, HexMap map, GameController controleur) {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.setLayout(new BorderLayout());
-		this.fenetre.setBarreMenu(new BarreMenu(this.fenetre, controleur));
+		PanelCarte panelCarte = new PanelCarte(this.fenetre, totalEquipe, map, controleur);
+		PanelInformations panelInfo = new PanelInformations(totalEquipe, map, controleur);
+		this.fenetre.setBarreMenu(new BarreMenu(this.fenetre, panelCarte, panelInfo, controleur));
 
-		this.fenetre.setPanelCarte(new PanelCarte(this.fenetre, totalEquipe, map, controleur));
-		this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map, controleur));
+		this.fenetre.setPanelCarte(panelCarte);
+		this.fenetre.setPanelInformations(panelInfo);
 		this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
 		this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
 	}
@@ -304,7 +292,6 @@ public class PanelAccueil extends JPanel implements ActionListener {
 			HexMap map = controleur.getMap();
 			totalEquipe = controleur.getJoueurs().size();
 			this.afficheJeu(totalEquipe, map, controleur);
-
 		}
 
 		if (actionCommand.equals("Jouer")) {
