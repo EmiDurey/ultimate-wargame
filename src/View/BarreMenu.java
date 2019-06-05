@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -127,18 +128,29 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
-		String contenu;
+		String entete, contenu;
 
 		switch (actionCommand) {
 			case "Nouvelle partie":
 				System.out.println("Nouvelle partie");
 				break;
 			case "Ouvrir sauvegarde":
-				System.out.println("Ouvrir sauvegarde");
-				GameController controleur = (GameController) Sauvegarde.lecture();
-				HexMap map = controleur.getMap();
-				int totalEquipe = controleur.getJoueurs().size();
-				this.afficheJeu(totalEquipe, map, controleur);
+				File fichier = new File("save" + File.separator + "partie");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
+				contenu = "Voulez vous reprendre la partie du " + sdf.format(fichier.lastModified()) + " ?";
+				entete = "Confirmation";
+	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.YES_NO_OPTION)) {
+	        		case JOptionPane.CLOSED_OPTION: break;
+	        		case JOptionPane.CANCEL_OPTION: break;
+	        		case JOptionPane.OK_OPTION:
+	        			GameController controleur = (GameController) Sauvegarde.lecture();
+	    				HexMap map = controleur.getMap();
+	    				int totalEquipe = controleur.getJoueurs().size();
+	    				this.afficheJeu(totalEquipe, map, controleur);
+	        			break;
+	        		default :
+	    	        	break;
+	        	}
 				break;
 			case "Sauvegarder":
 				Sauvegarde.savePartie(this.controleur);
@@ -152,7 +164,6 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				OptionPaneAide.afficheAide(this.fenetre);
 				break;
 			case "Quitter":
-				String  entete;
 				contenu = "Etes-vous sûr de vouloir quitter le jeu ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.OK_CANCEL_OPTION)) {
