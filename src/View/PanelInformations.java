@@ -35,22 +35,22 @@ import model.Unite;
  *  Class PanelInformations.
  */
 public class PanelInformations extends JPanel implements ActionListener {
-	
+
 	/**
 	 * Label contenant les informations du joueur.
 	 */
 	private JLabel labelCaracteristiques;
-	
+
 	/**
 	 * Panel de l'image du perosnnage.
 	 */
 	private JPanel panelCaracteristiques;
-	
+
 	/**
 	 * Label contenant les PV du personnage.
 	 */
 	private JLabel label_pv;
-	
+
 	/**
 	 * Panel de l'image du perosnnage.
 	 */
@@ -153,7 +153,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelCaracteristiques.setPreferredSize(new Dimension(500, 100));
 		this.panelCaracteristiques.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Type du personnage + caratéristiques";
+		texte = "Carat�ristiques du personnage";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelCaracteristiques.setBorder(border);
 		contrainte.gridx = 0;
@@ -161,7 +161,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		contrainte.gridwidth = 3;
 		contrainte.insets = new Insets(30, 0, 0, 0);
 		this.add(this.panelCaracteristiques, contrainte);
-		
+
 		this.labelCaracteristiques = new JLabel();
 		this.labelCaracteristiques.setFont(new Font("Arial", Font.BOLD, 17));
 		this.labelCaracteristiques.setForeground(Color.white);
@@ -194,37 +194,36 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.revalidate();
 		this.repaint();
 	}
-	
-	
+
 	/**
 	 * Affiche PVs du personnage.
 	 */
 	public void affichePV() {
 		this.label_pv.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
-		if(unite != null) {
-			this.label_pv.setText("PV : "+unite.getPointsDeVie());
+		if (unite != null) {
+			this.label_pv.setText("PV : " + unite.getPointsDeVie());
 			this.label_pv.repaint();
 			this.revalidate();
 			this.repaint();
-		}	
+		}
 	}
-	
+
 	/**
 	 * Affiche caractéristiques du personnage.
 	 */
 	public void afficheCaracteristiques() {
 		this.labelCaracteristiques.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
-		if(unite != null) {
-			this.labelCaracteristiques.setText("<html>• Points d'attaque : "+unite.getPointsAttaque()
-								+"<br> • Points de défense : "+unite.getPointsDefense()
-								+"<br> • Points de déplacements : "+unite.getPointsDeplacement()
-								+"<br> • Vision : "+unite.getVision()+"</html>");
+		if (unite != null) {
+			this.labelCaracteristiques.setText("<html>• Points d'attaque : " + unite.getPointsAttaque()
+								+ "<br> • Points de défense : " + unite.getPointsDefense()
+								+ "<br> • Points de déplacements : " + unite.getPointsDeplacement()
+								+ "<br> • Vision : " + unite.getVision() + "</html>");
 			this.panelCaracteristiques.repaint();
 			this.revalidate();
 			this.repaint();
-		}	
+		}
 	}
 
 	 /**
@@ -264,7 +263,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 			chemin += "pretre.png";
 	 		}
  		}
- 		
+
  		return chemin;
  	}
 
