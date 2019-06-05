@@ -157,6 +157,8 @@ public class PanelCarte extends JPanel implements MouseListener {
 		controller.handleMove(x, y);
 		this.dessinCarte.repaint();
 		this.fenetre.getPanelInformations().affichePerso();
+		this.fenetre.getPanelInformations().affichePV();
+		this.fenetre.getPanelInformations().afficheCaracteristiques();
 
 		ArrayList<String> annonces = (ArrayList<String>) controller.getAnnonce();
 		//ArrayList<Hex> hexAnnonce = (ArrayList<Hex>) controller.getHexAnnonce();

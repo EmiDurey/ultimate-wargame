@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -34,7 +35,22 @@ import model.Unite;
  *  Class PanelInformations.
  */
 public class PanelInformations extends JPanel implements ActionListener {
-
+	
+	/**
+	 * Label contenant les informations du joueur.
+	 */
+	private JLabel labelCaracteristiques;
+	
+	/**
+	 * Panel de l'image du perosnnage.
+	 */
+	private JPanel panelCaracteristiques;
+	
+	/**
+	 * Label contenant les PV du personnage.
+	 */
+	private JLabel label_pv;
+	
 	/**
 	 * Panel de l'image du perosnnage.
 	 */
@@ -125,26 +141,32 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(90, 20));
 		panel.setBackground(this.couleurFond);
-		JLabel label = new JLabel("PV : ");
-		label.setFont(new Font("Arial", Font.BOLD, 30));
-		label.setForeground(Color.white);
-		panel.add(label);
+		this.label_pv = new JLabel();
+		this.label_pv.setFont(new Font("Arial", Font.BOLD, 30));
+		this.label_pv.setForeground(Color.white);
+		panel.add(this.label_pv);
 		contrainte.gridx = 1;
 		contrainte.gridy = 1;
 		this.add(panel, contrainte);
 
-		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(500, 100));
-		panel.setBackground(this.couleurFond);
+		this.panelCaracteristiques = new JPanel();
+		this.panelCaracteristiques.setPreferredSize(new Dimension(500, 100));
+		this.panelCaracteristiques.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
 		texte = "Type du personnage + caratéristiques";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
-		panel.setBorder(border);
+		this.panelCaracteristiques.setBorder(border);
 		contrainte.gridx = 0;
 		contrainte.gridy = 2;
 		contrainte.gridwidth = 3;
 		contrainte.insets = new Insets(30, 0, 0, 0);
-		this.add(panel, contrainte);
+		this.add(this.panelCaracteristiques, contrainte);
+		
+		this.labelCaracteristiques = new JLabel();
+		this.labelCaracteristiques.setFont(new Font("Arial", Font.BOLD, 17));
+		this.labelCaracteristiques.setForeground(Color.white);
+		this.panelCaracteristiques.add(this.labelCaracteristiques);
+
 
 		JButton boutonFinTour = new JButton("Fin de tour");
 		boutonFinTour.setBackground(Color.BLACK);
@@ -173,15 +195,36 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.repaint();
 	}
 	
+	
+	/**
+	 * Affiche PVs du personnage.
+	 */
 	public void affichePV() {
+		this.label_pv.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
-		JLabel imagePerso = new JLabel(new ImageIcon(associeImageUnite(unite)));
-		this.panelImagePerso.removeAll();
-		this.panelImagePerso.setLayout(new BorderLayout());
-		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
-		this.panelImagePerso.repaint();
-		this.revalidate();
-		this.repaint();
+		if(unite != null) {
+			this.label_pv.setText("PV : "+unite.getPointsDeVie());
+			this.label_pv.repaint();
+			this.revalidate();
+			this.repaint();
+		}	
+	}
+	
+	/**
+	 * Affiche caractéristiques du personnage.
+	 */
+	public void afficheCaracteristiques() {
+		this.labelCaracteristiques.removeAll();
+		Unite unite = this.controleur.getUniteSelectionne();
+		if(unite != null) {
+			this.labelCaracteristiques.setText("<html>• Points d'attaque : "+unite.getPointsAttaque()
+								+"<br> • Points de défense : "+unite.getPointsDefense()
+								+"<br> • Points de déplacements : "+unite.getPointsDeplacement()
+								+"<br> • Vision : "+unite.getVision()+"</html>");
+			this.panelCaracteristiques.repaint();
+			this.revalidate();
+			this.repaint();
+		}	
 	}
 
 	 /**
