@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.GameController;
+import controller.Sauvegarde;
 import model.HexMap;
 import model.Joueur;
 
@@ -80,6 +81,15 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		JLabel texte;
 		JPanel conteneur;
 		GridBagConstraints contraint = new GridBagConstraints();
+		Dimension rigidAreaPlusMoins, rigidAreaBouton;
+
+		if (this.existeSauvegarde()) {
+	    	rigidAreaPlusMoins = new Dimension(0, 30);
+	    	rigidAreaBouton = new Dimension(0, 50);
+	    } else {
+	    	rigidAreaPlusMoins = new Dimension(0, 40);
+	    	rigidAreaBouton = new Dimension(0, 80);
+	    }
 
 		conteneur = new JPanel();
 		conteneur.setBackground(new Color(0, 0, 0, 70));
@@ -110,12 +120,18 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	    this.labelNbIA = new JLabel("0");
 
 	    this.ajouterPlusMoins(this.labelNbJoueur, "Joueurs"); // saisie du nombre de joueurs
-	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 50)));
+	    this.boxVerticale.add(Box.createRigidArea(rigidAreaPlusMoins));
 	    this.ajouterPlusMoins(this.labelNbIA, "IA"); // saisie du nombre d'IA
 
-	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 80)));
+	    this.boxVerticale.add(Box.createRigidArea(rigidAreaBouton));
 	    this.ajouterBouton(this.boxVerticale, "Jouer", ""); // bouton Jouer
-	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 80)));
+
+	    if (this.existeSauvegarde()) {
+	    	this.boxVerticale.add(Box.createRigidArea(rigidAreaBouton));
+	    	this.ajouterBouton(this.boxVerticale, "Reprendre partie", ""); // bouton reprendre partie
+	    }
+
+	    this.boxVerticale.add(Box.createRigidArea(rigidAreaBouton));
 	    this.ajouterBouton(this.boxVerticale, "Aide", ""); // bouton pour le menu Aide
 
 	    conteneur.add(this.boxVerticale);
@@ -184,6 +200,20 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
+	 *  Vérifie si une sauvegarde existe.
+	 *  @return Boolean
+	 */
+	public Boolean existeSauvegarde() {
+		File fichier = new File("save" + File.separator + "partie");
+		if (fichier.exists()) {
+			if (fichier.length() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 *  Crï¿½e une nouvelle police.
 	 *  @return Font
 	 */
@@ -208,16 +238,33 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	public ArrayList<Joueur> creerListeJoueurs() {
 
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
-		for (int i=1; i<=this.nbJoueurs; i++) {
+		for (int i = 1; i <= this.nbJoueurs; i++) {
 			joueurs.add(new Joueur(i));
 		}
-		for (int i=1; i<=this.nbIA; i++) {
-			Joueur ia = new Joueur(this.nbJoueurs+i);
+		for (int i = 1; i <= this.nbIA; i++) {
+			Joueur ia = new Joueur(this.nbJoueurs + i);
 			ia.setIA(true);
 			joueurs.add(ia);
 		}
 
 		return joueurs;
+	}
+
+	/**
+	 *  Affiche l'interface de jeu.
+	 *  @param totalEquipe int
+	 *  @param map HexMap
+	 *  @param controleur GameController
+	 */
+	public void afficheJeu(int totalEquipe, HexMap map, GameController controleur) {
+		this.fenetre.getContentPane().removeAll();
+		this.fenetre.setLayout(new BorderLayout());
+		this.fenetre.setBarreMenu(new BarreMenu(this.fenetre, controleur));
+
+		this.fenetre.setPanelCarte(new PanelCarte(this.fenetre, totalEquipe, map, controleur));
+		this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map, controleur));
+		this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
+		this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
 	}
 
 	/**
@@ -252,22 +299,22 @@ public class PanelAccueil extends JPanel implements ActionListener {
 			OptionPaneAide.afficheAide(this.fenetre);
 		}
 
+		if (actionCommand.equals("Reprendre partie")) {
+			GameController controleur = (GameController) Sauvegarde.lecture();
+			HexMap map = controleur.getMap();
+			totalEquipe = controleur.getJoueurs().size();
+			this.afficheJeu(totalEquipe, map, controleur);
+
+		}
+
 		if (actionCommand.equals("Jouer")) {
 			if (totalEquipe < 2) {
 				String contenu = "Pour pouvoir jouer, un minimum de 2 ï¿½quipes est requis.";
 		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Erreur", JOptionPane.ERROR_MESSAGE);
 			} else {
-				this.fenetre.getContentPane().removeAll();
-				this.fenetre.setLayout(new BorderLayout());
-				this.fenetre.setBarreMenu(new BarreMenu(this.fenetre));
-
 				GameController controleur = new GameController(this.creerListeJoueurs());
 				HexMap map = controleur.getMap();
-
-				this.fenetre.setPanelCarte(new PanelCarte(this.fenetre, totalEquipe, map, controleur));
-				this.fenetre.setPanelInformations(new PanelInformations(totalEquipe, map, controleur));
-				this.fenetre.getContentPane().add(this.fenetre.getPanelCarte(), BorderLayout.WEST);
-				this.fenetre.getContentPane().add(this.fenetre.getPanelInformations(), BorderLayout.EAST);
+				this.afficheJeu(totalEquipe, map, controleur);
 			}
 		}
 		this.fenetre.setVisible(true);
