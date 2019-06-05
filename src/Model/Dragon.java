@@ -63,6 +63,9 @@ public class Dragon extends Unite {
 	 */
 	@Override
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
+		if(hasAttacked)
+			return;
+
 		final int crit = 2;
 		final int chanceCrit = 2;
 		Hex[] voisins = new Hex[6];
@@ -72,8 +75,10 @@ public class Dragon extends Unite {
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+				hasAttacked = true;
 			} else {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+				hasAttacked = true;
 			}
 			for (Hex voisin : voisins) {
 				if (map.getHex(voisin.getX(), voisin.getY()).getUnit() != null) {
@@ -122,4 +127,3 @@ public class Dragon extends Unite {
 		System.out.println(unite+" : "+unite.pointsDeVie+"/"+unite.pointsDeVieMax);
 	}
 }
-

@@ -790,8 +790,6 @@ public class HexMap implements Serializable {
 		int minDist = getHeight() + getWidth();
 		Unite returnValue = null;
 
-		System.out.println(map.values().size());
-
 		for (Hex value : map.values()) {
 
 			if(value.getUnit() == null)
@@ -823,8 +821,6 @@ public class HexMap implements Serializable {
 	public Unite getClosestEnemy(Hex source, Joueur owner) {
 		int minDist = getHeight() + getWidth();
 		Unite returnValue = null;
-
-		System.out.println(map.values().size());
 
 		for (Hex value : map.values()) {
 
@@ -859,6 +855,7 @@ public class HexMap implements Serializable {
 	* @return ArrayList<Hex>
 	*/
 	public ArrayList<Hex> pathfinding(Hex start, Hex goal) {
+		int nIter = 0;
 
 		SortedHexList open = new SortedHexList();
 		SortedHexList closed = new SortedHexList();
@@ -874,6 +871,12 @@ public class HexMap implements Serializable {
 		Hex hex = new Hex(0,0,0);
 
 		while (open.hasElements()) {
+
+			nIter++;
+			if(nIter > 500)
+				return new ArrayList<Hex>();
+			
+
 			Hex current = open.pop();
 
 			closed.put(current, cost.get(current.hashCode()));

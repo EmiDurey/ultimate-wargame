@@ -37,7 +37,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	private PanelInformations panelInfo;
 
 	/**
-	 * Contrôleur.
+	 * Contrï¿½leur.
 	 */
 	private GameController controleur;
 
@@ -136,7 +136,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Ouvrir sauvegarde":
 				File fichier = new File("save" + File.separator + "partie");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy Ã  HH:mm");
 				contenu = "Voulez vous reprendre la partie du " + sdf.format(fichier.lastModified()) + " ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.YES_NO_OPTION)) {
@@ -154,7 +154,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Sauvegarder":
 				Sauvegarde.savePartie(this.controleur);
-				contenu = "Votre partie a été sauvegardée.";
+				contenu = "Votre partie a Ã©tÃ© sauvegardï¿½e.";
 		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
 				break;
 			case "Rï¿½gles":
@@ -164,7 +164,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				OptionPaneAide.afficheAide(this.fenetre);
 				break;
 			case "Quitter":
-				contenu = "Etes-vous sûr de vouloir quitter le jeu ?";
+				contenu = "Etes-vous sÃ»r de vouloir quitter le jeu ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.OK_CANCEL_OPTION)) {
 	        		case JOptionPane.CLOSED_OPTION: break;

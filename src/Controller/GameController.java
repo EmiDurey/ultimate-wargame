@@ -77,12 +77,12 @@ public class GameController implements Serializable {
     	annonce.clear();
     	hexAnnonce.clear();
 
-    	System.out.println("NOMBRE UNITE DE"+joueurAct.getID()+" : "+joueurAct.getUnite().size());
     	for(Unite unite: joueurAct.getUnite()) {
 
     		int pvInit = unite.getPointsDeVie();
         	unite.heal();
 			unite.setPointsDeplacement(unite.getPointsDeplacementInit());
+			unite.setHasAttacked(false);
         	int pvFin = unite.getPointsDeVie();
         	annonce.add(String.valueOf(pvFin-pvInit));
         	hexAnnonce.add(unite.getHex());
@@ -98,7 +98,6 @@ public class GameController implements Serializable {
     		joueurAct = joueurs.get(lastIndexJoueur + 1);
     	}
     	else {
-			System.out.println("Default player");
     		joueurAct = joueurs.get(0);
     	}
     	if(joueurAct.isIA()) {
@@ -121,7 +120,6 @@ public class GameController implements Serializable {
     		annonce.clear();
     		annonce.add("Fin de la partie !");
     		fin = true;
-			System.out.println();
     	}
     }
 
@@ -136,10 +134,10 @@ public class GameController implements Serializable {
 
 		if (this.hexSelectionne == null)
 			return;
-		System.out.println("###############"+ source +"#########");
+
 
         if (source) {
-        	System.out.println( hexSelectionne.getUnit() +" Hexagon vide");
+        	System.out.println("Hex = "+ source +"		Unit = "+hexSelectionne.getUnit());
 
 
         	if(!(hexSelectionne.getUnit() == null)) {
@@ -161,12 +159,10 @@ public class GameController implements Serializable {
         	}
         } else {
             if (hexSelectionne.getUnit() == null) {
-            	System.out.println("Il se passe rien");
             	uniteSelectionne.seDeplace(this.map, this.hexSelectionne);
             	surligne.clear();
             	surligneArc.clear();
             } else if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
-            	System.out.println("Clique allé");
             	surligne.clear();
             	surligneArc.clear();
             	uniteSelectionne = hexSelectionne.getUnit();
@@ -178,7 +174,6 @@ public class GameController implements Serializable {
     			}
     			toggleSource();
             } else {
-            	System.out.println("Clique ennemi");
             	int pvFin = 0;
             	int pvInit = hexSelectionne.getUnit().getPointsDeVie();
             	uniteSelectionne.combat(map, joueurAct, hexSelectionne.getUnit());

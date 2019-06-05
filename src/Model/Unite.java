@@ -56,10 +56,14 @@ public abstract class Unite implements Serializable {
 	 */
 	protected Hex hex;
 
-        /**
-         * Si le joueur qui a cette unité l'utilise actuellement (l'a choisie pour se déplacer)
-         */
-        protected boolean isActive = false;
+	protected Boolean hasAttacked = false;
+
+    /**
+     * Si le joueur qui a cette unité l'utilise actuellement (l'a choisie pour se déplacer)
+     */
+    protected boolean isActive = false;
+
+
 	/**
 	 *  Constructeur d'une unitée.
 	 *  @param hex Hexagone
@@ -96,6 +100,11 @@ public abstract class Unite implements Serializable {
 	 * @param unite Unite
 	 */
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
+
+		if(hasAttacked)
+			return;
+
+
 		final int crit = 2;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
@@ -103,8 +112,10 @@ public abstract class Unite implements Serializable {
 		if (this.hex.isNeighbour(unite.hex)) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+				hasAttacked = true;
 			} else {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+				hasAttacked = true;
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
@@ -140,7 +151,7 @@ public abstract class Unite implements Serializable {
 		Unite closestEnemy = map.getClosestEnemy(this.hex, joueur);
 
 		//Si il n'y a pas d'unité à portée
-		//FIXME Sometimes throws NullPointerException
+		//FIXME Sometimes throws NullPointerException -> closestEnemy not found on game end ?
 		if(pointsDeplacement < map.moveCost(this.hex, closestEnemy.getHex())) {
 
 			//Si les PV sont supérieurs à 50%
@@ -207,11 +218,9 @@ public abstract class Unite implements Serializable {
 
 			pointsDeplacement -= trajet.get(i).getCost();
 
-			System.out.println("Moving "+this+" from 1 tile");
 			this.getHex().setUnit(null);
 			newHex.setUnit(this);
 			this.setHex(trajet.get(i));
-			System.out.println("this.hex = " + this.hex);
 			map.reveal(getJoueur(), this.hex, this.vision);
 			this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
 		}
@@ -386,6 +395,12 @@ public abstract class Unite implements Serializable {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+	public void setHasAttacked(boolean hasAttacked) {
+		this.hasAttacked = hasAttacked;
+	}
+
+
 
 
 }

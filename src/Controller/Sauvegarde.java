@@ -71,7 +71,7 @@ public class Sauvegarde {
 	}
 
 	/**
-	 *  Vérifie si une sauvegarde existe.
+	 *  VÃ©rifie si une sauvegarde existe.
 	 *  @return Boolean
 	 */
 	public static Boolean existe() {

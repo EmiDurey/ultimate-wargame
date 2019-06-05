@@ -70,6 +70,9 @@ public class Archer extends Unite {
 	 */
 	@Override
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
+		if(hasAttacked)
+			return;
+
 		final int crit = 2;
 		final int chanceCrit = 2;
 		int rand = (int) (Math.random() * 10);
@@ -77,8 +80,10 @@ public class Archer extends Unite {
 		if (this.hex.distance(unite.hex) <= 4) {
 			if (rand > chanceCrit) {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
+				hasAttacked = true;
 			} else {
 				unite.pointsDeVie = (int) (unite.pointsDeVie - (crit * (this.pointsAttaque - unite.pointsDefense)));
+				hasAttacked = true;
 			}
 		} else {
 			trajet = map.pathfinding(this.hex, unite.hex);
