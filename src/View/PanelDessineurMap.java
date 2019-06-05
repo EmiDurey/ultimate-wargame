@@ -1,6 +1,5 @@
 package view;
 
-//import controller.PanelCarteListener;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +59,6 @@ public class PanelDessineurMap extends JPanel {
     	this.totalEquipe = totalEquipe;
 		this.controller = controller;
 		this.map = controller.getMap();
-		//this.map.getHex(-8, 0).setUnit(new Cavalerie());
     	this.sep = File.separator;
     }
 
@@ -97,11 +95,11 @@ public class PanelDessineurMap extends JPanel {
                     this.afficheImage(g, image, imageX, imageY);
 
 					Boolean discovered = current.discovered.get(this.controller.getJoueurAct().getID());
-					if(discovered != null) {
-						if(discovered){
+					if (discovered != null) {
+						if (discovered) {
 							image = associeImageUnite(current);
 							if (image != null) {
-								this.afficheImage(g, image, imageX+13, imageY+10);
+								this.afficheImage(g, image, imageX + 13, imageY + 10);
 							}
 						}
 					}
@@ -114,6 +112,7 @@ public class PanelDessineurMap extends JPanel {
 
     /**
 	 * Affiche la map triangle.
+	 * @param g Graphics
 	 */
     public void afficheMapTriangle(Graphics g) {
 		afficheMap(g, 170, 15);
@@ -142,68 +141,64 @@ public class PanelDessineurMap extends JPanel {
 	 */
 
     public File associeImageHex(Hex hex) {
-    	List<Hex> surbrillance = this.controller.getSurligne();
-
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
 
 		Boolean discovered = hex.discovered.get(this.controller.getJoueurAct().getID());
 
-		if(discovered != null) {
-			if(!discovered)
+		if (discovered != null) {
+			if (!discovered) {
 				chemin += "brouillard";
-			else if (hex instanceof Eau) {
-				chemin += "eau" + surbrillanceArc(hex,chemin);
+			} else if (hex instanceof Eau) {
+				chemin += "eau" + surbrillanceArc(hex, chemin);
 			} else if (hex instanceof Plaine) {
 				chemin += "plaine" + surbrillance(hex);
-				chemin += surbrillanceArc(hex,chemin);
+				chemin += surbrillanceArc(hex, chemin);
 			} else if (hex instanceof Foret) {
-				chemin += "foret"+ surbrillance(hex);
-				chemin += surbrillanceArc(hex,chemin);
+				chemin += "foret" + surbrillance(hex);
+				chemin += surbrillanceArc(hex, chemin);
 			} else if (hex instanceof Forteresse) {
 				chemin += "forteresse" + surbrillance(hex);
-				chemin += surbrillanceArc(hex,chemin);
+				chemin += surbrillanceArc(hex, chemin);
 			} else if (hex instanceof Montagne) {
 				chemin += "montagne" + surbrillance(hex);
-				chemin += surbrillanceArc(hex,chemin);
+				chemin += surbrillanceArc(hex, chemin);
 			} else if (hex instanceof Neige) {
 				chemin += "neige" + surbrillance(hex);
-				chemin +=  surbrillanceArc(hex,chemin);
+				chemin +=  surbrillanceArc(hex, chemin);
 			}
-		}
- 		else {
+		} else {
 			chemin += "brouillard";
 		}
 
  		chemin += ".png";
 
  		image = new File(chemin);
- 		if(!surbrillanceArc(hex,chemin).isEmpty()) {
+ 		if (!surbrillanceArc(hex, chemin).isEmpty()) {
  		}
  		return image;
  	}
 
     public String surbrillance(Hex hex) {
     	List<Hex> surligne = this.controller.getSurligne();
-    	if(surligne.contains(hex)) {
+    	if (surligne.contains(hex)) {
     		return "H";
     	}
     	return "";
     }
-    
+
     public String surbrillanceArc(Hex hex, String chemin) {
     	List<Hex> surligne = this.controller.getSurligneArc();
-    	if(surligne.contains(hex)) {
-    		if(chemin.endsWith("H")) {
+    	if (surligne.contains(hex)) {
+    		if (chemin.endsWith("H")) {
     			return "3";
         	} else {
         		return "H2";
         	}
-    		
     	}
     	return "";
     }
-    
+
     /**
 	 * Associe une unit� � son image.
 	 * @param hex Hex
@@ -255,18 +250,11 @@ public class PanelDessineurMap extends JPanel {
 	 * @param imageX int
 	 * @param imageY int
 	 */
-    public void afficheImage(Graphics g, File image, int imageX, int imageY/*, Color color*/) {
+    public void afficheImage(Graphics g, File image, int imageX, int imageY) {
     	try {
-            g.drawImage(ImageIO.read(image), imageX, imageY/*, color*/, null);
+            g.drawImage(ImageIO.read(image), imageX, imageY, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-	/**
-     * Ajout de la Map au controleur
-     */
-    /*public void setMapListener() {
-        PanelCarteListener.setListenedHexMap(map);
-    }*/
 }

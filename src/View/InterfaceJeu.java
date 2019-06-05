@@ -72,6 +72,23 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
+	 *  Retourne la longueur de la fenêtre.
+	 *  @return int
+	 */
+	public int getLongueur() {
+		return this.longueur;
+	}
+
+	/**
+	 *  Retourne la largeur de la fenêtre.
+	 *  @return int
+	 */
+	public int getLargeur() {
+		return this.largeur;
+	}
+
+
+	/**
 	 *  Retourne le panel de la carte.
 	 *  @return PanelCarte
 	 */

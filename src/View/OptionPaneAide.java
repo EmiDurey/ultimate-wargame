@@ -7,13 +7,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.swing.JOptionPane;
 
+/**
+ * Class OptionPaneAide.
+ */
 public class OptionPaneAide {
 
 	/**
-	 * Chemins menant au fichiers désirés.
+	 * Chemin menant au fichier de l'aide.
 	 */
-	private static String path_aide = "aide" + File.separator + "aide.txt";
-	private static String path_regles = "aide" + File.separator + "regles.txt";
+	private static String pathAaide = "aide" + File.separator + "aide.txt";
+
+	/**
+	 * Chemin menant au fichier des r�gles.
+	 */
+	private static String pathRegles = "aide" + File.separator + "regles.txt";
 
 	/**
 	 *  Affiche une JOptionPane concernant l'aide.
@@ -21,7 +28,7 @@ public class OptionPaneAide {
 	 */
 	public static void afficheAide(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
-				contenuFichier(path_aide),
+				contenuFichier(pathAaide),
 				"Regles du jeu",
 				JOptionPane.INFORMATION_MESSAGE);
 		return;
@@ -33,7 +40,7 @@ public class OptionPaneAide {
 	 */
 	public static void afficheRegles(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
-				contenuFichier(path_regles),
+				contenuFichier(pathRegles),
 				"Regles du jeu",
 				JOptionPane.INFORMATION_MESSAGE);
 		return;

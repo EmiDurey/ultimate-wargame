@@ -121,7 +121,7 @@ public class GameController implements Serializable {
     		annonce.clear();
     		annonce.add("Fin de la partie !");
     		fin = true;
-    		System.out.println();
+			System.out.println();
     	}
     }
 
@@ -264,6 +264,18 @@ public class GameController implements Serializable {
 
     public List<Hex> getSurligneArc() {
     	return this.surligneArc;
+    }
+    
+    public Unite getUniteSelectionne() {
+    	return this.uniteSelectionne;
+    }
+    
+    public List<String> getAnnonce() {
+    	return this.annonce;
+    }
+    
+    public List<Hex> getHexAnnonce() {
+    	return this.hexAnnonce;
     }
 
 	public Joueur getJoueurAct() {

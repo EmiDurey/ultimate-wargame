@@ -20,7 +20,15 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import controller.GameController;
+import model.Archer;
+import model.Cavalerie;
+import model.Dragon;
 import model.HexMap;
+import model.Infanterie;
+import model.InfanterieLourde;
+import model.Mage;
+import model.Pretre;
+import model.Unite;
 
 /**
  *  Class PanelInformations.
@@ -51,7 +59,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 * Couleur des composants graphiques.
 	 */
 	private Color couleurFond;
-	
+
 	/**
 	 * Controleur de l'application.
 	 */
@@ -59,6 +67,9 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
 	 *  Construit un objet de type PanelInformations.
+	 *  @param totalEquipe int
+	 *  @param map HexMap
+	 *  @param controleur GameController
 	 */
 	public PanelInformations(int totalEquipe, HexMap map, GameController controleur) {
 		this.totalEquipe = totalEquipe;
@@ -152,12 +163,53 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 * Affiche l'image du personnage.
 	 */
 	public void affichePerso() {
-		String sep = File.separator;
-	JLabel imagePerso = new JLabel(new ImageIcon("images" + sep + "Unite" + sep + "Info" + sep + "archer.png"));
+		Unite unite = this.controleur.getUniteSelectionne();
+		JLabel imagePerso = new JLabel(new ImageIcon(associeImageUnite(unite)));
 
 		this.panelImagePerso.setLayout(new BorderLayout());
 		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
 	}
+
+	 /**
+	 * Associe une unité à son image.
+	 * @param unite Unite
+	 * @return image
+	 */
+	public String associeImageUnite(Unite unite) {
+		String sep = File.separator;
+ 		String chemin = "images" + sep + "Unite" + sep + "Info" + sep;
+ 		if (unite != null) {
+ 			int nbJoueur = unite.getJoueur().getID();
+	 		switch (nbJoueur) {
+	 			case(1): chemin += "1"; break;
+	 			case(2): chemin += "2"; break;
+	 			case(3): chemin += "3"; break;
+	 			case(4): chemin += "4"; break;
+	 			case(5): chemin += "5"; break;
+	 			case(6): chemin += "6"; break;
+	 			default: break;
+	 		}
+	 		chemin += sep;
+
+	 		if (unite instanceof Dragon) {
+	 			chemin += "dragon.png";
+	 		} else if (unite instanceof Cavalerie) {
+	 			chemin += "chevalier.png";
+	 		} else if (unite instanceof Archer) {
+	 			chemin += "archer.png";
+	 		} else if (unite instanceof Infanterie) {
+	 			chemin += "infanterie.png";
+	 		} else if (unite instanceof InfanterieLourde) {
+	 			chemin += "infanterieLourde.png";
+	 		} else if (unite instanceof Mage) {
+	 			chemin += "mage.png";
+	 		} else if (unite instanceof Pretre) {
+	 			chemin += "pretre.png";
+	 		}
+ 		}
+
+ 		return chemin;
+ 	}
 
 	/**
 	 * Affiche l'aperï¿½u de la carte

@@ -1,16 +1,18 @@
 package view;
 
-//import controller.PanelCarteListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import model.Hex;
 import model.HexMap;
 import controller.GameController;
 
@@ -19,17 +21,50 @@ import controller.GameController;
  */
 public class PanelCarte extends JPanel implements MouseListener {
 
+	/**
+	 * Fenetre.
+	 */
+	private InterfaceJeu fenetre;
+
+	/**
+	 * Dimension du PanelDessineurMap.
+	 */
 	private Dimension dim;
+
+	/**
+	 * PanelDedsineurMap.
+	 */
     private PanelDessineurMap dessinCarte;
+
+    /**
+     * Nombre total d'�quipes.
+     */
     private int totalEquipe;
+
+    /**
+     * Map du jeu.
+     */
 	private HexMap map;
+
+	/**
+	 * Scroll de la map.
+	 */
 	private JScrollPane scroll;
+
+	/**
+	 * Controller.
+	 */
 	private GameController controller;
 
 	/**
 	 * Construit un objet de type Carte.
+	 * @param fenetre InterfaceJeu
+	 * @param totalEquipe int
+	 * @param map HexMap
+	 * @param controller GameController
 	 */
-	public PanelCarte(int totalEquipe, HexMap map, GameController controller) {
+	public PanelCarte(InterfaceJeu fenetre, int totalEquipe, HexMap map, GameController controller) {
+		this.fenetre = fenetre;
 		this.totalEquipe = totalEquipe;
 		this.map = map;
 		this.controller = controller;
@@ -56,20 +91,25 @@ public class PanelCarte extends JPanel implements MouseListener {
         }
 
         this.add(this.scroll);
-
-        try {
+		
+		try {
 			controller.changeTour();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        // Controleur, ajout de la carte au Listener
-        //this.dessinCarte.setMapListener();
 	}
 
-	public JScrollPane getScroll( ) {
+	/**
+	 * Retourne le scroll de la map.
+	 * @return JScrollPane
+	 */
+	public JScrollPane getScroll() {
 		return this.scroll;
 	}
 
+	/**
+	 * Ajoute le scroll � la map hexagonale.
+	 */
 	public void ajoutScrollHex() {
 		final int W = 585;
 		final int H = 860;
@@ -80,15 +120,15 @@ public class PanelCarte extends JPanel implements MouseListener {
 		Rectangle rect = new Rectangle(W, H);
 		this.dessinCarte.scrollRectToVisible(rect);
 
-		int this_width = (x + W);
-		if (this_width > this.dim.width) {
-			this.dim.width = this_width;
+		int thisWidth = (x + W);
+		if (thisWidth > this.dim.width) {
+			this.dim.width = thisWidth;
 		    changed = true;
 		}
 
-		int this_height = (y + H);
-		if (this_height > this.dim.height) {
-			this.dim.height = this_height;
+		int thisHeight = (y + H);
+		if (thisHeight > this.dim.height) {
+			this.dim.height = thisHeight;
 		    changed = true;
 		}
 
@@ -99,6 +139,10 @@ public class PanelCarte extends JPanel implements MouseListener {
 		this.dessinCarte.repaint();
 	}
 
+	/**
+	 * Ecoute les clique de la souris et agit en cons�quence.
+	 * @param event MouseEvent
+	 */
 	public void mouseClicked(MouseEvent event) {
 
 		Point clik = event.getPoint().getLocation();
@@ -107,9 +151,26 @@ public class PanelCarte extends JPanel implements MouseListener {
 
 		int x = (int) clik.getX() + this.scroll.getHorizontalScrollBar().getValue();
 		int y = (int) clik.getY() + this.scroll.getVerticalScrollBar().getValue();
-		
+
+
 		controller.handleMove(x, y);
 		this.dessinCarte.repaint();
+
+		ArrayList<String> annonces = (ArrayList<String>) controller.getAnnonce();
+		//ArrayList<Hex> hexAnnonce = (ArrayList<Hex>) controller.getHexAnnonce();
+
+		String annonce = null;
+		Iterator<String> iteratorAnnonce = null;
+
+		if (!(annonces.isEmpty())) {
+			iteratorAnnonce = annonces.iterator();
+			while (iteratorAnnonce.hasNext()) {
+				annonce = iteratorAnnonce.next();
+				new AutoCloseDialog(this.fenetre, x, y, annonce);
+			}
+		}
+
+		//new AutoCloseDialog(this.fenetre, "title", "message to display", 1000L);
 
 		//this.dessinCarte.afficheMap(g, 170, 15);
 
@@ -121,10 +182,6 @@ public class PanelCarte extends JPanel implements MouseListener {
 		//this.dessinCarte.scrollRectToVisible(rect);
 
 		//this.dessinCarte.repaint();
-
-		// Contoleur, appel de l'�couteur sur l'hexagone cliqu�
-		//PanelCarteListener panelCarteListener = new PanelCarteListener();
-		//panelCarteListener.handleMove(x, y);
 	}
 
 	public void mouseEntered(MouseEvent event) {}
