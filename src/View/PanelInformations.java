@@ -37,6 +37,11 @@ import model.Unite;
 public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
+	 * Fenetre.
+	 */
+	private InterfaceJeu fenetre;
+	
+	/**
 	 * Label contenant les informations du joueur.
 	 */
 	private JLabel labelCaracteristiques;
@@ -87,7 +92,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 *  @param map HexMap
 	 *  @param controleur GameController
 	 */
-	public PanelInformations(int totalEquipe, HexMap map, GameController controleur) {
+	public PanelInformations(InterfaceJeu fenetre, int totalEquipe, HexMap map, GameController controleur) {
+		this.fenetre = fenetre;
 		this.totalEquipe = totalEquipe;
 		this.map = map;
 		this.couleurFond = new Color(48, 48, 48);
@@ -296,6 +302,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				this.fenetre.getPanelCarte().getDessinCarte().repaint();
 				break;
 			default:
 				break;

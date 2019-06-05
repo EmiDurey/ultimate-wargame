@@ -112,7 +112,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.setLayout(new BorderLayout());
 		PanelCarte panelCarte = new PanelCarte(this.fenetre, totalEquipe, map, controleur);
-		PanelInformations panelInfo = new PanelInformations(totalEquipe, map, controleur);
+		PanelInformations panelInfo = new PanelInformations(this.fenetre, totalEquipe, map, controleur);
 		this.fenetre.setBarreMenu(new BarreMenu(this.fenetre, panelCarte, panelInfo, controleur));
 
 		this.fenetre.setPanelCarte(panelCarte);

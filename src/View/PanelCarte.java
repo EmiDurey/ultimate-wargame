@@ -109,6 +109,14 @@ public class PanelCarte extends JPanel implements MouseListener {
 	}
 
 	/**
+	 * Retourne le dessinateur de map.
+	 * @return PanelDessineurMap
+	 */
+	public PanelDessineurMap getDessinCarte() {
+		return this.dessinCarte;
+	}
+
+	/**
 	 * Ajoute le scroll � la map hexagonale.
 	 */
 	public void ajoutScrollHex() {
