@@ -252,7 +252,7 @@ public class GameController implements Serializable {
     	for(Unite unit : unitTri) {
 			System.out.println("Need to play with "+unit);
     		unit.joueurIA(joueurAct, map);
-    		wait(1);
+    		//wait(1);
     	}
     	changeTour();
 
@@ -265,15 +265,15 @@ public class GameController implements Serializable {
     public List<Hex> getSurligneArc() {
     	return this.surligneArc;
     }
-    
+
     public Unite getUniteSelectionne() {
     	return this.uniteSelectionne;
     }
-    
+
     public List<String> getAnnonce() {
     	return this.annonce;
     }
-    
+
     public List<Hex> getHexAnnonce() {
     	return this.hexAnnonce;
     }

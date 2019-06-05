@@ -18,7 +18,7 @@ public class OptionPaneAide {
 	private static String pathAaide = "aide" + File.separator + "aide.txt";
 
 	/**
-	 * Chemin menant au fichier des règles.
+	 * Chemin menant au fichier des rÃ¨gles.
 	 */
 	private static String pathRegles = "aide" + File.separator + "regles.txt";
 

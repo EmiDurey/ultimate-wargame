@@ -41,12 +41,12 @@ public class PanelInformations extends JPanel implements ActionListener {
 	private JPanel panelImagePerso;
 
 	/**
-	 * Panel de l'aper�u de la carte.
+	 * Panel de l'aperçu de la carte.
 	 */
 	private JPanel panelApercu;
 
 	/**
-	 * Nombre total d'�quipes.
+	 * Nombre total d'équipes.
 	 */
 	private int totalEquipe;
 
@@ -99,7 +99,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelApercu.setPreferredSize(new Dimension(500, 300));
 		this.panelApercu.setBackground(this.couleurFond);
 		Border border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Aper�u de la carte";
+		texte = "Aperçu de la carte";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelApercu.setBorder(border);
 		contrainte.ipadx = 40;
@@ -137,7 +137,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel.setPreferredSize(new Dimension(500, 100));
 		panel.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Type du personnage + carat�ristiques";
+		texte = "Type du personnage + caratéristiques";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		panel.setBorder(border);
 		contrainte.gridx = 0;
@@ -171,7 +171,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	 /**
-	 * Associe une unit� � son image.
+	 * Associe une unité à son image.
 	 * @param unite Unite
 	 * @return image
 	 */
@@ -212,7 +212,7 @@ public class PanelInformations extends JPanel implements ActionListener {
  	}
 
 	/**
-	 * Affiche l'aper�u de la carte
+	 * Affiche l'aperçu de la carte
 	 */
 	public void afficheApercu() {
 		PanelDessineurApercu dessinCarte;
@@ -225,8 +225,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des �v�nements.
-	 *  @param evt �v�nement
+	 *  Permet le traitement des évènements.
+	 *  @param evt évènement
 	 */
 
 	public void actionPerformed(ActionEvent evt) {

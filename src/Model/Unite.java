@@ -136,56 +136,39 @@ public abstract class Unite implements Serializable {
 	 * @param map HexMap
 	 */
 	public void joueurIA(Joueur joueur, HexMap map) {
-		List<Hex> positionPossible = map.movementHighlight(hex, pointsDeplacement);// NEED FONCTION
-		List<Hex> unitInRange = new ArrayList<Hex>();
-		List<Hex> trajet = new ArrayList<Hex>();
+		System.out.println("Entering joueurIA");
 
-		for (Hex hex : positionPossible) {
+		Unite closestEnemy = map.getClosestEnemy(this.hex, joueur);
 
-			if (!hex.isEmpty()) {
-				unitInRange.add(hex);
+		//Si il n'y a pas d'unité à portée
+		if(pointsDeplacement < map.moveCost(this.hex, closestEnemy.getHex())) {
+
+			//Si les PV sont supérieurs à 50%
+			if(this.pointsDeVie > this.pointsDeVieMax / 2) {
+				//On se rapproche de closestEnemy
+				this.combat(map, joueur, closestEnemy);
 			}
-			if (unitInRange.isEmpty()) {
-				if (this.pointsDeVie >= this.pointsDeVieMax / 2) {
-					//Très sale =/
 
-					Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
+			//Sinon: On ne bouge pas et on se soigne
+		}
 
-					ArrayList<Hex> path = map.pathfinding( getHex(), map.getClosestEnemy(getHex(), joueur).getHex());
-					if(path.size() > 1) {
-						seDeplace(map, path.get(path.size()-2));
-					}else if(path.size() > 0) {
-						seDeplace(map, path.get(path.size()-1));
-					}
+		else {
+			//Si l'unité la plus proche peut nous tuer
+			//Flemme de calculer avec les points de défense ¯\_(ツ)_/¯
+			if(closestEnemy.getPointsAttaque() > this.pointsDeVie) {
+				Hex goal = flee(closestEnemy.getHex(), map);
+				seDeplace(map, goal);
+			}
 
-				} else {
-					Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
-					Hex goal = flee (enemy.getHex(), map);
-					seDeplace(map, goal);
-					break;
-				}
-			} else {
-				for (Hex unitPos : unitInRange) {
-					trajet = map.pathfinding(this.hex, unitPos);
-					if ((!trajet.isEmpty())
-							&& ( map.moveCost(this.hex, trajet.get(trajet.size() - 2)) <= this.pointsDeplacement)
-							&& unitPos.getUnit().pointsDeVie < this.pointsAttaque - unitPos.getUnit().getDefense()) {
-						this.combat(map, joueur, unitPos.getUnit());
-					} else {
-						if ((!trajet.isEmpty())
-								&& (map.moveCost(this.hex, trajet.get(trajet.size() - 1)) <= this.pointsDeplacement)
-								&& this.pointsDeVie > unitPos.getUnit().pointsAttaque - this.getDefense()) {
-							this.combat(map, joueur, unitPos.getUnit());
-						}
-					}
-				}
+			else {
+				//On attaque et on fuit
+				this.combat(map, joueur, closestEnemy);
+				Hex goal = flee(closestEnemy.getHex(), map);
+				seDeplace(map, goal);
 			}
 		}
-		if (this.pointsDeplacement != 0) {
-			Unite enemy = map.getClosestEnemy(this.getHex(), joueur);
-			Hex goal = flee (enemy.getHex(), map);
-			seDeplace(map, goal);
-		}
+
+		System.out.println("Exiting joueurIA");
 	}
 
 	/**
