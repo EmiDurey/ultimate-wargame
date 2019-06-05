@@ -13,10 +13,16 @@ public class Joueur implements Serializable {
 	 */
 
 	private ArrayList<Unite> unites = new ArrayList<Unite>();
+
 	/**
-	 *  Identifiant unique du joueur
+	 *  Identifiant unique du joueur.
 	 */
 	public int id;
+
+	/**
+	 *  Couleur du joueur.
+	 */
+	private String couleur;
 
 	private boolean isIA;
 
@@ -26,6 +32,7 @@ public class Joueur implements Serializable {
 	 */
 	public Joueur(int newId) {
 		this.id = newId;
+		associeCouleurId();
 	}
 
 	/**
@@ -34,6 +41,22 @@ public class Joueur implements Serializable {
 	 */
 	public ArrayList<Unite> getUnite() {
 		return unites;
+	}
+
+	/**
+	 *  Récupère la couleur du joueur.
+	 *  @return String
+	 */
+	public String getCouleur() {
+		return this.couleur;
+	}
+
+	/**
+	 *  Associe la couleur du joueur selon son ID.
+	 */
+	public void associeCouleurId() {
+		String[] couleurs = {"Bleu", "Rose", "Rouge", "Vert", "Violet", "Jaune"};
+		this.couleur = couleurs[this.id-1];
 	}
 
 	/**

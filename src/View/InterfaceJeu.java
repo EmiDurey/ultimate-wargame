@@ -57,18 +57,28 @@ public class InterfaceJeu extends JFrame {
 		this.barreMenu = null;
 		this.panelCarte = null;
 		this.panelInformations = null;
-		this.panelAccueil = new PanelAccueil(this);
+		this.panelAccueil = null;
 
 		this.setSize(longueur, largeur);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
+		this.initComposant();
+
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+	/**
+	 *  Initialise les composants graphiques.
+	 */
+	public void initComposant() {
+		this.panelAccueil = new PanelAccueil(this);
+
 		this.setContentPane(this.creerFond());
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
  	    this.getContentPane().add(this.panelAccueil);
-
 	    this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 	}
 
 	/**
@@ -87,6 +97,13 @@ public class InterfaceJeu extends JFrame {
 		return this.largeur;
 	}
 
+	/**
+	 *  Retourne le panel accueil.
+	 *  @return PanelAccueil
+	 */
+	public PanelAccueil getPanelAccueil() {
+		return this.panelAccueil;
+	}
 
 	/**
 	 *  Retourne le panel de la carte.
@@ -102,6 +119,14 @@ public class InterfaceJeu extends JFrame {
 	 */
 	public PanelInformations getPanelInformations() {
 		return this.panelInformations;
+	}
+
+	/**
+	 *  Modifie le panel accueil.
+	 *  @param panel PanelAccueil
+	 */
+	public void setPanelAccueil(PanelAccueil panel) {
+		this.panelAccueil = panel;
 	}
 
 	/**

@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -145,7 +146,6 @@ public class PanelCarte extends JPanel implements MouseListener {
 	 */
 	public void mouseClicked(MouseEvent event) {
 
-
 		Point clik = event.getPoint().getLocation();
 		final int W = 585;
 		final int H = 860;
@@ -165,13 +165,35 @@ public class PanelCarte extends JPanel implements MouseListener {
 
 		String annonce = null;
 		Iterator<String> iteratorAnnonce = null;
-		
-		
+
 		if (!(annonces.isEmpty())) {
 			iteratorAnnonce = annonces.iterator();
 			while (iteratorAnnonce.hasNext()) {
 				annonce = iteratorAnnonce.next();
 				new AutoCloseDialog(this.fenetre, x, y, annonce);
+			}
+		}
+
+		if (controller.getFin()) {
+			String contenu = "Le joueur ";
+			contenu += controller.getJoueurs().get(0).getID() + " ";
+			contenu += controller.getJoueurs().get(0).getCouleur() + " gagne la partie !";
+			contenu += "\nVoulez-vous recommencer une partie ?";
+
+	    	int reponse = JOptionPane.showConfirmDialog(this.fenetre, contenu, "Fin de la partie", JOptionPane.YES_NO_OPTION);
+			switch (reponse) {
+				case JOptionPane.CLOSED_OPTION:
+					System.exit(0);
+					break;
+				case JOptionPane.CANCEL_OPTION:
+					System.exit(0);
+					break;
+				case JOptionPane.OK_OPTION:
+					this.fenetre.getContentPane().removeAll();
+					this.fenetre.initComposant();
+					break;
+				default :
+		        	break;
 			}
 		}
 

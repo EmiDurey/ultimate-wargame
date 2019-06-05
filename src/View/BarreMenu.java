@@ -132,7 +132,8 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 
 		switch (actionCommand) {
 			case "Nouvelle partie":
-				System.out.println("Nouvelle partie");
+				this.fenetre.getContentPane().removeAll();
+				this.fenetre.initComposant();
 				break;
 			case "Ouvrir sauvegarde":
 				File fichier = new File("save" + File.separator + "partie");

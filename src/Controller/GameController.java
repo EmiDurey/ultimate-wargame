@@ -118,7 +118,6 @@ public class GameController implements Serializable {
     	}
     	if(joueurs.size() == 1) {
     		annonce.clear();
-    		annonce.add("Fin de la partie !");
     		fin = true;
     	}
     }
@@ -279,6 +278,10 @@ public class GameController implements Serializable {
 
 	public List<Joueur> getJoueurs() {
 		return this.joueurs;
+	}
+	
+	public Boolean getFin() {
+		return this.fin;
 	}
 
     public void toggleSource() {
