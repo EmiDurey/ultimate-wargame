@@ -145,6 +145,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 	 */
 	public void mouseClicked(MouseEvent event) {
 
+
 		Point clik = event.getPoint().getLocation();
 		final int W = 585;
 		final int H = 860;
@@ -155,13 +156,15 @@ public class PanelCarte extends JPanel implements MouseListener {
 
 		controller.handleMove(x, y);
 		this.dessinCarte.repaint();
+		this.fenetre.getPanelInformations().affichePerso();
 
 		ArrayList<String> annonces = (ArrayList<String>) controller.getAnnonce();
 		//ArrayList<Hex> hexAnnonce = (ArrayList<Hex>) controller.getHexAnnonce();
 
 		String annonce = null;
 		Iterator<String> iteratorAnnonce = null;
-
+		
+		
 		if (!(annonces.isEmpty())) {
 			iteratorAnnonce = annonces.iterator();
 			while (iteratorAnnonce.hasNext()) {

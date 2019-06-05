@@ -165,9 +165,23 @@ public class PanelInformations extends JPanel implements ActionListener {
 	public void affichePerso() {
 		Unite unite = this.controleur.getUniteSelectionne();
 		JLabel imagePerso = new JLabel(new ImageIcon(associeImageUnite(unite)));
-
+		this.panelImagePerso.removeAll();
 		this.panelImagePerso.setLayout(new BorderLayout());
 		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
+		this.panelImagePerso.repaint();
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void affichePV() {
+		Unite unite = this.controleur.getUniteSelectionne();
+		JLabel imagePerso = new JLabel(new ImageIcon(associeImageUnite(unite)));
+		this.panelImagePerso.removeAll();
+		this.panelImagePerso.setLayout(new BorderLayout());
+		this.panelImagePerso.add(imagePerso, BorderLayout.CENTER);
+		this.panelImagePerso.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 
 	 /**
@@ -207,7 +221,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 			chemin += "pretre.png";
 	 		}
  		}
-
+ 		
  		return chemin;
  	}
 
