@@ -44,7 +44,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  Récupère la couleur du joueur.
+	 *  RÃ©cupÃ¨re la couleur du joueur.
 	 *  @return String
 	 */
 	public String getCouleur() {
@@ -68,7 +68,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  Rï¿½cupï¿½re l'id du joueur. 
+	 *  Rï¿½cupï¿½re l'id du joueur.
 	 *  @return id int
 	 */
 	public int getID() {

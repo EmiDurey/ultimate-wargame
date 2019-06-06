@@ -40,7 +40,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 * Fenetre.
 	 */
 	private InterfaceJeu fenetre;
-	
+
 	/**
 	 * Label contenant les informations du joueur.
 	 */
@@ -159,7 +159,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelCaracteristiques.setPreferredSize(new Dimension(500, 100));
 		this.panelCaracteristiques.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Caratéristiques du personnage";
+		texte = "CaratÃ©ristiques du personnage";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelCaracteristiques.setBorder(border);
 		contrainte.gridx = 0;

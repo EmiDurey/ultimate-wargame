@@ -103,7 +103,7 @@ public class Archer extends Unite {
 				}
 			}
 		}
-		if (unite.getPointsDeVie() < 0) {
+		if (unite.getPointsDeVie() <= 0) {
 			unite.joueur.getUnite().remove(unite);
 			unite.getHex().setUnit(null);
 		}
