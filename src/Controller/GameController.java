@@ -11,20 +11,63 @@ import model.Joueur;
 import model.Pretre;
 import model.Unite;
 
+/**
+ *  Class GameController.
+ *  Classe gérant la partie de jeu.
+ */
 public class GameController implements Serializable {
 
+	/*
+	 * Map de la partie.
+	 */
 	private HexMap map = null;
+	/*
+	 * Liste de joueurs de la partie.
+	 */
     private List<Joueur> joueurs = new ArrayList<>();
+    /*
+     * permet d'envoyer des strings à la vue (affichage dégats et heal).
+     */
     private List<String> annonce = new ArrayList<>();
+    /*
+     * permet d'envoyer une position d'affichage à la vue.
+     */
     private List<Hex> hexAnnonce = new ArrayList<>();
+    /*
+     * hex sur lesquels on peut se déplacer.
+     */
     private List<Hex> surligne = new ArrayList<>();
+    /*
+     * hex sur lesquels on peut tirer.
+     */
     private List<Hex> surligneArc = new ArrayList<>();
+    /*
+     * joueur actuelle.
+     */
     public Joueur joueurAct = null;
+    /*
+     * unité séléctionnée.
+     */
     private Unite uniteSelectionne = null;
+    /*
+     * hexagone séléctionné.
+     */
     private Hex hexSelectionne = null;
+    /*
+     * booleen gérant la fin de la partie.
+     */
     private boolean fin = false;
+    /*
+     * offsetX selon la map.
+     */
     private int offsetX;
+    /*
+     * offsetY selon la map.
+     */
     private int offsetY;
+    /*
+     * id de la Map.
+     */
     private int idMap;
 
     /* Booleen permettant de savoir la source du clic.
@@ -90,7 +133,7 @@ public class GameController implements Serializable {
     		unite.initialize();
     		if(unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
-    			//AFFICHAGE HEAL ????
+    			//AFFICHAGE HEAL 
     		}
     	}
     	int lastIndexJoueur = joueurs.indexOf(joueurAct);
@@ -283,7 +326,10 @@ public class GameController implements Serializable {
 	public Boolean getFin() {
 		return this.fin;
 	}
-
+	
+	/**
+	 * Change la valeur du booleen source.
+	 */
     public void toggleSource() {
         if(source == false) {
         	source = true;
