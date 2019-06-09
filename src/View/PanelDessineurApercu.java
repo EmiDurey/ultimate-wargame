@@ -16,39 +16,66 @@ import model.Montagne;
 import model.Neige;
 import model.Plaine;
 
+/**
+ * Classe PanelDessineurApercu.
+ * @see model.HexMap
+ * @see model.Hex
+ * @see model.Eau
+ * @see model.Plaine
+ * @see model.Foret
+ * @see model.Forteresse
+ * @see model.Montagne
+ * @see model.Neige
+ */
 public class PanelDessineurApercu extends JPanel {
 
+	/**
+	 * Map du jeu.
+	 */
 	private HexMap map;
+
+	/**
+	 * Nombre total d'équipes.
+	 */
 	private int totalEquipe;
+
+	/**
+	 * Séparateur chemin.
+	 */
 	private String separateur;
 
+	/**
+	 * Construit un objet de type PanelDessineurApercu.
+	 * @param totalEquipe int
+	 * @param map HexMap
+	 * @see model.HexMap
+	 */
     public PanelDessineurApercu(int totalEquipe, HexMap map) {
     	this.totalEquipe = totalEquipe;
 		this.map = map;
     	this.separateur = File.separator;
     }
 
-    public void creeMap() {
-    	if (this.totalEquipe <= 3) {
-    		this.map.setTriangleMap(13);
-		} else if (this.totalEquipe == 4) {
-			this.map.setRectangleMap(10, 18);
-		} else {
-			this.map.setHexagonMap(15);
-		}
-    }
-
+    /**
+	 * Défini l'affichage.
+	 * @param g Graphics
+	 */
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (this.totalEquipe == 3) {   // triangle
+		if (this.totalEquipe == 3) {
 			this.afficheMapTriangle(g);
-		} else if (this.totalEquipe == 2 || this.totalEquipe == 4) {   // rectangle
+		} else if (this.totalEquipe == 2 || this.totalEquipe == 4) {
 			this.afficheMapRectangle(g);
-		} else {   // hexagone
+		} else {
 			this.afficheMapHexagone(g);
 		}
 	}
 
+    /**
+	 * Affichage la map triangulaire.
+	 * @param g Graphics
+	 * @see model.Hex
+	 */
     public void afficheMapTriangle(Graphics g) {
 		Hex current;
         int imageX, imageY;
@@ -70,6 +97,11 @@ public class PanelDessineurApercu extends JPanel {
         }
     }
 
+    /**
+	 * Affichage la map rectangulaire.
+	 * @param g Graphics
+	 * @see model.Hex
+	 */
     public void afficheMapRectangle(Graphics g) {
 		Hex current;
         int imageX, imageY;
@@ -91,6 +123,11 @@ public class PanelDessineurApercu extends JPanel {
         }
     }
 
+    /**
+	 * Affichage la map hexagonale.
+	 * @param g Graphics
+	 * @see model.Hex
+	 */
     public void afficheMapHexagone(Graphics g) {
 		Hex current;
         int imageX, imageY;
@@ -112,6 +149,18 @@ public class PanelDessineurApercu extends JPanel {
         }
     }
 
+    /**
+	 * Associe l'image à l'haxagone.
+	 * @param hex Hex
+	 * @return File
+	 * @see Hex
+	 * @see Eau
+	 * @see Plaine
+	 * @see Foret
+	 * @see Forteresse
+	 * @see Montagne
+	 * @see Neige
+	 */
     public File associeImageHex(Hex hex) {
  		File image = null;
  		String chemin = "images" + separateur + "Terrain" + separateur + "Apercu" + separateur;
@@ -141,6 +190,13 @@ public class PanelDessineurApercu extends JPanel {
  		return image;
  	}
 
+    /**
+	 * Affiche une Image.
+	 * @param g Graphics
+	 * @param image File
+	 * @param imageX int
+	 * @param imageY int
+	 */
     public void afficheImage(Graphics g, File image, int imageX, int imageY) {
     	try {
             g.drawImage(ImageIO.read(image), imageX, imageY, this);

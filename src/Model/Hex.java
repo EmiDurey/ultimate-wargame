@@ -1,16 +1,14 @@
 package model;
 
-import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.Serializable;
-import java.lang.Boolean;
 import java.util.HashMap;
 
 /**
  * Représente un hexagone sur la map.
  * On utilise un système de coordonnées cubiques pour le stockage.
  * On stocke donc notamment les coordonnées de l'hexagone sur la map.
+ * @see Unite
  */
 public class Hex implements Serializable {
 
@@ -30,7 +28,7 @@ public class Hex implements Serializable {
 	private int z;
 
 	/**
-	 * Indique si la case est accessible
+	 * Indique si la case est accessible.
 	 */
 	private Boolean empty = true;
 
@@ -38,7 +36,7 @@ public class Hex implements Serializable {
 	 * Poucentage de défense de la case.
 	 */
 	protected int defense = 1;
-	
+
 	/**
 	 * Coût de déplacement vers cette case.
 	 */
@@ -51,18 +49,16 @@ public class Hex implements Serializable {
 	private Unite unit = null;
 
 	/**
-	 * Utilisé pour la propagation du biome dans la génération de map
+	 * Utilisé pour la propagation du biome dans la génération de map.
 	 */
 	protected float rarity;
 
 	/**
 	 * Permet de renseigner l'état du brouillard de guerre sur la map
 	 * L'indice représente l'ID du joueur concerné
-	 * La valeur est un booléen indiquant si la case a été découverte
+	 * La valeur est un booléen indiquant si la case a été découverte.
 	 */
 	public HashMap<Integer, Boolean> discovered = new HashMap<Integer, Boolean>();
-
-
 
 	/**
      * Constructeur utilisant les coordonnées cubiques.
@@ -182,7 +178,7 @@ public class Hex implements Serializable {
 	public int getDefense() {
 		return defense;
 	}
-	
+
 	/**
 	* Indique si les deux hexagones sont géométriquement identiques.
 	* Utilisé dans l'implémentation de A*.
@@ -225,13 +221,9 @@ public class Hex implements Serializable {
 	 * @return int
 	 */
 	public int zeroDistance() {
-		float xFloat = (float) x;
-		float yFloat = (float) y;
-		float zFloat = (float) z;
-
 		float sum = (float) Math.abs(x) + Math.abs(y) + Math.abs(z);
 
-		return (int) Math.ceil( sum/2 );
+		return (int) Math.ceil(sum / 2);
 	}
 
 	/**
@@ -323,6 +315,7 @@ public class Hex implements Serializable {
 	/**
 	* Retourne l'unité actuellement sur la case.
 	* @return int
+	* @see Unite
 	*/
 	public Unite getUnit() {
 		return unit;
@@ -331,6 +324,7 @@ public class Hex implements Serializable {
 	/**
 	* Modifie l'unité se trouvant actuellement sur la case.
 	* @param newUnit Unite
+	* @see Unite
 	*/
 	public void setUnit(Unite newUnit) {
 		unit = newUnit;
@@ -371,11 +365,18 @@ public class Hex implements Serializable {
 		return fct2(fct2(fct1(x), fct1(y)), fct1(z));
 	}
 
-
+	/**
+	 * Affiche le type de biom en console.
+	 * (pour les tests console)
+	 */
 	public void print() {
 		System.out.print("H");
 	}
 
+	/**
+	 * Retour la rareté du biom.
+	 * @return rarity float
+	 */
 	public float getRarity() {
 		return rarity;
 	}

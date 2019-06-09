@@ -27,7 +27,9 @@ import model.Pretre;
 import model.Unite;
 
 /**
- * Class PanelDessineurMap
+ * Class PanelDessineurMap.
+ * @see model.HexMap
+ * @see controller.GameController
  */
 public class PanelDessineurMap extends JPanel {
 
@@ -53,7 +55,11 @@ public class PanelDessineurMap extends JPanel {
 
 	/**
 	 * Construit un objet de type PanelDessineurMap.
-	 * @param controller
+	 * @param totalEquipe int
+	 * @param map HexMap
+	 * @param controller GameController
+	 * @see model.HexMap
+	 * @see controller.GameController
 	 */
     public PanelDessineurMap(int totalEquipe, HexMap map, GameController controller) {
     	this.totalEquipe = totalEquipe;
@@ -68,16 +74,22 @@ public class PanelDessineurMap extends JPanel {
 	 */
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (this.totalEquipe == 3) {   // triangle
+		if (this.totalEquipe == 3) {
 			this.afficheMapTriangle(g);
-		} else if (this.totalEquipe == 2 || this.totalEquipe == 4) {   // rectangle
+		} else if (this.totalEquipe == 2 || this.totalEquipe == 4) {
 			this.afficheMapRectangle(g);
-		} else {   // hexagone
+		} else {
 			this.afficheMapHexagone(g);
 		}
 	}
 
-
+    /**
+	 * Affiche la carte du jeu.
+	 * @param g Graphics
+	 * @param offsetX int
+	 * @param offsetY int
+	 * @see model.Hex
+	 */
 	public void afficheMap(Graphics g, int offsetX, int offsetY) {
     	Hex current;
         int imageX, imageY;
@@ -103,12 +115,10 @@ public class PanelDessineurMap extends JPanel {
 							}
 						}
 					}
-
                 }
             }
         }
     }
-
 
     /**
 	 * Affiche la map triangle.
@@ -138,6 +148,13 @@ public class PanelDessineurMap extends JPanel {
 	 * Associe un hexagone � son image.
 	 * @param hex Hex
 	 * @return image
+	 * @see Hex
+	 * @see Eau
+	 * @see Plaine
+	 * @see Foret
+	 * @see Forteresse
+	 * @see Montagne
+	 * @see Neige
 	 */
 
     public File associeImageHex(Hex hex) {
@@ -174,11 +191,15 @@ public class PanelDessineurMap extends JPanel {
  		chemin += ".png";
 
  		image = new File(chemin);
- 		if (!surbrillanceArc(hex, chemin).isEmpty()) {
- 		}
  		return image;
  	}
 
+    /**
+	 * Retourne le nom de la surbillance.
+	 * @param hex Hex
+	 * @return String
+	 * @see Hex
+	 */
     public String surbrillance(Hex hex) {
     	List<Hex> surligne = this.controller.getSurligne();
     	if (surligne.contains(hex)) {
@@ -187,6 +208,13 @@ public class PanelDessineurMap extends JPanel {
     	return "";
     }
 
+    /**
+	 * Retourne le nom de la surbillance pour l'archer.
+	 * @param hex Hex
+	 * @param chemin String
+	 * @return string
+	 * @see Hex
+	 */
     public String surbrillanceArc(Hex hex, String chemin) {
     	List<Hex> surligne = this.controller.getSurligneArc();
     	if (surligne.contains(hex)) {
@@ -203,6 +231,15 @@ public class PanelDessineurMap extends JPanel {
 	 * Associe une unit� � son image.
 	 * @param hex Hex
 	 * @return image
+	 * @see model.Hex
+	 * @see model.Unite
+	 * @see model.Dragon
+	 * @see model.Archer
+	 * @see model.Cavalerie
+	 * @see model.Infanterie
+	 * @see model.InfanterieLourde
+	 * @see model.Mage
+	 * @see model.Pretre
 	 */
     public File associeImageUnite(Hex hex) {
     	File image = null;

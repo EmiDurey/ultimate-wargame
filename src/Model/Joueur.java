@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  *  Class Joueur.
+ *  @see Unite
  */
 public class Joueur implements Serializable {
 
@@ -17,18 +18,21 @@ public class Joueur implements Serializable {
 	/**
 	 *  Identifiant unique du joueur.
 	 */
-	public int id;
+	private int id;
 
 	/**
 	 *  Couleur du joueur.
 	 */
 	private String couleur;
 
+	/**
+	 *  Est une IA.
+	 */
 	private boolean isIA;
 
 	/**
 	 *  Constructeur d'un joueur.
-	 *  @param nom String
+	 *  @param newId int
 	 */
 	public Joueur(int newId) {
 		this.id = newId;
@@ -38,6 +42,7 @@ public class Joueur implements Serializable {
 	/**
 	 *  Récupère la liste d'unitée d'un joueur.
 	 *  @return unites ArrayList<Unite>
+	 *  @see Unite
 	 */
 	public ArrayList<Unite> getUnite() {
 		return unites;
@@ -56,12 +61,13 @@ public class Joueur implements Serializable {
 	 */
 	public void associeCouleurId() {
 		String[] couleurs = {"Bleu", "Rose", "Rouge", "Vert", "Violet", "Jaune"};
-		this.couleur = couleurs[this.id-1];
+		this.couleur = couleurs[this.id - 1];
 	}
 
 	/**
 	 *  Ajoute une unite à celles possédées par le joueur.
 	 *  @param unit String
+	 *  @see Unite
 	 */
 	public void addUnit(Unite unit) {
 		unites.add(unit);
@@ -83,9 +89,8 @@ public class Joueur implements Serializable {
 		this.id = id;
 	}
 
-
 	/**
-	 *  Indique si le joueur est humain ou non
+	 *  Indique si le joueur est humain ou non.
 	 *  @return nom String
 	 */
 	public boolean isIA() {
@@ -93,8 +98,8 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  Modifie le statut du joueur (humain / IA)
-	 *  @param nom String
+	 *  Modifie le statut du joueur (humain / IA).
+	 *  @param isIA boolean
 	 */
 	public void setIA(boolean isIA) {
 		this.isIA = isIA;

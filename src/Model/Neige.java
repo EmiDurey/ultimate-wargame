@@ -2,11 +2,14 @@ package model;
 
 /**
  *  Classe Neige.
+ *  @see Hex
  */
 public class Neige extends Hex {
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Neige.
+	 * @param newX int
+	 * @param newY int
 	 */
 	Neige(int newX, int newY) {
 		super(newX, newY);
@@ -15,15 +18,18 @@ public class Neige extends Hex {
 		rarity = (float) 0.24;
 	}
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Neige.
+	 * @param newX int
+	 * @param newY int
+	 * @param newZ int
 	 */
 	Neige(int newX, int newY, int newZ) {
 		super(newX, newY, newZ);
 		rarity = (float) 0.24;
 	}
 
-	/*
+	/**
 	 * Retour la rareté du biom.
 	 * @return rarity float
 	 */
@@ -31,9 +37,8 @@ public class Neige extends Hex {
 		return rarity;
 	}
 
-
-	/*
-	 * Affiche le type de biom en console
+	/**
+	 * Affiche le type de biom en console.
 	 * (pour les tests console)
 	 */
 	public void print() {

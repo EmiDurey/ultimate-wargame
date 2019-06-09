@@ -2,6 +2,9 @@ package model;
 
 /**
  *  Class Infanterie.
+ *  @see Hex
+ *  @see Joueur
+ *  @see Unite
  */
 public class Infanterie extends Unite {
 
@@ -9,6 +12,8 @@ public class Infanterie extends Unite {
 	 *  Constructeur de l'infanterie.
 	 *  @param hex Hexagone
 	 *  @param joueur Joueur
+	 *  @see Hex
+	 *  @see Joueur
 	 */
 	public Infanterie(Hex hex, Joueur joueur) {
 		super(hex, joueur);

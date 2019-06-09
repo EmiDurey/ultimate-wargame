@@ -5,6 +5,10 @@ import java.util.List;
 
 /**
  *  Class Dragon.
+ *  @see Hex
+ *  @see HexMap
+ *  @see Joueur
+ *  @see Unite
  */
 public class Dragon extends Unite {
 
@@ -12,6 +16,8 @@ public class Dragon extends Unite {
 	 *  Constructeur d'un dragon.
 	 *  @param hex Hexagone
 	 *  @param joueur Joueur
+	 *  @see Hex
+	 *  @see Joueur
 	 */
 	public Dragon(Hex hex, Joueur joueur) {
 		super(hex, joueur);
@@ -60,11 +66,16 @@ public class Dragon extends Unite {
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite à attaquer
+	 * @see Hex
+	 * @see HexMap
+	 * @see Joueur
+	 * @see Unite
 	 */
 	@Override
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
-		if(hasAttacked)
+		if (hasAttacked) {
 			return;
+		}
 
 		final int crit = 2;
 		final int chanceCrit = 2;
@@ -99,7 +110,7 @@ public class Dragon extends Unite {
 			 	trajet.get(trajet.size() - 2).setUnit(this);
 				this.setHex(trajet.get(trajet.size() - 2));
 				map.reveal(joueurAct, this.hex, this.vision);
-				this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
+				this.setDefense((int) ((float) (this.getHex().getDefense() / 100) * this.pointsDefenseInit + this.pointsDefenseInit));
 				if (rand > chanceCrit) {
 					unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 				} else {
@@ -124,6 +135,6 @@ public class Dragon extends Unite {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
-		System.out.println(unite+" : "+unite.pointsDeVie+"/"+unite.pointsDeVieMax);
+		System.out.println(unite + " : " + unite.pointsDeVie + "/" + unite.pointsDeVieMax);
 	}
 }

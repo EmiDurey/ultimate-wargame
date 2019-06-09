@@ -28,9 +28,9 @@ public class OptionPaneAide {
 	 */
 	public static void afficheAide(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
-				contenuFichier(pathAaide),
-				"Regles du jeu",
-				JOptionPane.INFORMATION_MESSAGE);
+			contenuFichier(pathAaide),
+			"Regles du jeu",
+			JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}
 
@@ -40,9 +40,9 @@ public class OptionPaneAide {
 	 */
 	public static void afficheRegles(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
-				contenuFichier(pathRegles),
-				"Regles du jeu",
-				JOptionPane.INFORMATION_MESSAGE);
+			contenuFichier(pathRegles),
+			"Regles du jeu",
+			JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}
 

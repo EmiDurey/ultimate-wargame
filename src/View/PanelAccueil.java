@@ -28,6 +28,13 @@ import model.Joueur;
 
 /**
  *  Class PanelAccueil.
+ *  @see InterfaceJeu
+ *  @see PanelCarte
+ *  @see PanelInformations
+ *  @see BarreMenu
+ *  @see controller.GameController
+ *  @see model.HexMap
+ *  @see model.Joueur
  */
 public class PanelAccueil extends JPanel implements ActionListener {
 
@@ -58,6 +65,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 	/**
 	 *  Construit un objet de type PanelAccueil.
+	 *  @param fenetre InterfaceJeu
+	 *  @see InterfaceJeu
 	 */
 	public PanelAccueil(InterfaceJeu fenetre) {
 		this.fenetre = fenetre;
@@ -166,7 +175,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		panel = new JPanel(new GridBagLayout());
 		panel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		panel.setPreferredSize(new Dimension(70, 20));
-		panel.setBackground(new Color(240,255,255));
+		panel.setBackground(new Color(240, 255, 255));
 		labelNb.setFont(new Font("Arial", Font.BOLD, 30));
 		labelNb.setForeground(this.colorTexte);
 		panel.setBackground(this.colorComp);
@@ -206,7 +215,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	public Font creerPolice() {
 		Font police = null;
 	    try {
-	    	police = Font.createFont(Font.TRUETYPE_FONT, new File("polices"+File.separator+"Fancy_Card.ttf")).deriveFont(200f);
+	    	String chemin = "polices" + File.separator + "Fancy_Card.ttf";
+	    	police = Font.createFont(Font.TRUETYPE_FONT, new File(chemin)).deriveFont(200f);
 	        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	        ge.registerFont(police);
 	    } catch (IOException e) {
@@ -220,9 +230,9 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	/**
 	 *  Cr�e la liste des joueurs.
 	 *  @return ArrayList<Joueur>
+	 *  @see model.Joueur
 	 */
 	public ArrayList<Joueur> creerListeJoueurs() {
-
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 		for (int i = 1; i <= this.nbJoueurs; i++) {
 			joueurs.add(new Joueur(i));
@@ -241,6 +251,11 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	 *  @param totalEquipe int
 	 *  @param map HexMap
 	 *  @param controleur GameController
+	 *  @see model.HexMap
+	 *  @see controller.GameController
+	 *  @see PanelCarte
+	 *  @see PanelInformations
+	 *  @see BarreMenu
 	 */
 	public void afficheJeu(int totalEquipe, HexMap map, GameController controleur) {
 		this.fenetre.getContentPane().removeAll();
@@ -258,6 +273,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	/**
 	 *  Permet le traitement des �v�nements.
 	 *  @param evt �v�nement
+	 *  @see model.HexMap
+	 *  @see controller.GameController
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();

@@ -11,6 +11,7 @@ import javax.swing.Timer;
 
 /**
  * Classe AutoCloseDialog.
+ * @see InterfaceJeu
  */
 public class AutoCloseDialog extends JWindow {
 
@@ -25,6 +26,7 @@ public class AutoCloseDialog extends JWindow {
      * @param x int
      * @param y int
      * @param message String
+     * @see InterfaceJeu
      */
     public AutoCloseDialog(InterfaceJeu fenetre, int x, int y, String message) {
         super(fenetre);

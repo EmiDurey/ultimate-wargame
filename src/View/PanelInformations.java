@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,6 +32,18 @@ import model.Unite;
 
 /**
  *  Class PanelInformations.
+ * @see InterfaceJeu
+ * @see PanelDessineurApercu
+ * @see model.HexMap
+ * @see model.Dragon
+ * @see model.Archer
+ * @see model.Cavalerie
+ * @see model.Infanterie
+ * @see model.InfanterieLourde
+ * @see model.Mage
+ * @see model.Pretre
+ * @see model.Unite
+ * @see controller.GameController
  */
 public class PanelInformations extends JPanel implements ActionListener {
 
@@ -47,14 +58,14 @@ public class PanelInformations extends JPanel implements ActionListener {
 	private JLabel labelCaracteristiques;
 
 	/**
-	 * Panel de l'image du perosnnage.
+	 * Panel des caract�ristiques du personnage.
 	 */
 	private JPanel panelCaracteristiques;
 
 	/**
 	 * Label contenant les PV du personnage.
 	 */
-	private JLabel label_pv;
+	private JLabel labelPv;
 
 	/**
 	 * Panel de l'image du perosnnage.
@@ -88,9 +99,13 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
 	 *  Construit un objet de type PanelInformations.
+	 *  @param fenetre InterfaceJeu
 	 *  @param totalEquipe int
 	 *  @param map HexMap
 	 *  @param controleur GameController
+	 *  @see model.HexMap
+	 *  @see controller.GameController
+	 *  @see InterfaceJeu
 	 */
 	public PanelInformations(InterfaceJeu fenetre, int totalEquipe, HexMap map, GameController controleur) {
 		this.fenetre = fenetre;
@@ -147,10 +162,10 @@ public class PanelInformations extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(90, 20));
 		panel.setBackground(this.couleurFond);
-		this.label_pv = new JLabel();
-		this.label_pv.setFont(new Font("Arial", Font.BOLD, 30));
-		this.label_pv.setForeground(Color.white);
-		panel.add(this.label_pv);
+		this.labelPv = new JLabel();
+		this.labelPv.setFont(new Font("Arial", Font.BOLD, 30));
+		this.labelPv.setForeground(Color.white);
+		panel.add(this.labelPv);
 		contrainte.gridx = 1;
 		contrainte.gridy = 1;
 		this.add(panel, contrainte);
@@ -189,6 +204,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
 	 * Affiche l'image du personnage.
+	 * @see model.Unite
 	 */
 	public void affichePerso() {
 		Unite unite = this.controleur.getUniteSelectionne();
@@ -203,13 +219,14 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
 	 * Affiche PVs du personnage.
+	 * @see model.Unite
 	 */
 	public void affichePV() {
-		this.label_pv.removeAll();
+		this.labelPv.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
 		if (unite != null) {
-			this.label_pv.setText("PV : " + unite.getPointsDeVie());
-			this.label_pv.repaint();
+			this.labelPv.setText("PV : " + unite.getPointsDeVie());
+			this.labelPv.repaint();
 			this.revalidate();
 			this.repaint();
 		}
@@ -217,25 +234,34 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
 	 * Affiche caractéristiques du personnage.
+	 * @see model.Unite
 	 */
 	public void afficheCaracteristiques() {
 		this.labelCaracteristiques.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
 		if (unite != null) {
 			this.labelCaracteristiques.setText("<html>• Points d'attaque : " + unite.getPointsAttaque()
-								+ "<br> • Points de défense : " + unite.getPointsDefense()
-								+ "<br> • Points de déplacements : " + unite.getPointsDeplacement()
-								+ "<br> • Vision : " + unite.getVision() + "</html>");
+				+ "<br> • Points de défense : " + unite.getPointsDefense()
+				+ "<br> • Points de déplacements : " + unite.getPointsDeplacement()
+				+ "<br> • Vision : " + unite.getVision() + "</html>");
 			this.panelCaracteristiques.repaint();
 			this.revalidate();
 			this.repaint();
 		}
 	}
 
-	 /**
+	/**
 	 * Associe une unité à son image.
 	 * @param unite Unite
 	 * @return image
+	 * @see model.Unite
+	 * @see model.Dragon
+	 * @see model.Archer
+	 * @see model.Cavalerie
+	 * @see model.Infanterie
+	 * @see model.InfanterieLourde
+	 * @see model.Mage
+	 * @see model.Pretre
 	 */
 	public String associeImageUnite(Unite unite) {
 		String sep = File.separator;
@@ -274,7 +300,8 @@ public class PanelInformations extends JPanel implements ActionListener {
  	}
 
 	/**
-	 * Affiche l'aperçu de la carte
+	 * Affiche l'aperçu de la carte.
+	 * @see PanelDessineurApercu
 	 */
 	public void afficheApercu() {
 		PanelDessineurApercu dessinCarte;
@@ -290,7 +317,6 @@ public class PanelInformations extends JPanel implements ActionListener {
 	 *  Permet le traitement des évènements.
 	 *  @param evt évènement
 	 */
-
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();
 

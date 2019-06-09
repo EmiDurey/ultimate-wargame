@@ -13,12 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.Hex;
 import model.HexMap;
 import controller.GameController;
 
 /**
  * Class PanelCarte.
+ *  @see InterfaceJeu
+ *  @see PanelDessineurMap
+ *  @see controller.GameController
+ *  @see model.HexMap
+ *  @see AutoCloseDialog
  */
 public class PanelCarte extends JPanel implements MouseListener {
 
@@ -63,6 +67,9 @@ public class PanelCarte extends JPanel implements MouseListener {
 	 * @param totalEquipe int
 	 * @param map HexMap
 	 * @param controller GameController
+	 * @see InterfaceJeu
+	 * @see GameController
+	 * @see model.HexMap
 	 */
 	public PanelCarte(InterfaceJeu fenetre, int totalEquipe, HexMap map, GameController controller) {
 		this.fenetre = fenetre;
@@ -111,6 +118,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 	/**
 	 * Retourne le dessinateur de map.
 	 * @return PanelDessineurMap
+	 * @see PanelDessineurMap
 	 */
 	public PanelDessineurMap getDessinCarte() {
 		return this.dessinCarte;
@@ -149,8 +157,9 @@ public class PanelCarte extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ecoute les clique de la souris et agit en consï¿½quence.
+	 * Ecoute les cliques de la souris et agit en consï¿½quence.
 	 * @param event MouseEvent
+	 * @see AutoCloseDialog
 	 */
 	public void mouseClicked(MouseEvent event) {
 
@@ -169,7 +178,6 @@ public class PanelCarte extends JPanel implements MouseListener {
 		this.fenetre.getPanelInformations().afficheCaracteristiques();
 
 		ArrayList<String> annonces = (ArrayList<String>) controller.getAnnonce();
-		//ArrayList<Hex> hexAnnonce = (ArrayList<Hex>) controller.getHexAnnonce();
 
 		String annonce = null;
 		Iterator<String> iteratorAnnonce = null;
@@ -217,8 +225,27 @@ public class PanelCarte extends JPanel implements MouseListener {
 		//this.dessinCarte.repaint();
 	}
 
-	public void mouseEntered(MouseEvent event) {}
-	public void mouseExited(MouseEvent event) {}
-	public void mousePressed(MouseEvent event) {}
-	public void mouseReleased(MouseEvent event) {}
+	/**
+	 * Ecoute lorsque la souris a été cliquée sur un composant et agit en consï¿½quence.
+	 * @param event MouseEvent
+	 */
+	public void mouseEntered(MouseEvent event) { }
+
+	/**
+	 * 	Ecoute lorsque la souris sort d'un composant.
+	 * @param event MouseEvent
+	 */
+	public void mouseExited(MouseEvent event) { }
+
+	/**
+	 * 	Ecoute lorsque le bouton de la souris a été enfoncé sur un composant.
+	 * @param event MouseEvent
+	 */
+	public void mousePressed(MouseEvent event) { }
+
+	/**
+	 * 	Ecoute lorsque le bouton de la souris a été relâché sur un composant.
+	 * @param event MouseEvent
+	 */
+	public void mouseReleased(MouseEvent event) { }
 }

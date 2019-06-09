@@ -2,11 +2,14 @@ package model;
 
 /**
  *  Classe Forteresse.
+ *  @see Hex
  */
 public class Forteresse extends Hex {
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Forteresse.
+	 * @param newX int
+	 * @param newY int
 	 */
 	Forteresse(int newX, int newY) {
 		super(newX, newY);
@@ -15,15 +18,18 @@ public class Forteresse extends Hex {
 		rarity = (float) 0.1;
 	}
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Forteresse.
+	 * @param newX int
+	 * @param newY int
+	 * @param newZ int
 	 */
 	Forteresse(int newX, int newY, int newZ) {
 		super(newX, newY, newZ);
 		rarity = (float) 0.1;
 	}
 
-	/*
+	/**
 	 * Retour la rareté du biom.
 	 * @return rarity float
 	 */
@@ -31,8 +37,8 @@ public class Forteresse extends Hex {
 		return rarity;
 	}
 
-	/*
-	 * Affiche le type de biom en console
+	/**
+	 * Affiche le type de biom en console.
 	 * (pour les tests console)
 	 */
 	public void print() {

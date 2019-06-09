@@ -2,11 +2,14 @@ package model;
 
 /**
  *  Classe Plaine.
+ *  @see Hex
  */
 public class Plaine extends Hex {
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Plaine.
+	 * @param newX int
+	 * @param newY int
 	 */
 	Plaine(int newX, int newY) {
 		super(newX, newY);
@@ -14,8 +17,11 @@ public class Plaine extends Hex {
 		this.defense = 10;
 	}
 
-	/*
-	 * Constructeur.
+	/**
+	 * Construit un objet de type Plaine.
+	 * @param newX int
+	 * @param newY int
+	 * @param newZ int
 	 */
 	Plaine(int newX, int newY, int newZ) {
 		super(newX, newY, newZ);

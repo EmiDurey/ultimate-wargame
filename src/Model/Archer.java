@@ -5,9 +5,12 @@ import java.util.List;
 
 /**
  *  Class Archer.
+ *  @see Hex
+ *  @see HexMap
+ *  @see Joueur
+ *  @see Unite
  */
 public class Archer extends Unite {
-
 
 	/**
 	 * Points de portÃ©e de l'unitÃ©.
@@ -18,6 +21,8 @@ public class Archer extends Unite {
 	 *  Constructeur d'un archer.
 	 *  @param hex Hexagone
 	 *  @param joueur Joueur
+	 *  @see Hex
+	 *  @see Joueur
 	 */
 	public Archer(Hex hex, Joueur joueur) {
 		super(hex, joueur);
@@ -31,7 +36,6 @@ public class Archer extends Unite {
 		this.pointsDeVie = this.pointsDeVieMax;
 		this.vision = 6;
 		this.portee = 4;
-
 	}
 
 	/**
@@ -67,11 +71,16 @@ public class Archer extends Unite {
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite
+	 *  @see Hex
+	 *  @see HexMap
+	 *  @see Joueur
+	 *  @see Unite
 	 */
 	@Override
 	public void combat(HexMap map, Joueur joueurAct, Unite unite) {
-		if(hasAttacked)
+		if (hasAttacked) {
 			return;
+		}
 
 		final int crit = 2;
 		final int chanceCrit = 2;
@@ -93,7 +102,7 @@ public class Archer extends Unite {
 				 	hex.setUnit(this);
 					this.setHex(hex);
 					map.reveal(joueurAct, this.hex, this.vision);
-					this.setDefense((int) ((float) (this.getHex().getDefense()/100) * this.pointsDefenseInit + this.pointsDefenseInit));
+					this.setDefense((int) ((float) (this.getHex().getDefense() / 100) * this.pointsDefenseInit + this.pointsDefenseInit));
 					if (rand > chanceCrit) {
 						unite.pointsDeVie = (int) (unite.pointsDeVie - (this.pointsAttaque - unite.pointsDefense));
 					} else {
@@ -108,9 +117,13 @@ public class Archer extends Unite {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
-		System.out.println(unite+" : "+unite.pointsDeVie+"/"+unite.pointsDeVieMax);
+		System.out.println(unite + " : " + unite.pointsDeVie + "/" + unite.pointsDeVieMax);
 	}
 
+	/**
+	 * Récupère la portée.
+	 * @return int
+	 */
 	public int getPortee() {
 		return portee;
 	}

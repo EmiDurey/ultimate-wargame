@@ -2,6 +2,9 @@ package model;
 
 /**
  *  Class Mage.
+ *  @see Hex
+ *  @see Joueur
+ *  @see Unite
  */
 public class Mage extends Unite {
 
@@ -9,6 +12,8 @@ public class Mage extends Unite {
 	 *  Constructeur d'un mage.
 	 *  @param hex Hexagone
 	 *  @param joueur Joueur
+	 *  @see Hex
+	 *  @see Joueur
 	 */
 	public Mage(Hex hex, Joueur joueur) {
 		super(hex, joueur);

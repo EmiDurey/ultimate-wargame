@@ -18,6 +18,11 @@ import model.HexMap;
 
 /**
  *  Class BarreMenu.
+ *  @see InterfaceJeu
+ *  @see PanelCarte
+ *  @see PanelInformations
+ *  @see GameController
+ *  @see model.HexMap
  */
 public class BarreMenu extends JMenuBar implements ActionListener {
 
@@ -52,6 +57,10 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	 *  @param panelCarte PanelCarte
 	 *  @param panelInfo panelInformations
 	 *  @param controleur GameController
+	 *  @see InterfaceJeu
+	 *  @see PanelCarte
+	 *  @see PanelInformations
+	 *  @see GameController
 	 */
 	public BarreMenu(InterfaceJeu fenetre, PanelCarte panelCarte, PanelInformations panelInfo, GameController controleur) {
 		this.fenetre = fenetre;
@@ -108,6 +117,16 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 		this.menu.add(menuItem);
 	}
 
+	/**
+	 *  Affiche le jeu.
+	 *  @param totalEquipe int
+	 *  @param map HexMap
+	 *  @param controleur GameController
+	 *  @see model.HexMap
+	 *  @see PanelCarte
+	 *  @see PanelInformations
+	 *  @see GameController
+	 */
 	public void afficheJeu(int totalEquipe, HexMap map, GameController controleur) {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.setLayout(new BorderLayout());
@@ -125,6 +144,8 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	/**
 	 *  Permet le traitement des �v�nements.
 	 *  @param evt �v�nement
+	 *  @see HexMap
+	 *  @see GameController
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();

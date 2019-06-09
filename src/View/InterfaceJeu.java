@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 
 /**
  *  Class InterfaceJeu.
+ *  @see PanelAccueil
+ *  @see PanelCarte
+ *  @see PanelInformations
+ *  @see BarreMenu
  */
 public class InterfaceJeu extends JFrame {
 
@@ -70,6 +74,7 @@ public class InterfaceJeu extends JFrame {
 
 	/**
 	 *  Initialise les composants graphiques.
+	 *  @see PanelAccueil
 	 */
 	public void initComposant() {
 		this.panelAccueil = new PanelAccueil(this);
@@ -78,7 +83,6 @@ public class InterfaceJeu extends JFrame {
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
  	    this.getContentPane().add(this.panelAccueil);
 	    this.setVisible(true);
-
 	}
 
 	/**
@@ -100,6 +104,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Retourne le panel accueil.
 	 *  @return PanelAccueil
+	 *  @see PanelAccueil
 	 */
 	public PanelAccueil getPanelAccueil() {
 		return this.panelAccueil;
@@ -108,6 +113,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Retourne le panel de la carte.
 	 *  @return PanelCarte
+	 *  @see PanelCarte
 	 */
 	public PanelCarte getPanelCarte() {
 		return this.panelCarte;
@@ -116,6 +122,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Retourne le panel des informations.
 	 *  @return PanelInformations
+	 *  @see PanelInformations
 	 */
 	public PanelInformations getPanelInformations() {
 		return this.panelInformations;
@@ -124,6 +131,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Modifie le panel accueil.
 	 *  @param panel PanelAccueil
+	 *  @see PanelAccueil
 	 */
 	public void setPanelAccueil(PanelAccueil panel) {
 		this.panelAccueil = panel;
@@ -132,6 +140,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Modifie le panel de la carte.
 	 *  @param panel PanelCarte
+	 *  @see PanelCarte
 	 */
 	public void setPanelCarte(PanelCarte panel) {
 		this.panelCarte = panel;
@@ -140,6 +149,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Modifie le panel des informations.
 	 *  @param panel PanelInformations
+	 *  @see PanelInformations
 	 */
 	public void setPanelInformations(PanelInformations panel) {
 		this.panelInformations = panel;
@@ -148,6 +158,7 @@ public class InterfaceJeu extends JFrame {
 	/**
 	 *  Modifie la barre de menu.
 	 *  @param barreMenu BarreMenu
+	 *  @see BarreMenu
 	 */
 	public void setBarreMenu(BarreMenu barreMenu) {
 		this.barreMenu = barreMenu;
