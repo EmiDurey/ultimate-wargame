@@ -135,6 +135,5 @@ public class Dragon extends Unite {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
-		System.out.println(unite + " : " + unite.pointsDeVie + "/" + unite.pointsDeVieMax);
 	}
 }

@@ -172,8 +172,6 @@ public class GameController implements Serializable {
     	if (joueurAct.isIA()) {
 			tourIA();
     	}
-
-		System.out.println("New player: " + joueurAct);
     }
 
     /**
@@ -208,11 +206,8 @@ public class GameController implements Serializable {
 		}
 
         if (source) {
-        	System.out.println("Hex = " + source + "		Unit = " + hexSelectionne.getUnit());
-
         	if (!(hexSelectionne.getUnit() == null)) {
         		if (joueurAct.getUnite().contains(hexSelectionne.getUnit())) {
-        			System.out.println("Clique allié");
         			uniteSelectionne = hexSelectionne.getUnit();
         			surligne = map.movementHighlight(uniteSelectionne.getHex(), uniteSelectionne.getPointsDeplacement());
         			if (uniteSelectionne instanceof Archer) {
@@ -315,9 +310,7 @@ public class GameController implements Serializable {
     		}
     	}
     	for (Unite unit : unitTri) {
-			System.out.println("Need to play with " + unit);
     		unit.joueurIA(joueurAct, map);
-    		//wait(1);
     	}
     	changeTour();
 

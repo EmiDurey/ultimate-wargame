@@ -36,12 +36,4 @@ public class Eau extends Hex {
 	public float getRarity() {
 		return rarity;
 	}
-
-	/**
-	 * Affiche le type de biom en console.
-	 * (pour les tests console)
-	 */
-	public void print() {
-		System.out.print("W");
-	}
 }

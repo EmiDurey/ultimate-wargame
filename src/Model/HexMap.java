@@ -710,28 +710,6 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Affiche la map dans la console.
-	* @see Hex
-	*/
-	public void ASCIIDisplay() {
-
-		Hex current;
-
-		for (int i = getMinX(); i <= getMaxX(); i++) {
-			for (int j = getMinY(); j <= getMaxY(); j++) {
-				current = getHex(i, j);
-				if (current == null) {
-					System.out.print(" ");
-				} else {
-					getHex(i, j).print();
-				}
-				System.out.print(" ");
-			}
-			System.out.println("");
-		}
-	}
-
-	/**
 	* Retourne tout les hexagones à une dintance viewDist de source.
 	* @param source hexagone
 	* @param viewDist int

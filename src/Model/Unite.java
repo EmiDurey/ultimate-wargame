@@ -155,7 +155,6 @@ public abstract class Unite implements Serializable {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
-		System.out.println(unite + " : " + unite.pointsDeVie + "/" + unite.pointsDeVieMax);
 	}
 
 	/**

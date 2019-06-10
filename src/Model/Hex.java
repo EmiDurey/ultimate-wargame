@@ -364,14 +364,6 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	 * Affiche le type de biom en console.
-	 * (pour les tests console)
-	 */
-	public void print() {
-		System.out.print("H");
-	}
-
-	/**
 	 * Retour la rareté du biom.
 	 * @return rarity float
 	 */

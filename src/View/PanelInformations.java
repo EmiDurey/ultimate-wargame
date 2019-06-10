@@ -322,7 +322,6 @@ public class PanelInformations extends JPanel implements ActionListener {
 
 		switch (actionCommand) {
 			case "Fin":
-				System.out.println("Changement de tour");
 				try {
 					controleur.changeTour();
 				} catch (InterruptedException e) {

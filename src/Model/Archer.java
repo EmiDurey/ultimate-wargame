@@ -117,7 +117,6 @@ public class Archer extends Unite {
 			unite.getHex().setUnit(null);
 		}
 		this.pointsDeplacement = 0;
-		System.out.println(unite + " : " + unite.pointsDeVie + "/" + unite.pointsDeVieMax);
 	}
 
 	/**
