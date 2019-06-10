@@ -13,57 +13,57 @@ import java.util.List;
 public abstract class Unite implements Serializable {
 
 	/**
-	 *  Joueur possÃ©dant l'unitÃ©e.
+	 *  Joueur possédant l'unité.
 	 */
 	protected Joueur joueur = null;
 
 	/**
-	 *  Points d'attaque d'une unitÃ©e.
+	 *  Points d'attaque d'une unité.
 	 */
 	protected int pointsAttaque;
 
 	/**
-	 *  Points de dÃ©fense intial d'une unitÃ©e.
+	 *  Points de défense intial d'une unité.
 	 */
 	protected int pointsDefenseInit;
 
 	/**
-	 *  Points de dÃ©fense d'une unitÃ©e.
+	 *  Points de défense d'une unité.
 	 *  Evolue au cours de la partie.
 	 */
 	protected int pointsDefense;
 
 	/**
-	 *  Points de dÃ©placement d'une unitÃ©e.
+	 *  Points de déplacement d'une unité.
 	 *  Evolue au cours du tour.
 	 */
 	protected int pointsDeplacement;
 
 	/**
-	 *  Points de dÃ©placement initial d'une unitÃ©e.
+	 *  Points de déplacement initial d'une unité.
 	 *  Ne change pas au cours de la partie.
 	 */
 	protected int pointsDeplacementInit;
 
 	/**
-	 *  Points de vie d'une unitÃ©e.
+	 *  Points de vie d'une unité.
 	 *  Evolue au cours de la partie.
 	 */
 	protected int pointsDeVie;
 
 	/**
-	 *  Points de vie maximum d'une unitÃ©e.
+	 *  Points de vie maximum d'une unité.
 	 *  Ne change pas au cours de la partie.
 	 */
 	protected int pointsDeVieMax;
 
 	/**
-	 *  Points de vision d'une unitÃ©e.
+	 *  Points de vision d'une unité.
 	 */
 	protected int vision;
 
 	/**
-	 *  Position d'une unitÃ©e.
+	 *  Position d'une unité.
 	 */
 	protected Hex hex;
 
@@ -73,12 +73,12 @@ public abstract class Unite implements Serializable {
 	protected Boolean hasAttacked = false;
 
     /**
-     * Si le joueur qui a cette unitÃ© l'utilise actuellement (l'a choisie pour se dÃ©placer).
+     * Si le joueur qui a cette unité l'utilise actuellement (l'a choisie pour se déplacer).
      */
     protected boolean isActive = false;
 
 	/**
-	 *  Constructeur d'une unitÃ©e.
+	 *  Constructeur d'une unité.
 	 *  @param hex Hexagone
 	 *  @param joueur Joueur
 	 *  @see Hex
@@ -91,25 +91,25 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 *  Constructeur d'une unitÃ©e.
+	 *  Constructeur d'une unité.
 	 */
 	public Unite() {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
+	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	public void heal() {
 	}
 
 	/**
-	 * RÃ©initialise les points de dÃ©placement de l'unitÃ©.
+	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	public void initialize() {
 	}
 
 	/**
-	 * MÃ©thode combat pour la plupart des unitÃ©s.
+	 * Méthode combat pour la plupart des unités.
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite
@@ -160,7 +160,7 @@ public abstract class Unite implements Serializable {
 
 	/**
 	 * IA.
-	 * DÃ©place une unitÃ© en fonction des possibilitÃ©s de dÃ©placement de cette derniÃ¨re.
+	 * Déplace une unité en fonction des possibilités de déplacement de cette dernière.
 	 * @param joueur Joueur actuelle
 	 * @param map HexMap
 	 * @see Joueur
@@ -171,22 +171,20 @@ public abstract class Unite implements Serializable {
 
 		Unite closestEnemy = map.getClosestEnemy(this.hex, joueur);
 
-		//Si il n'y a pas d'unitÃ© Ã  portÃ©e
-		//FIXME Sometimes throws NullPointerException -> closestEnemy not found on game end ?
+		//Si il n'y a pas d'unité à portée
 		if (pointsDeplacement < map.moveCost(this.hex, closestEnemy.getHex())) {
 
-			//Si les PV sont supÃ©rieurs Ã  50%
+			//Si les PV sont supérieurs à 50%
 			if (this.pointsDeVie > this.pointsDeVieMax / 2) {
 				//On se rapproche de closestEnemy
 				getCloser(map, closestEnemy.getHex());
 				this.combat(map, joueur, closestEnemy);
 			}
 
-			//Sinon: On ne bouge pas et on se soigne
+		//Sinon: On ne bouge pas et on se soigne
 		} else {
 
-			//Si l'unitÃ© la plus proche peut nous tuer
-			//Flemme de calculer avec les points de dÃ©fense Â¯\_(ãƒ„)_/Â¯
+			//Si l'unité la plus proche peut nous tuer
 			if (closestEnemy.getPointsAttaque() > this.pointsDeVie) {
 				Hex goal = flee(closestEnemy.getHex(), map);
 			} else {
@@ -201,7 +199,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * DÃ©place une unitÃ© si c'est possible.
+	 * Déplace une unité si c'est possible.
 	 * @param map HexMap
 	 * @param newHex Hex
 	 * @see HexMap
@@ -220,13 +218,13 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * DÃ©place une unitÃ© le plus loin possible.
+	 * Déplace une unité le plus loin possible.
 	 * @param map HexMap
 	 * @param newHex Hex
 	 * @see HexMap
 	 * @see Hex
 	 */
-	public void getCloser(HexMap map, Hex newHex){
+	public void getCloser(HexMap map, Hex newHex) {
 		List<Hex> trajet = map.pathfinding(this.hex, newHex);
 		for (int i = 0; i < trajet.size(); i++) {
 
@@ -282,7 +280,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re la position d'une unitÃ©.
+	 * Récupère la position d'une unité.
 	 * @return hex Hex
 	 * @see Hex
 	 */
@@ -291,7 +289,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * Assigne la position d'une unitÃ©.
+	 * Assigne la position d'une unité.
 	 * @param hex Hex
 	 * @see Hex
 	 */
@@ -300,7 +298,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re la dÃ©fense d'une unitÃ©.
+	 * Récupère la défense d'une unité.
 	 * @return pointsDefense int
 	 */
 	public int getDefense() {
@@ -308,7 +306,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * Assigne la dÃ©fense d'une unitÃ©.
+	 * Assigne la défense d'une unité.
 	 * @param pointsDefense int
 	 */
 	public void setDefense(int pointsDefense) {
@@ -316,7 +314,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re les points de dÃ©placement d'une unitÃ©.
+	 * Récupère les points de déplacement d'une unité.
 	 * @return pointsDeplacement int
 	 */
 	public int getPointsDeplacement() {
@@ -324,7 +322,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * Assigne les points de dÃ©placement d'une unitÃ©.
+	 * Assigne les points de déplacement d'une unité.
 	 * @param pointsDeplacement int
 	 */
 	public void setPointsDeplacement(int pointsDeplacement) {
@@ -332,7 +330,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re les points de vie maximum d'une unitÃ©.
+	 * Récupère les points de vie maximum d'une unité.
 	 * @return pointsDeVieMax int
 	 */
 	public int getPointsDeVieMax() {
@@ -340,7 +338,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re les points de vie  d'une unitÃ©.
+	 * Récupère les points de vie  d'une unité.
 	 * @return pointsDeVieMax int
 	 */
 	public int getPointsDeVie() {
@@ -348,7 +346,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * Assigne les points de vie d'une unitÃ©.
+	 * Assigne les points de vie d'une unité.
 	 * @param pointsDeVie int
 	 */
 	public void setPointsDeVie(int pointsDeVie) {
@@ -356,7 +354,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re le joueur d'une unitÃ©.
+	 * Récupère le joueur d'une unité.
 	 * @return joueur Joueur
 	 * @see Joueur
 	 */
@@ -365,7 +363,7 @@ public abstract class Unite implements Serializable {
 	}
 
 	/**
-	 * Assigne le joueur d'une unitÃ©.
+	 * Assigne le joueur d'une unité.
 	 * @param joueur Joueur
 	 * @see Joueur
 	 */
@@ -476,8 +474,4 @@ public abstract class Unite implements Serializable {
 	public void setHasAttacked(boolean hasAttacked) {
 		this.hasAttacked = hasAttacked;
 	}
-
-
-
-
 }

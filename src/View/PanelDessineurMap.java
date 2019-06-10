@@ -39,17 +39,17 @@ public class PanelDessineurMap extends JPanel {
 	private HexMap map;
 
 	/**
-	 * Nombre total d'ï¿½quipes.
+	 * Nombre total d'équipes.
 	 */
 	private int totalEquipe;
 
 	/**
-	 * Sï¿½parateur de fichier.
+	 * Séparateur de fichier.
 	 */
 	private String sep;
 
 	/**
-	 * Instance de la classe GameController, controleur de l'application.
+	 * Contrôleur de l'application.
 	 */
 	private GameController controller;
 
@@ -69,7 +69,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Dï¿½fini l'affichage.
+	 * Défini l'affichage.
 	 * @param g Graphics
 	 */
     public void paintComponent(Graphics g) {
@@ -121,7 +121,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Affiche la map triangle.
+	 * Affiche la map triangulaire.
 	 * @param g Graphics
 	 */
     public void afficheMapTriangle(Graphics g) {
@@ -129,7 +129,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Affiche la map rectangle.
+	 * Affiche la map rectangulaire.
 	 * @param g Graphics
 	 */
     public void afficheMapRectangle(Graphics g) {
@@ -137,7 +137,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Affiche la map hexagone.
+	 * Affiche la map hexagonale.
 	 * @param g Graphics
 	 */
     public void afficheMapHexagone(Graphics g) {
@@ -145,7 +145,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Associe un hexagone ï¿½ son image.
+	 * Associe un hexagone à son image.
 	 * @param hex Hex
 	 * @return image
 	 * @see Hex
@@ -156,7 +156,6 @@ public class PanelDessineurMap extends JPanel {
 	 * @see Montagne
 	 * @see Neige
 	 */
-
     public File associeImageHex(Hex hex) {
  		String chemin = "images" + sep + "Terrain" + sep + "Map" + sep;
  		File image = null;
@@ -228,7 +227,7 @@ public class PanelDessineurMap extends JPanel {
     }
 
     /**
-	 * Associe une unitï¿½ ï¿½ son image.
+	 * Associe une unité à son image.
 	 * @param hex Hex
 	 * @return image
 	 * @see model.Hex

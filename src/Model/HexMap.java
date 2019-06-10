@@ -32,7 +32,7 @@ import java.util.Stack;
 public class HexMap implements Serializable {
 
 	/**
- 	* HashMap contenant l'ensemble des Hex de la map et servant Ã  son stockage.
+ 	* HashMap contenant l'ensemble des Hex de la map et servant à son stockage.
 	* Chaque Hex h aura pour clef Object.hashCode(h)
 	* Cela permet un stockage efficace de la map, en permettant toutes
 	* formes pour celle-ci.
@@ -54,7 +54,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Permet d'accÃ©der Ã  un Hex de la hashmap Ã  partir de ses coordonnÃ©es cubiques.
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées cubiques.
 	* @param x int
 	* @param y int
 	* @param z int
@@ -65,9 +65,8 @@ public class HexMap implements Serializable {
 		return map.get(new Hex(x, y, z).hashCode());
 	}
 
-
 	/**
-	* Permet d'accÃ©der Ã  un Hex de la hashmap Ã  partir de ses coordonnÃ©es axiales.
+	* Permet d'accéder à un Hex de la hashmap à partir de ses coordonnées axiales.
 	* @param x int
 	* @param y int
 	* @return Hex
@@ -78,7 +77,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Permet d'ajouter un Hex Ã  la hashmap, retourne le hash.
+	* Permet d'ajouter un Hex à la hashmap, retourne le hash.
 	* @param a hexagone
 	* @return Hex
 	* @see Hex
@@ -96,7 +95,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* GÃ©nÃ¨re une map en forme de triangle Ã©quilatÃ©ral de cÃ´tÃ© mapSize.
+	* Génère une map en forme de triangle équilatéral de côté mapSize.
 	* @param mapSize int
 	* @see Plaine
 	*/
@@ -110,7 +109,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* GÃ©nÃ¨re une map en forme d'hexagone de cÃ´tÃ© mapSize.
+	* Génère une map en forme d'hexagone de côté mapSize.
 	* @param mapSize int
 	* @see Plaine
 	*/
@@ -127,7 +126,7 @@ public class HexMap implements Serializable {
     }
 
 	/**
-	* GÃ©nÃ¨re une map rectangulaire de taille width*height.
+	* Génère une map en forme de rectangle de côté mapSize.
 	* @param height int
 	* @param width int
 	* @see Plaine
@@ -143,7 +142,7 @@ public class HexMap implements Serializable {
     }
 
 	/**
-	* DÃ©finit le nouveau biome d'une case pendant la gÃ©nÃ©ration de map.
+	* Définit le nouveau biome d'une case pendant la génération de map.
 	* @param hex Hex
 	* @param biomeValue float
 	* @param n int
@@ -174,7 +173,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Permet de propager alÃ©atoriement le biome Ã  ses voisins.
+	* Permet de propager aléatoriement le biome à ses voisins.
 	* @param source Hex
 	* @param biomeValue float
 	* @param n int
@@ -217,7 +216,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Remplit alÃ©atoirement la map avec diffÃ©rents biomes.
+	* Remplit aléatoirement la map avec différents biomes.
 	* @see Hex
 	* @see Eau
 	* @see Neige
@@ -253,8 +252,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Initialise la map et les unitÃ©s Ã  partir du tableau des joueurs.
-	* de la partie.
+	* Initialise la map et les unités à partir du tableau des joueurs de la partie.
 	* @param players ArrayList<Joueur>
 	* @see Joueur
 	* @see Hex
@@ -306,16 +304,7 @@ public class HexMap implements Serializable {
             for (Unite unit : players.get(i).getUnite()) {
             	reveal(players.get(i), unit.getHex(), unit.getVision());
             }
-        }
-
-		/*Hex hexInit = players.get(0).getUnite().get(0).getHex();
-		for(int i=1; i<players.size(); i++) {
-			Hex hexFin = players.get(i).getUnite().get(0).getHex();
-			System.out.println(pathfinding(hexInit,hexFin).size());
-			if(pathfinding(hexInit,hexFin).size() == 0) {
-				initMap(players);
-			}
-		}*/
+		}
 	}
 
 	/**
@@ -588,8 +577,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne les voisins de l'hexagone en prenant compte.
-	* de la gÃ©moÃ©trie de la carte
+	* Retourne les voisins de l'hexagone en prenant compte de la géométrie de la carte.
 	* @param a Hex
 	* @return ArrayList
 	* @see Hex
@@ -654,7 +642,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne la plus petite coordonnÃ©e en X.
+	* Retourne la plus petite coordonnée en X.
 	* @return int
 	* @see Hex
 	*/
@@ -671,7 +659,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne la plus grande coordonnÃ©e en X.
+	* Retourne la plus grande coordonnée en X.
 	* @return int
 	* @see Hex
 	*/
@@ -688,7 +676,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne la plus petite coordonnÃ©e en Y.
+	* Retourne la plus petite coordonnée en Y.
 	* @return int
 	* @see Hex
 	*/
@@ -705,7 +693,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne la plus grande coordonnÃ©e en Y.
+	* Retourne la plus grande coordonnée en Y.
 	* @return int
 	* @see Hex
 	*/
@@ -744,7 +732,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne tout les hexagones Ã  une dintance viewDist de source.
+	* Retourne tout les hexagones à une dintance viewDist de source.
 	* @param source hexagone
 	* @param viewDist int
 	* @return ArrayList<Hex>
@@ -781,7 +769,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* RÃ©vÃ¨le pour le joueur les cases aux alentours de source.
+	* Révèle pour le joueur les cases aux alentours de source.
 	* @param player Joueur
 	* @param source Hex
 	* @param dist int
@@ -796,8 +784,8 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne tout les hexagones Ã  une dintance viewDist de source.
-	* (prend en compte les coÃ»ts de dÃ©placemen)
+	* Retourne tout les hexagones à une dintance viewDist de source.
+	* (prend en compte les coûts de déplacement)
 	* @param source hexagone
 	* @param viewDist int
 	* @return ArrayList<Hex>
@@ -842,7 +830,7 @@ public class HexMap implements Serializable {
 	}
 
 	/**
-	* Retourne l'alliÃ© le plus proche de la source.
+	* Retourne l'allié le plus proche de la source.
 	* @param source hexagone
 	* @param owner Joueur
 	* @return Unite
@@ -912,7 +900,7 @@ public class HexMap implements Serializable {
 	* Retourne le chemin de l'hexagone start vers l'hexagone goal.
 	* Si il n'existe pas de chemin ou que l'un des deux hexagones
 	* n'est pas dans la HashMap, retourne un tableau vide.
-	* On utilise une implÃ©mentation de l'algorithme A*.
+	* On utilise une implémentation de l'algorithme A*.
 	* @param start hexagone
 	* @param goal hexagone
 	* @return ArrayList<Hex>

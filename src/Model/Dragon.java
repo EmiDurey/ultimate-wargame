@@ -39,7 +39,7 @@ public class Dragon extends Unite {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
+	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	@Override
 	public void heal() {
@@ -52,7 +52,7 @@ public class Dragon extends Unite {
 	}
 
 	/**
-	 * RÃ©initialise les points de dÃ©placement de l'unitÃ©.
+	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	@Override
 	public void initialize() {
@@ -60,9 +60,9 @@ public class Dragon extends Unite {
 	}
 
 	/**
-	 * MÃ©thode combat propre au dragon.
-	 * S'il attaque une unitÃ©,
-	 * attaque toutes les unitÃ©s ennemis adjacentes en mÃªme temps.
+	 * Méthode combat propre au dragon.
+	 * S'il attaque une unité,
+	 * attaque toutes les unités ennemis adjacentes en même temps.
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite Ã  attaquer

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SortedHexList {
 	/**
 	 * Agit comme une priority queue sur les Hex.
-	 * UtilisÃ© dans l'implÃ©mentation de l'algo A*.
+	 * Utilisé dans l'implémentation de l'algo A*.
 	 */
 	private ArrayList<Hex> hexList = new ArrayList<Hex>();
 
@@ -19,7 +19,7 @@ public class SortedHexList {
 	private ArrayList<Integer> costList = new ArrayList<Integer>();
 
 	/**
-	* Indique si la liste contient encore des Ã©lÃ©ments.
+	* Indique si la liste contient encore des éléments.
 	* @return Boolean
 	*/
 	Boolean hasElements() {
@@ -27,7 +27,7 @@ public class SortedHexList {
 	}
 
 	/**
-	* Ajoute a Ã  la liste avec un coÃ»t de cost.
+	* Ajoute à la liste avec un coût de cost.
 	* @param a hexagone
 	* @param cost int
 	* @see Hex
@@ -38,7 +38,7 @@ public class SortedHexList {
 	}
 
 	/**
-	* Retourne l'Ã©lÃ©ment Ã  la prioritÃ© la plus Ã©levÃ©e / coÃ»t le plus faible et
+	* Retourne l'élément à la priorité la plus élevée / coût le plus faible et
 	* le supprime de la liste.
 	* @return Hex
 	* @see Hex
@@ -63,7 +63,7 @@ public class SortedHexList {
 	}
 
 	/**
-	* Indique si l'hexagone est contenu dans la queue, si oui, renvoie son cout.
+	* Indique si l'hexagone est contenu dans la queue, si oui, renvoie son coût.
 	* @param a Hex
 	* @return int
 	* @see Hex

@@ -35,7 +35,7 @@ public class Cavalerie extends Unite {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
+	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	@Override
 	public void heal() {
@@ -48,7 +48,7 @@ public class Cavalerie extends Unite {
 	}
 
 	/**
-	 * RÃ©initialise les points de dÃ©placement de l'unitÃ©.
+	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	@Override
 	public void initialize() {

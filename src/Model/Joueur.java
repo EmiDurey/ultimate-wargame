@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Joueur implements Serializable {
 
 	/**
-	 *  Liste d'unitÃ©s d'un joueur.
+	 *  Liste d'unités d'un joueur.
 	 */
 
 	private ArrayList<Unite> unites = new ArrayList<Unite>();
@@ -40,7 +40,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  RÃ©cupÃ¨re la liste d'unitÃ©e d'un joueur.
+	 *  Récupère la liste d'unités d'un joueur.
 	 *  @return unites ArrayList<Unite>
 	 *  @see Unite
 	 */
@@ -49,7 +49,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  RÃ©cupÃ¨re la couleur du joueur.
+	 *  Récupère la couleur du joueur.
 	 *  @return String
 	 */
 	public String getCouleur() {
@@ -65,7 +65,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  Ajoute une unite Ã  celles possÃ©dÃ©es par le joueur.
+	 *  Ajoute une unité à celles possédées par le joueur.
 	 *  @param unit String
 	 *  @see Unite
 	 */
@@ -74,7 +74,7 @@ public class Joueur implements Serializable {
 	}
 
 	/**
-	 *  Rï¿½cupï¿½re l'id du joueur.
+	 *  Récupère l'id du joueur.
 	 *  @return id int
 	 */
 	public int getID() {

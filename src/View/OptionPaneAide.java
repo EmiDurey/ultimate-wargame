@@ -18,7 +18,7 @@ public class OptionPaneAide {
 	private static String pathAaide = "aide" + File.separator + "aide.txt";
 
 	/**
-	 * Chemin menant au fichier des rÃ¨gles.
+	 * Chemin menant au fichier des règles.
 	 */
 	private static String pathRegles = "aide" + File.separator + "regles.txt";
 
@@ -29,19 +29,19 @@ public class OptionPaneAide {
 	public static void afficheAide(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
 			contenuFichier(pathAaide),
-			"Regles du jeu",
+			"Aide",
 			JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}
 
 	/**
-	 *  Affiche une JOptionPane concernant les rÃ¨gles du jeu.
+	 *  Affiche une JOptionPane concernant les règles du jeu.
 	 *  @param fenetre InterfaceJeu
 	 */
 	public static void afficheRegles(InterfaceJeu fenetre) {
 		JOptionPane.showMessageDialog(fenetre,
 			contenuFichier(pathRegles),
-			"Regles du jeu",
+			"Règles du jeu",
 			JOptionPane.INFORMATION_MESSAGE);
 		return;
 	}

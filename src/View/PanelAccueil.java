@@ -39,7 +39,7 @@ import model.Joueur;
 public class PanelAccueil extends JPanel implements ActionListener {
 
 	/**
-	 * Fenï¿½tre principale.
+	 * Fenêtre de l'application.
 	 */
 	private InterfaceJeu fenetre;
 
@@ -49,19 +49,34 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	private Box boxVerticale;
 
 	/**
-	 * Labels du nombre de joueurs et d'IA.
+	 * Label du nombre de joueurs.
 	 */
-	private JLabel labelNbJoueur, labelNbIA;
+	private JLabel labelNbJoueur;
 
 	/**
-	 * Nombre de joueurs et d'IA.
+	 * Label du nombre d'IA.
 	 */
-	private int nbJoueurs, nbIA;
+	private JLabel labelNbIA;
 
 	/**
-	 * Couleurs du texte et des composants graphiques.
+	 * Nombre de joueurs.
 	 */
-	private Color colorTexte, colorComp;
+	private int nbJoueurs;
+
+	/**
+	 * Nombre d'IA.
+	 */
+	private int nbIA;
+
+	/**
+	 * Couleur du texte.
+	 */
+	private Color colorTexte;
+
+	/**
+	 * Couleur des composants graphiques.
+	 */
+	private Color colorComp;
 
 	/**
 	 *  Construit un objet de type PanelAccueil.
@@ -105,12 +120,12 @@ public class PanelAccueil extends JPanel implements ActionListener {
 		conteneur.setPreferredSize(new Dimension(500, 570));
 	    conteneur.setBorder(BorderFactory.createLoweredBevelBorder());
 
-		// crï¿½ation d'une box ï¿½ gestion verticale
+		// création d'une box à gestion verticale
 	    this.boxVerticale = Box.createVerticalBox();
 	    this.boxVerticale.add(Box.createRigidArea(new Dimension(0, 10)));
 	    //this.boxVerticale.setOpaque(true);
 
-        // crï¿½ation des boxs ï¿½ gestion horizontale
+        // création des boxs à gestion horizontale
 
 	    // titre
 	    boxHorizontal = Box.createHorizontalBox();
@@ -151,7 +166,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Ajoute la zone de saisie du nombre d'ï¿½quipes.
+	 *  Ajoute la zone de saisie du nombre d'équipes.
 	 *  @param labelNb jlabel
 	 *  @param type string
 	 */
@@ -209,7 +224,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Crï¿½e une nouvelle police.
+	 *  Crée une nouvelle police.
 	 *  @return Font
 	 */
 	public Font creerPolice() {
@@ -228,7 +243,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Crï¿½e la liste des joueurs.
+	 *  Crée la liste des joueurs.
 	 *  @return ArrayList<Joueur>
 	 *  @see model.Joueur
 	 */
@@ -271,8 +286,8 @@ public class PanelAccueil extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des ï¿½vï¿½nements.
-	 *  @param evt ï¿½vï¿½nement
+	 *  Permet le traitement des événements.
+	 *  @param evt ActionEvent
 	 *  @see model.HexMap
 	 *  @see controller.GameController
 	 */
@@ -313,7 +328,7 @@ public class PanelAccueil extends JPanel implements ActionListener {
 
 		if (actionCommand.equals("Jouer")) {
 			if (totalEquipe < 2) {
-				String contenu = "Pour pouvoir jouer, un minimum de 2 ï¿½quipes est requis.";
+				String contenu = "Pour pouvoir jouer, un minimum de 2 équipes est requis.";
 		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Erreur", JOptionPane.ERROR_MESSAGE);
 			} else {
 				GameController controleur = new GameController(this.creerListeJoueurs());

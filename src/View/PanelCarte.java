@@ -27,7 +27,7 @@ import controller.GameController;
 public class PanelCarte extends JPanel implements MouseListener {
 
 	/**
-	 * Fenetre.
+	 * Fenêtre de l'application.
 	 */
 	private InterfaceJeu fenetre;
 
@@ -42,7 +42,7 @@ public class PanelCarte extends JPanel implements MouseListener {
     private PanelDessineurMap dessinCarte;
 
     /**
-     * Nombre total d'ï¿½quipes.
+     * Nombre total d'équipes.
      */
     private int totalEquipe;
 
@@ -57,12 +57,12 @@ public class PanelCarte extends JPanel implements MouseListener {
 	private JScrollPane scroll;
 
 	/**
-	 * Controller.
+	 * Contrôleur.
 	 */
 	private GameController controller;
 
 	/**
-	 * Construit un objet de type Carte.
+	 * Construit un objet de type PanelCarte.
 	 * @param fenetre InterfaceJeu
 	 * @param totalEquipe int
 	 * @param map HexMap
@@ -88,7 +88,6 @@ public class PanelCarte extends JPanel implements MouseListener {
         this.scroll = new JScrollPane(this.dessinCarte);
 
         this.scroll.setPreferredSize(new Dimension(1095, 935));
-        //scroll.getVerticalScrollBar().setUnitIncrement(25);
         this.scroll.getVerticalScrollBar().setPreferredSize (new Dimension(5, 0));
         this.scroll.getHorizontalScrollBar().setPreferredSize (new Dimension(0, 5));
         this.scroll.setWheelScrollingEnabled(false);
@@ -125,7 +124,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ajoute le scroll ï¿½ la map hexagonale.
+	 * Ajoute le scroll à la map hexagonale.
 	 */
 	public void ajoutScrollHex() {
 		final int W = 585;
@@ -157,7 +156,7 @@ public class PanelCarte extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ecoute les cliques de la souris et agit en consï¿½quence.
+	 * Ecoute les cliques de la souris et agit en conséquence.
 	 * @param event MouseEvent
 	 * @see AutoCloseDialog
 	 */
@@ -213,11 +212,6 @@ public class PanelCarte extends JPanel implements MouseListener {
 			}
 		}
 
-		//this.dessinCarte.afficheMap(g, 170, 15);
-
-        //this.dessinCarte = new PanelDessineurMap(totalEquipe, this.map, this.controller);
-        //add(dessinCarte);
-
 		//Rectangle rect = new Rectangle(x, y, W, H);
 
 		//this.dessinCarte.scrollRectToVisible(rect);
@@ -226,25 +220,25 @@ public class PanelCarte extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ecoute lorsque la souris a été cliquée sur un composant et agit en consï¿½quence.
+	 * Ecoute lorsque la souris a été cliquée sur un composant.
 	 * @param event MouseEvent
 	 */
 	public void mouseEntered(MouseEvent event) { }
 
 	/**
-	 * 	Ecoute lorsque la souris sort d'un composant.
+	 * Ecoute lorsque la souris sort d'un composant.
 	 * @param event MouseEvent
 	 */
 	public void mouseExited(MouseEvent event) { }
 
 	/**
-	 * 	Ecoute lorsque le bouton de la souris a été enfoncé sur un composant.
+	 * Ecoute lorsque le bouton de la souris a été enfoncé sur un composant.
 	 * @param event MouseEvent
 	 */
 	public void mousePressed(MouseEvent event) { }
 
 	/**
-	 * 	Ecoute lorsque le bouton de la souris a été relâché sur un composant.
+	 * Ecoute lorsque le bouton de la souris a été relâché sur un composant.
 	 * @param event MouseEvent
 	 */
 	public void mouseReleased(MouseEvent event) { }

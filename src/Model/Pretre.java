@@ -38,8 +38,8 @@ public class Pretre extends Unite {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
-	 * Soigne toutes les unitÃ©s alliÃ©s autour de lui.
+	 * Heal de l'unité si elle n'a pas bougé.
+	 * Soigne toutes les unités alliées autour de lui.
 	 * @param map HexMap
 	 * @param joueur Joueur
 	 * @see Hex
@@ -65,7 +65,7 @@ public class Pretre extends Unite {
 
 	/**
 	 * IA.
-	 * DÃ©place une unitÃ© en fonction des possibilitÃ©s de dÃ©placement de cette derniÃ¨re.
+	 * Déplace une unité en fonction des possibilités de déplacement de cette dernière.
 	 * @param joueur Joueur actuelle
 	 * @param map HexMap
 	 * @see Unite
@@ -78,7 +78,7 @@ public class Pretre extends Unite {
 		ArrayList<Unite> injuredAllies = new ArrayList<Unite>();
 		injuredAllies.add(joueur.getUnite().get(0));
 
-		//Tri des unitÃ©s alliÃ©es par HP dÃ©croissants
+		//Tri des unités alliées par HP décroissants
 		for (int i = 1; i < joueur.getUnite().size(); i++) {
 			for (int j = 0; j < injuredAllies.size(); j++) {
 				if (injuredAllies.get(j).getPointsDeVie() > joueur.getUnite().get(i).getPointsDeVie()){
@@ -93,7 +93,7 @@ public class Pretre extends Unite {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
+	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	@Override
 	public void heal() {
@@ -106,7 +106,7 @@ public class Pretre extends Unite {
 	}
 
 	/**
-	 * RÃ©initialise les points de dÃ©placement de l'unitÃ©.
+	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	@Override
 	public void initialize() {

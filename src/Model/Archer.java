@@ -13,7 +13,7 @@ import java.util.List;
 public class Archer extends Unite {
 
 	/**
-	 * Points de portÃ©e de l'unitÃ©.
+	 * Points de portée de l'unité.
 	 */
 	private int portee;
 
@@ -45,7 +45,7 @@ public class Archer extends Unite {
 	}
 
 	/**
-	 * Heal de l'unitÃ© si elle n'a pas bougÃ©.
+	 * Heal de l'unité si elle n'a pas bougé.
 	 */
 	@Override
 	public void heal() {
@@ -58,7 +58,7 @@ public class Archer extends Unite {
 	}
 
 	/**
-	 * RÃ©initialise les points de dÃ©placement de l'unitÃ©.
+	 * Réinitialise les points de déplacement de l'unité.
 	 */
 	@Override
 	public void initialize() {
@@ -66,8 +66,8 @@ public class Archer extends Unite {
 	}
 
 	/**
-	 * MÃ©thode combat propre Ã  l'archer.
-	 * Peut attaquer Ã  distance.
+	 * Méthode combat propre à l'archer.
+	 * Peut attaquer à distance.
 	 * @param map Map
 	 * @param joueurAct Joueur Actuel
 	 * @param unite Unite

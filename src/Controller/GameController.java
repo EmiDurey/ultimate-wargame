@@ -13,7 +13,7 @@ import model.Unite;
 
 /**
  *  Class GameController.
- *  Classe gÃ©rant la partie de jeu.
+ *  Classe gérant la partie de jeu.
  *  @see model.Archer
  *  @see model.Archer
  *  @see model.Hex
@@ -35,63 +35,63 @@ public class GameController implements Serializable {
     private List<Joueur> joueurs = new ArrayList<>();
 
     /**
-     * permet d'envoyer des strings Ã  la vue (affichage dÃ©gats et heal).
+     * Permet d'envoyer des strings à  la vue (affichage dégats et heal).
      */
     private List<String> annonce = new ArrayList<>();
 
     /**
-     * permet d'envoyer une position d'affichage Ã  la vue.
+     * Permet d'envoyer une position d'affichage à  la vue.
      */
     private List<Hex> hexAnnonce = new ArrayList<>();
 
     /**
-     * hex sur lesquels on peut se dÃ©placer.
+     * Hex sur lesquels on peut se déplacer.
      */
     private List<Hex> surligne = new ArrayList<>();
 
     /**
-     * hex sur lesquels on peut tirer.
+     * Hex sur lesquels on peut tirer.
      */
     private List<Hex> surligneArc = new ArrayList<>();
 
     /**
-     * joueur actuelle.
+     * Joueur actuel.
      */
     public Joueur joueurAct = null;
     /**
-     * unitÃ© sÃ©lÃ©ctionnÃ©e.
+     * Unité sélectionnée.
      */
     private Unite uniteSelectionne = null;
 
     /**
-     * hexagone sÃ©lÃ©ctionnÃ©.
+     * Hexagone sélectionné.
      */
     private Hex hexSelectionne = null;
 
     /**
-     * booleen gÃ©rant la fin de la partie.
+     * Booleen gérant la fin de la partie.
      */
     private boolean fin = false;
 
     /**
-     * offsetX selon la map.
+     * OffsetX selon la map.
      */
     private int offsetX;
 
     /**
-     * offsetY selon la map.
+     * OffsetY selon la map.
      */
     private int offsetY;
 
     /**
-     * id de la Map.
+     * Id de la Map.
      */
     private int idMap;
 
     /**
      * Booleen permettant de savoir la source du clic.
-     * true = premier clic (il a choisit l'unitÃ©)
-     * false = deuxieme clic (il a choisit l'hexagone sur lequel il veut dÃ©placer l'unitÃ©)
+     * true = premier clic (il a choisit l'unité)
+     * false = deuxieme clic (il a choisit l'hexagone sur lequel il veut déplacer l'unité)
      */
     private boolean source = true;
 
@@ -137,7 +137,7 @@ public class GameController implements Serializable {
 
     /**
      * Change le tour des joueurs.
-     * Le changement se fait en boucle sur la liste des joueurs
+     * Le changement se fait en boucle sur la liste des joueurs.
      * @throws InterruptedException
      * @see model.Unite
      * @see model.Pretre
@@ -177,7 +177,7 @@ public class GameController implements Serializable {
     }
 
     /**
-     * VÃ©rifie l'Ã©tat des joueurs et la fin de partie.
+     * Vérifie l'état des joueurs et la fin de partie.
      * @see model.Joueur
      */
     private void verif() {
@@ -193,7 +193,7 @@ public class GameController implements Serializable {
     }
 
     /**
-     * GÃ¨re le clic et agit en consÃ©quence.
+     * Gère le clic et agit en conséquence.
      * @param cordX int
      * @param cordY int
      */
@@ -260,7 +260,7 @@ public class GameController implements Serializable {
     }
 
     /**
-     * Reourne l'hexagone sur lequel l'utilisateur Ã  cliquÃ©.
+     * Retourne l'hexagone sur lequel l'utilisateur à cliqué.
      * @param x int
      * @param y int
      * @return : L'hexagone
@@ -288,7 +288,6 @@ public class GameController implements Serializable {
         double yDiff = Math.abs(ry - yHex);
         double zDiff = Math.abs(rz - zHex);
 
-
         if (xDiff > yDiff && xDiff > zDiff) {
             rx = -ry - rz;
         } else if (yDiff > zDiff) {
@@ -301,7 +300,7 @@ public class GameController implements Serializable {
     }
 
     /**
-	 * Gère les tour de l'IA.
+	 * Gère les tours de l'IA.
 	 * @throws InterruptedException
 	 * @see model.Unite
 	 * @see model.Pretre
@@ -352,7 +351,7 @@ public class GameController implements Serializable {
     }
 
     /**
-	 * Récupère la liste des annonce.
+	 * Récupère la liste des annonces.
 	 * @return List<String>
 	 */
     public List<String> getAnnonce() {
@@ -369,7 +368,7 @@ public class GameController implements Serializable {
     }
 
     /**
-	 * Récupère le joueurs actif.
+	 * Récupère le joueur actuel.
 	 * @return Joueur
 	 * @see model.Joueur
 	 */

@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 public class Sauvegarde {
 
 	/**
-	 *  Chemin du fichier contenant la partie sauvegardÃ©e.
+	 *  Chemin du fichier contenant la partie sauvegardée.
 	 */
 	private static String pathFile = "save" + File.separator + "partie";
 
@@ -42,7 +42,7 @@ public class Sauvegarde {
 	}
 
 	/**
-	 *  Ecrit un objet dans un fichier donnÃ©.
+	 *  Ecrit un objet dans un fichier donné.
 	 *  @param objet Object
 	 */
 	public static void ecriture(Object objet) {
@@ -54,7 +54,7 @@ public class Sauvegarde {
 			flux.writeObject(objet);
 			flux.flush();
 		} catch (IOException e) {
-			System.out.println("Probleme a l'ecriture/n" + e.toString());
+			System.out.println("Problème à l'écriture/n" + e.toString());
 			System.exit(1);
 		}
 	}
@@ -68,7 +68,7 @@ public class Sauvegarde {
 	}
 
 	/**
-	 *  VÃ©rifie si une sauvegarde existe.
+	 *  Vérifie si une sauvegarde existe.
 	 *  @return Boolean
 	 */
 	public static Boolean existe() {
@@ -82,7 +82,7 @@ public class Sauvegarde {
 	}
 
 	/**
-	 *  Retourne le fichier demandÃ©.
+	 *  Retourne le fichier demandé.
 	 *  @return new File(path_file)
 	 */
 	public static File getFichierPartie() {

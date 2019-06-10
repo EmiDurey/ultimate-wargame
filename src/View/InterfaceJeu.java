@@ -18,12 +18,12 @@ import javax.swing.JLabel;
 public class InterfaceJeu extends JFrame {
 
 	/**
-	 * Longueur de la fenáº¿tre.
+	 * Longueur de la fenêtre.
 	 */
 	private final int longueur = 1700;
 
 	/**
-	 * Largeur de la fenáº¿tre.
+	 * Largeur de la fenêtre.
 	 */
 	private final int largeur = 1010;
 
@@ -54,7 +54,7 @@ public class InterfaceJeu extends JFrame {
 
 	/**
 	 *  Construit un objet de type InterfaceJeu.
-	 *  @param titre titre de l'InterfaceJeu
+	 *  @param titre String
 	 */
 	public InterfaceJeu(String titre) {
 		super(titre);
@@ -86,7 +86,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  Retourne la longueur de la fenáº¿tre.
+	 *  Retourne la longueur de la fenêtre.
 	 *  @return int
 	 */
 	public int getLongueur() {
@@ -94,7 +94,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  Retourne la largeur de la fenáº¿tre.
+	 *  Retourne la largeur de la fenêtre.
 	 *  @return int
 	 */
 	public int getLargeur() {
@@ -166,7 +166,7 @@ public class InterfaceJeu extends JFrame {
 	}
 
 	/**
-	 *  CrÃ©e l'image de fond.
+	 *  Crée l'image de fond.
 	 *  @return JLabel
 	 */
 	public JLabel creerFond() {

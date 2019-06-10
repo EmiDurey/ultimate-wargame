@@ -30,7 +30,7 @@ public class Neige extends Hex {
 	}
 
 	/**
-	 * Retour la raretÃ© du biom.
+	 * Retour la rareté du biom.
 	 * @return rarity float
 	 */
 	public float getRarity() {

@@ -27,7 +27,7 @@ import model.HexMap;
 public class BarreMenu extends JMenuBar implements ActionListener {
 
 	/**
-	 * Fenetre.
+	 * Fenêtre de l'application.
 	 */
 	private InterfaceJeu fenetre;
 
@@ -42,7 +42,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	private PanelInformations panelInfo;
 
 	/**
-	 * Contrï¿½leur.
+	 * Contrôleur.
 	 */
 	private GameController controleur;
 
@@ -94,7 +94,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
         // Menu "Aide"
         this.menu = new JMenu("Aide");
         // Sous_menu "Rï¿½gles"
-        this.ajouterMenuItem("Rï¿½gles", "regles.png");
+        this.ajouterMenuItem("Règles", "regles.png");
 		// Sous_menu "Aide"
 		this.ajouterMenuItem("Aide", "aide.png");
 
@@ -142,8 +142,8 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des ï¿½vï¿½nements.
-	 *  @param evt ï¿½vï¿½nement
+	 *  Permet le traitement des événements.
+	 *  @param evt ActionEvent
 	 *  @see HexMap
 	 *  @see GameController
 	 */
@@ -158,7 +158,7 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Ouvrir sauvegarde":
 				File fichier = new File("save" + File.separator + "partie");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy Ã  HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à  HH:mm");
 				contenu = "Voulez vous reprendre la partie du " + sdf.format(fichier.lastModified()) + " ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.YES_NO_OPTION)) {
@@ -176,17 +176,17 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 				break;
 			case "Sauvegarder":
 				Sauvegarde.savePartie(this.controleur);
-				contenu = "Votre partie a Ã©tÃ© sauvegardï¿½e.";
+				contenu = "Votre partie a été sauvegardée.";
 		    	JOptionPane.showMessageDialog(this.fenetre, contenu, "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
 				break;
-			case "Rï¿½gles":
+			case "Règles":
 				OptionPaneAide.afficheRegles(this.fenetre);
 				break;
 			case "Aide":
 				OptionPaneAide.afficheAide(this.fenetre);
 				break;
 			case "Quitter":
-				contenu = "Etes-vous sÃ»r de vouloir quitter le jeu ?";
+				contenu = "Etes-vous sûr de vouloir quitter le jeu ?";
 				entete = "Confirmation";
 	        	switch (JOptionPane.showConfirmDialog(this.fenetre,  contenu, entete, JOptionPane.OK_CANCEL_OPTION)) {
 	        		case JOptionPane.CLOSED_OPTION: break;

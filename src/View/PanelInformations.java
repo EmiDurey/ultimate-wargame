@@ -48,12 +48,12 @@ import model.Unite;
 public class PanelInformations extends JPanel implements ActionListener {
 
 	/**
-	 * Fenetre.
+	 * Fenêtre de l'application.
 	 */
 	private InterfaceJeu fenetre;
 
 	/**
-	 * Label contenant les informations du joueur.
+	 * Label contenant les informations du personnage.
 	 */
 	private JLabel labelCaracteristiques;
 
@@ -73,12 +73,12 @@ public class PanelInformations extends JPanel implements ActionListener {
 	private JPanel panelImagePerso;
 
 	/**
-	 * Panel de l'aperÃ§u de la carte.
+	 * Panel de l'aperçu de la carte.
 	 */
 	private JPanel panelApercu;
 
 	/**
-	 * Nombre total d'Ã©quipes.
+	 * Nombre total d'équipes.
 	 */
 	private int totalEquipe;
 
@@ -93,7 +93,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	private Color couleurFond;
 
 	/**
-	 * Controleur de l'application.
+	 * Contrôleur de l'application.
 	 */
 	private GameController controleur;
 
@@ -136,7 +136,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelApercu.setPreferredSize(new Dimension(500, 300));
 		this.panelApercu.setBackground(this.couleurFond);
 		Border border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "AperÃ§u de la carte";
+		texte = "Aperçu de la carte";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelApercu.setBorder(border);
 		contrainte.ipadx = 40;
@@ -150,7 +150,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelImagePerso.setPreferredSize(new Dimension(150, 150));
 		this.panelImagePerso.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "Image perso";
+		texte = "Personnage";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelImagePerso.setBorder(border);
 		contrainte.gridx = 0;
@@ -174,7 +174,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 		this.panelCaracteristiques.setPreferredSize(new Dimension(500, 100));
 		this.panelCaracteristiques.setBackground(this.couleurFond);
 		border = BorderFactory.createEtchedBorder(Color.WHITE, Color.BLACK);
-		texte = "CaratÃ©ristiques du personnage";
+		texte = "Caratéristiques du personnage";
 		border = BorderFactory.createTitledBorder(border, texte, TitledBorder.LEFT, TitledBorder.TOP, font, Color.WHITE);
 		this.panelCaracteristiques.setBorder(border);
 		contrainte.gridx = 0;
@@ -218,7 +218,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Affiche PVs du personnage.
+	 * Affiche les PVs du personnage.
 	 * @see model.Unite
 	 */
 	public void affichePV() {
@@ -233,17 +233,17 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Affiche caractÃ©ristiques du personnage.
+	 * Affiche caractéristiques du personnage.
 	 * @see model.Unite
 	 */
 	public void afficheCaracteristiques() {
 		this.labelCaracteristiques.removeAll();
 		Unite unite = this.controleur.getUniteSelectionne();
 		if (unite != null) {
-			this.labelCaracteristiques.setText("<html>â€¢ Points d'attaque : " + unite.getPointsAttaque()
-				+ "<br> â€¢ Points de dÃ©fense : " + unite.getPointsDefense()
-				+ "<br> â€¢ Points de dÃ©placements : " + unite.getPointsDeplacement()
-				+ "<br> â€¢ Vision : " + unite.getVision() + "</html>");
+			this.labelCaracteristiques.setText("<html>* Points d'attaque : " + unite.getPointsAttaque()
+				+ "<br> * Points de défense : " + unite.getPointsDefense()
+				+ "<br> * Points de déplacements : " + unite.getPointsDeplacement()
+				+ "<br> * Vision : " + unite.getVision() + "</html>");
 			this.panelCaracteristiques.repaint();
 			this.revalidate();
 			this.repaint();
@@ -251,7 +251,7 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Associe une unitÃ© Ã  son image.
+	 * Associe une unité à son image.
 	 * @param unite Unite
 	 * @return image
 	 * @see model.Unite
@@ -300,7 +300,7 @@ public class PanelInformations extends JPanel implements ActionListener {
  	}
 
 	/**
-	 * Affiche l'aperÃ§u de la carte.
+	 * Affiche l'aperçu de la carte.
 	 * @see PanelDessineurApercu
 	 */
 	public void afficheApercu() {
@@ -314,8 +314,8 @@ public class PanelInformations extends JPanel implements ActionListener {
 	}
 
 	/**
-	 *  Permet le traitement des Ã©vÃ¨nements.
-	 *  @param evt Ã©vÃ¨nement
+	 *  Permet le traitement des événements.
+	 *  @param evt ActionEvent
 	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionCommand = evt.getActionCommand();

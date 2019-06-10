@@ -5,25 +5,25 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Repr√©sente un hexagone sur la map.
- * On utilise un syst√®me de coordonn√©es cubiques pour le stockage.
- * On stocke donc notamment les coordonn√©es de l'hexagone sur la map.
+ * ReprÈsente un hexagone sur la map.
+ * On utilise un systËme de coordonnÈes cubiques pour le stockage.
+ * On stocke donc notamment les coordonnÈes de l'hexagone sur la map.
  * @see Unite
  */
 public class Hex implements Serializable {
 
 	/**
-	 * Coordonn√©e x.
+	 * CoordonnÈe x.
 	 */
 	private int x;
 
 	/**
-	 * Coordonn√©e y.
+	 * CoordonnÈe y.
 	 */
 	private int y;
 
 	/**
-	 * Coordonn√©e z.
+	 * CoordonnÈe z.
 	 */
 	private int z;
 
@@ -33,40 +33,38 @@ public class Hex implements Serializable {
 	private Boolean empty = true;
 
 	/**
-	 * Poucentage de d√©fense de la case.
+	 * Poucentage de dÈfense de la case.
 	 */
 	protected int defense = 1;
 
 	/**
-	 * Co√ªt de d√©placement vers cette case.
+	 * Co˚t de dÈplacement vers cette case.
 	 */
 	protected int cost = 1;
 
 	/**
-	 * R√©f√©rence de l'unit√© se trouvant sur la case.
-	 * (√† mettre √† jour dans les fonctions de d√©placement)
+	 * RÈfÈrence de l'unitÈ se trouvant sur la case.
 	 */
 	private Unite unit = null;
 
 	/**
-	 * Utilis√© pour la propagation du biome dans la g√©n√©ration de map.
+	 * UtilisÈ pour la propagation du biome dans la gÈnÈration de map.
 	 */
 	protected float rarity;
 
 	/**
-	 * Permet de renseigner l'√©tat du brouillard de guerre sur la map
-	 * L'indice repr√©sente l'ID du joueur concern√©
-	 * La valeur est un bool√©en indiquant si la case a √©t√© d√©couverte.
+	 * Permet de renseigner l'Ètat du brouillard de guerre sur la map.
+	 * L'indice reprÈsente l'ID du joueur concernÈ.
+	 * La valeur est un boolÈen indiquant si la case a ÈtÈ dÈcouverte.
 	 */
 	public HashMap<Integer, Boolean> discovered = new HashMap<Integer, Boolean>();
 
 	/**
-     * Constructeur utilisant les coordonn√©es cubiques.
-	 * @param newX coordonn√©e x
-	 * @param newY coordonn√©e y
-	 * @param newZ coordonn√©e z
-	 * @throws IllegalArgumentException Si la somme des coordonn√©es
-	 * est diff√©rente de 0.
+     * Constructeur utilisant les coordonnÈes cubiques.
+	 * @param newX coordonnÈe x
+	 * @param newY coordonnÈe y
+	 * @param newZ coordonnÈe z
+	 * @throws IllegalArgumentException Si la somme des coordonnÈes est diffÈrente de 0.
      */
 	Hex(int newX, int newY, int newZ) {
 
@@ -80,10 +78,10 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Constructeur utilisant les coordonn√©es axiales.
-	* Les coordonn√©es sont converties en cubique pour le stockage.
-	* @param newX coordonn√©e x
-	* @param newY coordonn√©e y
+	* Constructeur utilisant les coordonnÈes axiales.
+	* Les coordonnÈes sont converties en cubique pour le stockage.
+	* @param newX coordonnÈe x
+	* @param newY coordonnÈe y
 	*/
 	Hex(int newX, int newY) {
 		x = newX;
@@ -92,12 +90,12 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Constructeur utilisant les coordonn√©es axiales.
-	* Les coordonn√©es sont converties en cubique pour le stockage.
-	* Initialise aussi le co√ªt de d√©placement. Valeur < 1 pour une case inaccessible.
-	* @param newX coordonn√©e x
-	* @param newY coordonn√©e y
-	* @param newCost Co√ªt de d√©placement
+	* Constructeur utilisant les coordonnÈes axiales.
+	* Les coordonnÈes sont converties en cubique pour le stockage.
+	* Initialise aussi le co˚t de dÈplacement. Valeur < 1 pour une case inaccessible.
+	* @param newX coordonnÈe x
+	* @param newY coordonnÈe y
+	* @param newCost Co˚t de dÈplacement
 	*/
 	Hex(int newX, int newY, short newCost) {
 		this(newX, newY);
@@ -111,14 +109,14 @@ public class Hex implements Serializable {
 	}
 
 	/**
-     * Constructeur utilisant les coordonn√©es cubiques.
-	 * Initialise aussi le co√ªt de d√©placement. Valeur < 1 pour une case inaccessible.
-	 * @param newX coordonn√©e x
-	 * @param newY coordonn√©e y
-	 * @param newZ coordonn√©e z
-	 * @param newCost Co√ªt de d√©placement
-	 * @throws IllegalArgumentException Si la somme des coordonn√©es
-	 * est diff√©rente de 0.
+     * Constructeur utilisant les coordonnÈes cubiques.
+	 * Initialise aussi le co√ªt de dÈplacement. Valeur < 1 pour une case inaccessible.
+	 * @param newX coordonnÈe x
+	 * @param newY coordonnÈe y
+	 * @param newZ coordonnÈe z
+	 * @param newCost Co˚t de dÈplacement
+	 * @throws IllegalArgumentException Si la somme des coordonnÈes
+	 * est diffÈrente de 0.
      */
 	Hex(int newX, int newY, int newZ, short newCost) {
 		this(newX, newY, newZ);
@@ -132,7 +130,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne la coordonn√©e en x.
+	* Retourne la coordonnÈe en x.
 	* @return int
 	*/
 	public int getX() {
@@ -140,7 +138,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne la coordonn√©e en y.
+	* Retourne la coordonnÈe en y.
 	* @return int
 	*/
 	public int getY() {
@@ -148,7 +146,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne la coordonn√©e en z.
+	* Retourne la coordonnÈe en z.
 	* @return int
 	*/
 	public int getZ() {
@@ -156,7 +154,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne le co√ªt de d√©placement de la case.
+	* Retourne le co˚t de dÈplacement de la case.
 	* @return int
 	*/
 	public int getCost() {
@@ -164,7 +162,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Modifie le co√ªt de d√©placement de la case.
+	* Modifie le co˚t de dÈplacement de la case.
 	* @param newCost int
 	*/
 	public void setCost(int newCost) {
@@ -172,7 +170,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne le poucentage de d√©fense de la case.
+	* Retourne le poucentage de dÈfense de la case.
 	* @return int
 	*/
 	public int getDefense() {
@@ -180,8 +178,8 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Indique si les deux hexagones sont g√©om√©triquement identiques.
-	* Utilis√© dans l'impl√©mentation de A*.
+	* Indique si les deux hexagones sont gÈomÈtriquement identiques.
+	* UtilisÈ dans l'implÈmentation de A*.
 	* @param a hexagone
 	* @return Boolean
 	*/
@@ -199,7 +197,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Calcule la diff√©rence de 2 hexagones.
+	* Calcule la diffÈrence de 2 hexagones.
 	* @param b hexagone
 	* @return Hex
 	*/
@@ -217,7 +215,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	 * Retourne la distance √† 0 (l'origine) de l'hexagone.
+	 * Retourne la distance ‡ 0 (l'origine) de l'hexagone.
 	 * @return int
 	 */
 	public int zeroDistance() {
@@ -237,7 +235,7 @@ public class Hex implements Serializable {
 
 	/**
 	 * Indique si l'hexagone est plus proche de goal que b.
-	 * Utilis√© dans l'impl√©mentation de A* (sert d'op√©rateur de comparaison).
+	 * UtilisÈ dans l'implÈmentation de A* (sert d'opÈrateur de comparaison).
 	 * @param b hexagone
 	 * @param goal hexagone
 	 * @return Boolean
@@ -258,7 +256,7 @@ public class Hex implements Serializable {
 
 	/**
 	 * Retourne les voisins de l'hexagone (0,0,0)
-	 * (plus simplement, permet d'acc√©der au tableau directions)
+	 * (plus simplement, permet d'accÈder au tableau directions)
 	 * On veut que direction soit compris entre 0 et 5.
 	 * @param direction int
 	 * @return direction
@@ -267,8 +265,8 @@ public class Hex implements Serializable {
 
 		/**
 		* Tableau indiquant les voisins de l'hexagone (0,0,0) et permettant
-	 	* de d√©terminer les diff√©rents voisins d'un hexagone quelconque.
-	 	* On part du c√¥t√© en haut √† droite et on tourne dans le sens horaire.
+	 	* de dÈterminer les diffÈrents voisins d'un hexagone quelconque.
+	 	* On part du cÙtÈ en haut ‡ droite et on tourne dans le sens horaire.
 	 	*/
 		ArrayList<Hex> directions = new ArrayList<Hex>();
 		directions.add(new Hex(0, 1, -1));
@@ -282,7 +280,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	 * Retourne les voisins de l'hexagone en suivant la direction donn√©e.
+	 * Retourne les voisins de l'hexagone en suivant la direction donnÈe.
 	 * @param direction int
 	 * @return direction
 	 */
@@ -313,7 +311,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Retourne l'unit√© actuellement sur la case.
+	* Retourne l'unitÈ actuellement sur la case.
 	* @return int
 	* @see Unite
 	*/
@@ -322,7 +320,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Modifie l'unit√© se trouvant actuellement sur la case.
+	* Modifie l'unitÈ se trouvant actuellement sur la case.
 	* @param newUnit Unite
 	* @see Unite
 	*/
@@ -331,7 +329,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Premi√®re fonction utilis√©e par le hashCode.
+	* PremiËre fonction utilisÈe par le hashCode.
 	* Bijection de Z vers N.
 	* @param a int
 	* @return int
@@ -345,7 +343,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Deuxi√®me fonction utilis√©e par le hashCode.
+	* DeuxiËme fonction utilisÈe par le hashCode.
 	* Bijection de NxN vers N (fonction de couplage de Cantor).
 	* @param a int
 	* @param b int
@@ -356,9 +354,9 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	* Hashe l'objet en ne prenant en compte que les coordonn√©es.
-	* On √©vite toutes les collisions.
-	* (si d'autres champs sont ajout√©s).
+	* Hashe l'objet en ne prenant en compte que les coordonnÈes.
+	* On Èvite toutes les collisions.
+	* (si d'autres champs sont ajoutÈs).
 	* @return int
 	*/
 	public int hashCode() {
@@ -374,7 +372,7 @@ public class Hex implements Serializable {
 	}
 
 	/**
-	 * Retour la raret√© du biom.
+	 * Retour la raretÈ du biom.
 	 * @return rarity float
 	 */
 	public float getRarity() {

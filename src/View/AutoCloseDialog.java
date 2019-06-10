@@ -16,7 +16,7 @@ import javax.swing.Timer;
 public class AutoCloseDialog extends JWindow {
 
 	/**
-	 * Fenetre.
+	 * Fenêtre de l'application.
 	 */
     private JWindow window;
 
