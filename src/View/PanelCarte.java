@@ -212,11 +212,10 @@ public class PanelCarte extends JPanel implements MouseListener {
 			}
 		}
 
-		//Rectangle rect = new Rectangle(x, y, W, H);
-
-		//this.dessinCarte.scrollRectToVisible(rect);
-
-		//this.dessinCarte.repaint();
+		// Pour se déplacer avec la souris sur la map
+		/*Rectangle rect = new Rectangle(x, y, W, H);
+		this.dessinCarte.scrollRectToVisible(rect);
+		this.dessinCarte.repaint();*/
 	}
 
 	/**

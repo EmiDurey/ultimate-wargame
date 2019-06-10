@@ -133,7 +133,7 @@ public class HexMap implements Serializable {
 	*/
 	public void setRectangleMap(int height, int width) {
 		for (int x = 0; x < width; x++) {
-		    int offsetX = (int) Math.floor(x / 2); // or r>>1
+		    int offsetX = (int) Math.floor(x / 2);
 		    for (int y = -offsetX; y < height - offsetX; y++) {
 				Plaine newHex = new Plaine(y, x);
 				map.put(newHex.hashCode(), newHex);

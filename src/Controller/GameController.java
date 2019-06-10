@@ -160,7 +160,6 @@ public class GameController implements Serializable {
     		unite.initialize();
     		if (unite instanceof Pretre) {
     			((Pretre) unite).soigne(map, joueurAct);
-    			//AFFICHAGE HEAL
     		}
     	}
     	int lastIndexJoueur = joueurs.indexOf(joueurAct);

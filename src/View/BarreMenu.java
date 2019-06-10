@@ -76,26 +76,26 @@ public class BarreMenu extends JMenuBar implements ActionListener {
 	public void initComposant() {
         // Menu "Fichier"
         this.menu = new JMenu("Fichier");
-        // Sous_menu "Nouvelle partie"
+        // Sous-menu "Nouvelle partie"
         this.ajouterMenuItem("Nouvelle partie", "nouveau.png");
         this.menu.addSeparator();
         if (Sauvegarde.existe()) {
-        	// Sous_menu "Ouvrir sauvegarde"
+        	// Sous-menu "Ouvrir sauvegarde"
             this.ajouterMenuItem("Ouvrir sauvegarde", "ouvrir.png");
         }
-        // Sous_menu "Sauvegarder"
+        // Sous-menu "Sauvegarder"
 		this.ajouterMenuItem("Sauvegarder", "sauvegarder.png");
 		this.menu.addSeparator();
-        // Sous_menu "Quitter"
+        // Sous-menu "Quitter"
 		this.ajouterMenuItem("Quitter", "quitter.png");
 
         this.add(this.menu);
 
         // Menu "Aide"
         this.menu = new JMenu("Aide");
-        // Sous_menu "Rï¿½gles"
+        // Sous-menu "Règles"
         this.ajouterMenuItem("Règles", "regles.png");
-		// Sous_menu "Aide"
+		// Sous-menu "Aide"
 		this.ajouterMenuItem("Aide", "aide.png");
 
         this.add(this.menu);
